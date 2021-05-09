@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>debbie-cloud</artifactId>
+        <groupId>com.truthbean</groupId>
+        <version>0.5.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>debbie-boot</artifactId>
+
+    <packaging>pom</packaging>
+
+    <description>debbie, a java microservice project</description>
+
+    <modules>
+        <module>cron</module>
+        <module>hikari</module>
+        <module>metrics</module>
+        <module>servlet</module>
+        <module>tomcat</module>
+        <module>undertow</module>
+        <module>freemarker</module>
+        <module>javafx</module>
+        <module>kafka</module>
+        <module>lucene</module>
+        <module>mybatis</module>
+        <module>spring</module>
+        <module>swagger</module>
+    </modules>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+</project>

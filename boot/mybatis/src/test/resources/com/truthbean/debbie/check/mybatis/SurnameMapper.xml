@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.truthbean.debbie.check.mybatis.SurnameMapper">
+    <cache />
+    <select id="selectOne" resultType="Surname" useCache="true">
+        select * from surname where id = #{id}
+    </select>
+    <select id="selectAll" resultType="Surname" useCache="true">
+        select * from surname
+    </select>
+
+    <update id="update" flushCache="true">
+        update surname set origin = #{origin}, begin = #{begin}, website = #{website,jdbcType=VARCHAR}, name = #{name} where id = #{id}
+    </update>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id" flushCache="true">
+        insert into surname(origin, begin, website, name) values(#{origin}, #{begin}, #{website,jdbcType=VARCHAR}, #{name})
+    </insert>
+</mapper>

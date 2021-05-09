@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="com.truthbean.debbie.mybatis" />
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="org.mariadb.jdbc.Driver"/>
+                <property name="url" value="jdbc:mariadb://localhost:3306/test?characterEncoding=utf-8&amp;autoReconnect=true&amp;autoReconnectForPools=true"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/truthbean/debbie/mybatis/SurnameMapper.xml"/>
+        <mapper class="com.truthbean.debbie.check.mybatis.DateTimeMapper"/>
+    </mappers>
+</configuration>

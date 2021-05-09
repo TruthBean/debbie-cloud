@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.truthbean</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.5.0-SNAPSHOT</version>
+    </parent>
+
+    <packaging>pom</packaging>
+
+    <artifactId>debbie-cloud</artifactId>
+    <version>0.5.0-SNAPSHOT</version>
+
+    <modules>
+        <module>dependencies</module>
+        <module>boot</module>
+        <module>cloud</module>
+    </modules>
+
+    <name>debbie-cloud</name>
+    <description>debbie cloud</description>
+    <url>https://github.com/TruthBean/debbie-cloud</url>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <class.dir>${project.build.directory}/classes</class.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-release</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>Mulan PSL v2</name>
+            <url>https://github.com/truthbean/debbie-cloud/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/truthbean/debbie-cloud.git</connection>
+        <url>https://github.com/truthbean/debbie-cloud</url>
+        <developerConnection>scm:git:ssh://github.com/truthbean/debbie-cloud.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>truthbean</id>
+            <name>Rogar·Q (TruthBean)</name>
+            <email>truthbean@outlook.com</email>
+            <url>https://github.com/truthbean</url>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/truthbean/debbie-cloud/issues</url>
+    </issueManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>${maven.release.version}</version>
+                        <configuration>
+                            <preparationGoals>clean site verify</preparationGoals>
+                            <goals>clean site deploy</goals>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <outputDirectory>${basedir}/target/classes</outputDirectory>
+                    <includeEmptyDirs>true</includeEmptyDirs>
+                    <resources>
+                        <resource>
+                            <directory>${basedir}/src/main/resources</directory>
+                            <filtering>false</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven.antrun.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven.assembly.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependencies.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven.clean.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${maven.install.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven.deploy.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven.site.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>java-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>java-test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <release>11</release>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>
+                    </compilerArguments>
+                    <compilerArgs>
+                        <arg>-Xpkginfo:always</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.version}</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.version}</version>
+                <configuration>
+                    <attach>true</attach>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <doclint>none</doclint> <!--忽略无法识别注释的错误-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+
+</project>
