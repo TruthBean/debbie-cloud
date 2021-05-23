@@ -9,10 +9,7 @@
  */
 package com.truthbean.debbie.servlet.request;
 
-import com.truthbean.debbie.io.FileNameUtils;
-import com.truthbean.debbie.io.MediaType;
-import com.truthbean.debbie.io.MediaTypeInfo;
-import com.truthbean.debbie.io.MultipartFile;
+import com.truthbean.debbie.io.*;
 import com.truthbean.debbie.mvc.request.DefaultRouterRequest;
 import com.truthbean.debbie.mvc.request.HttpMethod;
 import com.truthbean.debbie.mvc.request.RequestBody;
@@ -29,10 +26,8 @@ import org.apache.commons.fileupload.servlet.ServletRequestContext;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+
+import java.io.*;
 import java.net.HttpCookie;
 import java.nio.charset.Charset;
 import java.security.Principal;
@@ -48,6 +43,8 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
     private final HttpServletRequest request;
     private final DefaultRouterRequest routerRequest;
 
+    private final byte[] body;
+
     public HttpServletRequestWrapper(HttpServletRequest httpServletRequest) {
         this(UUID.randomUUID().toString(), httpServletRequest);
     }
@@ -56,6 +53,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
         this.routerRequest = new DefaultRouterRequest();
         this.request = request;
         this.routerRequest.copy(routerRequest);
+        this.body = getBody();
     }
 
     private HttpServletRequestWrapper(String id, HttpServletRequest httpServletRequest) {
@@ -80,6 +78,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
             }
         };
         this.request = httpServletRequest;
+        this.body = getBody();
         this.routerRequest.setMethod(HttpMethod.valueOf(request.getMethod()));
         this.routerRequest.setUrl(request.getRequestURI());
         this.routerRequest.setMatrix(UriUtils.resolveMatrixByPath(this.routerRequest.getUrl()));
@@ -102,6 +101,16 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
         setRequestAttribute();
 
         this.routerRequest.setId(id);
+
+    }
+
+    private byte[] getBody() {
+        try {
+            return StreamHelper.toByteArray(request.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new byte[0];
+        }
     }
 
     public HttpServletRequest getHttpServletRequest() {
@@ -159,7 +168,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
         }
         if (MediaType.APPLICATION_FORM_URLENCODED.getValue().equals(type)) {
             try {
-                RequestBody requestBody = new RequestBody(request.getInputStream());
+                RequestBody requestBody = new RequestBody(this.getInputStream());
                 var content = requestBody.getContent();
                 if (content != null && !content.isEmpty()) {
                     var queries = queries(content.get(0));
@@ -256,7 +265,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
 
     private void setBody() {
         try {
-            this.routerRequest.setInputStreamBody(request.getInputStream());
+            this.routerRequest.setInputStreamBody(this.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -330,7 +339,28 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        return request.getInputStream();
+        final ByteArrayInputStream bais = new ByteArrayInputStream(body);
+        return new ServletInputStream() {
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
+
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setReadListener(ReadListener readListener) {
+
+            }
+
+            @Override
+            public int read() throws IOException {
+                return bais.read();
+            }
+        };
     }
 
     @Override
