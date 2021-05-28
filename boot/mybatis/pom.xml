@@ -5,7 +5,7 @@
     <parent>
         <artifactId>debbie-boot</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.5.0-SNAPSHOT</version>
+        <version>0.5.0-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -80,7 +80,7 @@
         <!--<dependency>
             <groupId>com.truthbean.mybatis.cache</groupId>
             <artifactId>mybatis-redis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1-RELEASE</version>
             <scope>test</scope>
         </dependency>-->
 

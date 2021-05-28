@@ -23,6 +23,8 @@ module com.truthbean.debbie.javafx {
     requires javafx.baseEmpty;
     requires javafx.fxml;
 
+    exports com.truthbean.debbie.javafx;
+
     provides com.truthbean.debbie.boot.AbstractApplication with com.truthbean.debbie.javafx.JavaFxApplication;
     provides com.truthbean.debbie.boot.DebbieModuleStarter with com.truthbean.debbie.javafx.JavaFxModuleStarter;
 }

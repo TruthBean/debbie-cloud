@@ -159,15 +159,19 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
 
         ctx.setParentClassLoader(classLoader);
         try {
-            String path;
-            var resource = classLoader.getResource("/");
-            LOGGER.debug(() -> "resource: " + resource);
-            if (resource == null) {
-                path = new File("").getAbsolutePath();
-            } else {
-                path = Path.of(resource.toURI()).toString();
+            String path = configuration.getWebappClasspath();
+            if (path == null || "".equals(path.strip())) {
+                var resource = classLoader.getResource("/");
+                LOGGER.debug(() -> "resource: " + resource);
+                if (resource == null) {
+                    path = new File("").getAbsolutePath();
+                } else {
+                    path = Path.of(resource.toURI()).toString();
+                }
             }
-            LOGGER.debug(() -> "configuring app with basedir: " + path);
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("configuring app with basedir: " + path);
+            }
 
             // Declare an alternative location for your "WEB-INF/classes" dir
             // Servlet 3.0 annotation will work
@@ -189,6 +193,10 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
     public DebbieApplication init(DebbieConfigurationCenter factory, ApplicationContext applicationContext,
                                      ClassLoader classLoader) {
         this.configuration = factory.factory(TomcatConfiguration.class, applicationContext);
+        if (this.configuration == null) {
+            LOGGER.warn("debbie-tomcat module is disabled, debbie.tomcat.enable is false");
+            return null;
+        }
 
         GlobalBeanFactory globalBeanFactory = applicationContext.getGlobalBeanFactory();
         List<ErrorPage> errorPages = globalBeanFactory.getBeanList(ErrorPage.class);

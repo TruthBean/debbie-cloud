@@ -37,6 +37,8 @@ public class TomcatConfiguration extends AbstractServerConfiguration {
 
     private String webappDir;
 
+    private String webappClasspath;
+
     private boolean disableMBeanRegistry;
 
     private boolean autoDeploy;
@@ -54,6 +56,14 @@ public class TomcatConfiguration extends AbstractServerConfiguration {
 
     public void setWebappDir(String webappDir) {
         this.webappDir = webappDir;
+    }
+
+    public String getWebappClasspath() {
+        return webappClasspath;
+    }
+
+    public void setWebappClasspath(String webappClasspath) {
+        this.webappClasspath = webappClasspath;
     }
 
     public boolean isDisableMBeanRegistry() {

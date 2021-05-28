@@ -50,6 +50,10 @@ public final class UndertowServerApplication extends AbstractWebServerApplicatio
     public DebbieApplication init(DebbieConfigurationCenter factory, ApplicationContext applicationContext,
                                      ClassLoader classLoader) {
         this.configuration = factory.factory(UndertowConfiguration.class, applicationContext);
+        if (this.configuration == null) {
+            LOGGER.warn("debbie-undertow module is disabled, debbie.undertow.enable is false");
+            return null;
+        }
         BeanInitialization beanInitialization = applicationContext.getBeanInitialization();
         MvcRouterRegister.registerRouter(configuration, applicationContext);
         RouterFilterManager.registerFilter(configuration, beanInitialization);

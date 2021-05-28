@@ -7,13 +7,13 @@
     <parent>
         <groupId>com.truthbean</groupId>
         <artifactId>parent</artifactId>
-        <version>0.5.0-SNAPSHOT</version>
+        <version>0.5.0-RELEASE</version>
     </parent>
 
     <packaging>pom</packaging>
 
     <artifactId>debbie-cloud</artifactId>
-    <version>0.5.0-SNAPSHOT</version>
+    <version>0.5.0-RELEASE</version>
 
     <modules>
         <module>dependencies</module>

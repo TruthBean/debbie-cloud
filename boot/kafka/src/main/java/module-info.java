@@ -24,7 +24,7 @@ module com.truthbean.debbie.kafka {
 
     exports com.truthbean.debbie.kafka;
 
-    opens com.truthbean.debbie.kafka to com.truthbean.debbie.core, com.truthbean.common;
+    opens com.truthbean.debbie.kafka to com.truthbean.debbie.core, com.truthbean.common.mini;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter with com.truthbean.debbie.kafka.KafkaModuleStarter;
 }

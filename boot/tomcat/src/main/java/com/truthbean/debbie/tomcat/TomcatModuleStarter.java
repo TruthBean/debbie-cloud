@@ -13,6 +13,8 @@ import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContent;
 import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.servlet.ServletConfiguration;
+import com.truthbean.debbie.servlet.ServletProperties;
 
 /**
  * @author truthbean
@@ -27,6 +29,7 @@ public class TomcatModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext applicationContext) {
+        configurationFactory.register(new ServletProperties(), ServletConfiguration.class);
         configurationFactory.register(new TomcatProperties(), TomcatConfiguration.class);
     }
 

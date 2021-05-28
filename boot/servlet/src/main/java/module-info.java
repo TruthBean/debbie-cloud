@@ -17,13 +17,13 @@ module com.truthbean.debbie.servlet {
     exports com.truthbean.debbie.servlet.response.view;
 
     requires transitive com.truthbean.debbie.mvc;
-    requires jakarta.servlet;
-    requires static org.apache.commons.io;
-    requires jakarta.servlet.jsp.jstl;
-    requires jakarta.servlet.jsp;
-    requires jakarta.el;
-    requires jakarta.xml.bind;
-    requires jakarta.activation;
+    requires transitive jakarta.servlet;
+    requires transitive org.apache.commons.io;
+    requires static jakarta.servlet.jsp.jstl;
+    requires transitive jakarta.servlet.jsp;
+    requires transitive jakarta.el;
+    requires transitive jakarta.xml.bind;
+    requires static jakarta.activation;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter
             with com.truthbean.debbie.servlet.ServletModuleStarter;

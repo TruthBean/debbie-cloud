@@ -7,17 +7,21 @@
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
  */
+package com.truthbean.debbie.servlet;
+
+import com.truthbean.debbie.mvc.MvcConfiguration;
 
 /**
- * @author TruthBean/Rogar·Q
- * @since 0.1.0
+ * @author TruthBean
+ * @since 0.0.1
+ * Created on 2019/3/10 18:56.
  */
-open module com.truthbean.debbie.tomcat.test {
-    requires com.truthbean.debbie.tomcat;
+public class ServletConfiguration extends MvcConfiguration {
+    public ServletConfiguration(ClassLoader classLoader) {
+        super(classLoader);
+    }
 
-    requires java.management;
-
-    requires com.truthbean.debbie.test;
-    requires com.truthbean.logger.log4j2.boot;
-
+    public ServletConfiguration(MvcConfiguration configuration, ClassLoader classLoader) {
+        super(configuration, classLoader);
+    }
 }

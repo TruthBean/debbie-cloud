@@ -33,6 +33,7 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
 
     //===========================================================================
     private static final String TOMCAT_WEBAPP = "debbie.server.tomcat.webapp";
+    private static final String TOMCAT_WEBAPP_CLASSPATH = "debbie.server.tomcat.webapp.classpath";
     private static final String DISABLE_MBEAN_REGISTRY = "debbie.server.tomcat.disable-mbean-registry";
     private static final String AUTO_DEPLOY = "debbie.server.tomcat.autoDeploy";
     private static final String TOMCAT_CONNECTOR_PROTOCOL = "debbie.server.tomcat.connector.protocol";
@@ -76,6 +77,8 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
             userDir = webappPath.getPath();
         }
         configuration.setWebappDir(properties.getStringValue(TOMCAT_WEBAPP, userDir));
+        // configuration.setWebappClasspath(properties.getStringValue(TOMCAT_WEBAPP_CLASSPATH, userDir + "/WEB-INF/classes"));
+        configuration.setWebappClasspath(properties.getValue(TOMCAT_WEBAPP_CLASSPATH));
 
         configuration.setDisableMBeanRegistry(properties.getBooleanValue(DISABLE_MBEAN_REGISTRY, false));
         configuration.setAutoDeploy(properties.getBooleanValue(AUTO_DEPLOY,false));

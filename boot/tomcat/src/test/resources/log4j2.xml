@@ -5,11 +5,55 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout
-                    pattern="%highlight{%d{HH:mm:ss.SSS} %-5level}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %class{36}.%M()/%L    %highlight{- %msg%xEx%n}{STYLE=Logback}"/>
+                    pattern="%highlight{%d{HH:mm:ss.SSS} %-5level}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %c    %highlight{- %msg%xEx%n}{STYLE=Logback}"/>
         </Console>
     </Appenders>
 
     <Loggers>
+
+        <Logger name="org.apache.tomcat" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.tomcat.util.digester.Digester" level="INFO" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.tomcat.util.IntrospectionUtils" level="INFO" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.catalina" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.coyote" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.coyote.http11.Http11InputBuffer" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.naming" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.el" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.jasper" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="org.apache.jasper.servlet.TldScanner" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
+
+        <Logger name="com.truthbean" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </Logger>
 
         <Root level="DEBUG" additivity="false">
             <appender-ref ref="Console"/>

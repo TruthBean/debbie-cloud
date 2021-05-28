@@ -13,34 +13,32 @@
  * @since 0.1.0
  */
 module com.truthbean.debbie.tomcat {
-    requires transitive com.truthbean.debbie.servlet;
     requires transitive com.truthbean.debbie.server;
-    requires transitive com.truthbean.logger.juli;
-    requires org.apache.tomcat.juli;
+    requires transitive org.apache.tomcat.embed.core;
+    requires transitive org.apache.tomcat.embed.jasper;
+    requires transitive org.apache.tomcat.embed.el;
+    requires static java.management;
 
-    requires transitive org.apache.tomcat.catalina;
-    // requires transitive org.apache.tomcat.embed.core;
-    // requires transitive org.apache.tomcat.embed.jasper;
-    // requires transitive org.apache.tomcat.embed.el;
-    requires java.management;
+    requires transitive jakarta.annotation;
 
-    requires jakarta.servlet;
-    requires jakarta.annotation;
-    requires org.apache.tomcat.api;
-    requires org.apache.tomcat.jni;
-    requires org.apache.tomcat.coyote;
-    requires org.apache.tomcat.util;
-    requires org.apache.tomcat.util.scan;
-    requires jakarta.security.auth.message;
-    requires org.apache.tomcat.jasper;
-    requires jakarta.el;
+    requires transitive ecj;
+    requires transitive jakarta.servlet.jsp.jstl;
 
-    requires ecj;
+    opens com.truthbean.logger.juli;
+    exports com.truthbean.logger.juli;
 
-    requires org.apache.tomcat.jasper.el;
+    exports com.truthbean.debbie.servlet;
+    exports com.truthbean.debbie.servlet.response.view;
 
-    provides com.truthbean.debbie.boot.AbstractApplication with
-            com.truthbean.debbie.tomcat.TomcatServerApplication;
+    provides org.apache.juli.logging.Log with com.truthbean.logger.juli.JuliLogger;
+
+    provides com.truthbean.debbie.boot.AbstractApplication with com.truthbean.debbie.tomcat.TomcatServerApplication;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter with com.truthbean.debbie.tomcat.TomcatModuleStarter;
+
+    provides com.truthbean.debbie.mvc.response.view.AbstractTemplateViewHandler
+            with com.truthbean.debbie.servlet.response.view.JspHandler;
+
+    provides jakarta.servlet.ServletContainerInitializer
+            with com.truthbean.debbie.servlet.ServletApplicationInitializer;
 }

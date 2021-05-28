@@ -22,13 +22,13 @@ module com.truthbean.debbie.swagger {
     requires transitive com.fasterxml.jackson.annotation;
     requires transitive com.fasterxml.jackson.databind;
     requires transitive com.fasterxml.jackson.dataformat.yaml;
-    requires io.swagger.v3.oas.models;
-    requires io.swagger.v3.oas.integration;
-    requires io.swagger.v3.core;
-    requires io.swagger.v3.oas.annotations;
-    // requires transitive io.github.classgraph;
+    requires static io.swagger.v3.oas.models;
+    requires static io.swagger.v3.oas.integration;
+    requires static io.swagger.v3.core;
+    requires static io.swagger.v3.oas.annotations;
     requires org.apache.commons.lang3;
     requires com.fasterxml.jackson.datatype.jsr310;
+    requires transitive io.github.classgraph;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter
             with com.truthbean.debbie.swagger.SwaggerModuleStarter;

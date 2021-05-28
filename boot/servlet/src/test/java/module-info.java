@@ -13,9 +13,24 @@
  * @since 0.1.0
  */
 open module com.truthbean.debbie.servlet.test {
-    requires com.truthbean.debbie.servlet;
+    requires transitive com.truthbean.debbie.servlet;
     requires com.truthbean.debbie.test;
 
-    // requires org.apache.tomcat.embed.core;
-    requires jakarta.servlet;
+    requires transitive com.truthbean.logger.juli;
+    requires transitive org.apache.tomcat.juli;
+
+    requires transitive org.apache.tomcat.catalina;
+    requires static java.management;
+
+    requires transitive jakarta.servlet;
+    requires transitive jakarta.annotation;
+    requires transitive org.apache.tomcat.api;
+    requires transitive org.apache.tomcat.jni;
+    requires transitive org.apache.tomcat.coyote;
+    requires transitive org.apache.tomcat.util;
+    requires transitive org.apache.tomcat.util.scan;
+    requires transitive jakarta.security.auth.message;
+    requires transitive jakarta.servlet.jsp.jstl;
+    requires transitive org.apache.tomcat.jasper;
+    requires transitive jakarta.el;
 }
