@@ -10,10 +10,7 @@
 package com.truthbean.debbie.servlet.request;
 
 import com.truthbean.debbie.io.*;
-import com.truthbean.debbie.mvc.request.DefaultRouterRequest;
-import com.truthbean.debbie.mvc.request.HttpMethod;
-import com.truthbean.debbie.mvc.request.RequestBody;
-import com.truthbean.debbie.mvc.request.RouterRequest;
+import com.truthbean.debbie.mvc.request.*;
 import com.truthbean.debbie.net.uri.QueryStringDecoder;
 import com.truthbean.debbie.net.uri.UriUtils;
 import com.truthbean.debbie.servlet.ServletRouterCookie;
@@ -78,7 +75,6 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
             }
         };
         this.request = httpServletRequest;
-        this.body = getBody();
         this.routerRequest.setMethod(HttpMethod.valueOf(request.getMethod()));
         this.routerRequest.setUrl(request.getRequestURI());
         this.routerRequest.setMatrix(UriUtils.resolveMatrixByPath(this.routerRequest.getUrl()));
@@ -92,6 +88,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
         this.routerRequest.setSession(new ServletRouterSession(request));
 
         this.routerRequest.setQueries(queries(request.getQueryString()));
+        this.body = getBody();
         setParams();
         setBody();
 
@@ -105,10 +102,15 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
     }
 
     private byte[] getBody() {
-        try {
-            return StreamHelper.toByteArray(request.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
+        String contentType = getHeader(HttpHeader.HttpHeaderNames.CONTENT_TYPE.getName());
+        if (!(contentType != null && contentType.startsWith("multipart/form"))) {
+            try {
+                return StreamHelper.toByteArray(request.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new byte[0];
+            }
+        } else {
             return new byte[0];
         }
     }

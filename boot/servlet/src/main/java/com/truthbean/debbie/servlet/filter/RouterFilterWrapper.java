@@ -3,12 +3,14 @@
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
- *         http://license.coscl.org.cn/MulanPSL2
+ * http://license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
  */
 package com.truthbean.debbie.servlet.filter;
 
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.io.MediaTypeInfo;
@@ -17,14 +19,14 @@ import com.truthbean.debbie.mvc.request.RouterRequest;
 import com.truthbean.debbie.mvc.response.HttpStatus;
 import com.truthbean.debbie.mvc.response.RouterResponse;
 import com.truthbean.debbie.servlet.request.HttpServletRequestWrapper;
-import com.truthbean.debbie.servlet.response.ServletResponseHandler;
 import com.truthbean.debbie.servlet.response.HttpServletResponseWrapper;
-
+import com.truthbean.debbie.servlet.response.ServletResponseHandler;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -79,6 +81,9 @@ public class RouterFilterWrapper extends HttpFilter implements RouterFilter {
         } else {
             requestWrapper = new HttpServletRequestWrapper(request);
         }
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("url(" + requestWrapper.getRequestURI() + ") with method(" + requestWrapper.getMethod() + ") filter by " + this.filterType);
+        }
         RouterRequest routerRequest = requestWrapper.getRouterRequest();
 
         HttpServletResponseWrapper responseWrapper;
@@ -117,4 +122,6 @@ public class RouterFilterWrapper extends HttpFilter implements RouterFilter {
             chain.doFilter(requestWrapper, responseWrapper);
         }
     }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RouterFilterWrapper.class);
 }
