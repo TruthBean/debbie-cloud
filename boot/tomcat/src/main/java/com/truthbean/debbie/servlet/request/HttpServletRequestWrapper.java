@@ -223,7 +223,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
                 if (fileItem.isFormField()) {
                     try {
                         values.add(fileItem.getString("UTF-8"));
-                    } catch (UnsupportedEncodingException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {

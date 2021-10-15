@@ -16,8 +16,8 @@ module com.truthbean.debbie.kafka {
     requires java.base;
     requires transitive com.truthbean.debbie.core;
     requires static kafka.clients;
-    requires com.github.luben.zstd_jni;
-    requires org.lz4.java;
+    // requires com.github.luben.zstd_jni;
+    // requires org.lz4.java;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.fasterxml.jackson.annotation;
     requires com.truthbean.logger.slf4j.boot;

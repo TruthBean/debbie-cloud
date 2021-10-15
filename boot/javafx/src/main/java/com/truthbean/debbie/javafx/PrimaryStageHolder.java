@@ -13,7 +13,6 @@ import com.truthbean.Logger;
 import com.truthbean.debbie.bean.BeanScanConfiguration;
 import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.LoggerFactory;
-import javafx.stage.Stage;
 
 import java.util.Set;
 

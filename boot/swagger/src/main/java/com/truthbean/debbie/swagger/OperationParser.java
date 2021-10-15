@@ -45,7 +45,7 @@ public class OperationParser {
             isEmpty = false;
         }
         if (requestBody.required()) {
-            requestBodyObject.setRequired(requestBody.required());
+            requestBodyObject.setRequired(true);
             isEmpty = false;
         }
         if (requestBody.extensions().length > 0) {
