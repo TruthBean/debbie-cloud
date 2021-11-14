@@ -16,7 +16,7 @@ import com.truthbean.debbie.core.ApplicationFactory;
 public class FreemarkerTest {
 
     public static void main(String[] args) {
-        var application = ApplicationFactory.create(FreemarkerTest.class, args);
+        var application = ApplicationFactory.factory(FreemarkerTest.class, args);
         application.start();
     }
 }

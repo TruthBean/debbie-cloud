@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.spring.check;
 
+import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.spring.EnableDebbieApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -23,9 +24,10 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(basePackages = "com.truthbean", includeFilters = {
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TruthBeanTypeFilter.class)
 })
-// @EnableDebbieApplication
+@EnableDebbieApplication
 public class DebbieSpringTest {
     static {
+        System.setProperty(DebbieApplication.DISABLE_DEBBIE, "false");
         System.setProperty("logging.level.com.truthbean", "debug");
         System.setProperty("logging.level.org.springframework", "debug");
     }

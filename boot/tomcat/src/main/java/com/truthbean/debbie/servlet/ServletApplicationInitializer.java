@@ -13,6 +13,7 @@ import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.core.AbstractApplicationFactory;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.internal.DebbieApplicationFactory;
 import com.truthbean.debbie.mvc.router.Router;
 import com.truthbean.debbie.watcher.Watcher;
 import jakarta.servlet.ServletContainerInitializer;
@@ -28,26 +29,27 @@ import java.util.Set;
  * Created on 2018-01-07 22:30.
  */
 @HandlesTypes(value = {Watcher.class, Router.class})
-public class ServletApplicationInitializer extends AbstractApplicationFactory implements ServletContainerInitializer {
+public class ServletApplicationInitializer extends DebbieApplicationFactory implements ServletContainerInitializer {
 
     private final ApplicationContext applicationContext;
 
     public ServletApplicationInitializer() {
-        super(ServletApplicationInitializer.class);
+        LOGGER.info("ServletApplicationInitializer init ...");
         if (debbieApplication == null) {
+            debbieApplication = super.preInit().init(ServletApplicationInitializer.class).config().create().postCreate().build().factory();
             LOGGER.debug("run servlet module without application");
-            applicationContext = getApplicationContext();
+            applicationContext = this.getApplicationContext();
             super.config(ServletApplicationInitializer.class);
             super.callStarter();
         } else {
-            applicationContext = debbieApplicationFactory.getApplicationContext();
+            applicationContext = debbieApplication.getApplicationContext();
         }
     }
 
     @Override
     public void onStartup(Set<Class<?>> classes, ServletContext ctx) throws ServletException {
         LOGGER.info("ServletContainerInitializer onStartup ...");
-        var handler = new ServletContextHandler(ctx, applicationContext);
+        var handler = new ServletContextHandler(ctx, this.applicationContext);
         handler.registerRouter();
         handler.registerFilter(ctx);
 

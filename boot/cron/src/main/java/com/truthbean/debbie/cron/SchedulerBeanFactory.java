@@ -16,6 +16,7 @@ import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.env.EnvContentAware;
 import com.truthbean.debbie.env.EnvironmentContent;
 import com.truthbean.LoggerFactory;
+import com.truthbean.debbie.env.EnvironmentContentHolder;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
@@ -40,7 +41,9 @@ public class SchedulerBeanFactory implements BeanFactory<Scheduler>, EnvContentA
         if (scheduler == null) {
             synchronized (SchedulerBeanFactory.class) {
                 if (scheduler == null) {
-                    envContent.addProperty("org.quartz.threadPool.threadCount", "10");
+                    if (envContent instanceof EnvironmentContentHolder) {
+                        ((EnvironmentContentHolder)envContent).addProperty("org.quartz.threadPool.threadCount", "10");
+                    }
                     try {
                         StdSchedulerFactory factory = new StdSchedulerFactory(envContent.getProperties());
                         this.scheduler = factory.getScheduler();

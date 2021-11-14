@@ -15,7 +15,7 @@ public class UndertowApplicationTest {
     }
 
     public static void main(String[] args) {
-        DebbieApplication application = ApplicationFactory.create(UndertowApplicationTest.class, args);
+        DebbieApplication application = DebbieApplication.create(UndertowApplicationTest.class, args);
         application.start();
         application.exit();
     }

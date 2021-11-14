@@ -30,6 +30,8 @@ import java.util.Properties;
 @PropertiesConfiguration(keyPrefix = "debbie.kafka")
 public class KafkaConfiguration implements DebbieConfiguration {
 
+    private String name = "default";
+
     private boolean enable = true;
 
     @PropertyInject(value = "bootstrap-servers", transformer = ListStringTransformer.class)
@@ -188,6 +190,15 @@ public class KafkaConfiguration implements DebbieConfiguration {
             }
             return p;
         }
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isEnable() {

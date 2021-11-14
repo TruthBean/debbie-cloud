@@ -15,6 +15,6 @@ import com.truthbean.debbie.core.ApplicationFactory;
 public class SwaggerApplication {
     public static void main(String[] args) {
         var application = ApplicationFactory.create(SwaggerApplication.class, args);
-        application.start();
+        application.factory().start();
     }
 }

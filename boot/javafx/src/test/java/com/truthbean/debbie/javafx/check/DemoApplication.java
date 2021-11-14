@@ -12,6 +12,7 @@ package com.truthbean.debbie.javafx.check;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.boot.DebbieBootApplication;
+import com.truthbean.logger.LoggerConfig;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -22,7 +23,7 @@ import com.truthbean.debbie.boot.DebbieBootApplication;
 public class DemoApplication {
 
     static {
-        System.setProperty(LoggerFactory.NO_LOGGER, "true");
+        System.setProperty(LoggerConfig.NO_LOGGER, "true");
     }
 
     public static void main(String[] args) {

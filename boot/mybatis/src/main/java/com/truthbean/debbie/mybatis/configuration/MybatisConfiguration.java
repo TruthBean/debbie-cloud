@@ -26,6 +26,7 @@ import java.util.Map;
  * @since 0.0.2
  */
 public class MybatisConfiguration implements DebbieConfiguration {
+    private String name = "default";
     private String mybatisConfigXmlLocation;
 
     private List<String> mapperLocations;
@@ -44,6 +45,15 @@ public class MybatisConfiguration implements DebbieConfiguration {
     private LanguageDriver[] scriptingLanguageDrivers;
     private DatabaseIdProvider databaseIdProvider;
     private Cache cache;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getMybatisConfigXmlLocation() {
         return mybatisConfigXmlLocation;
