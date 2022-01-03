@@ -9,7 +9,6 @@
  */
 package com.truthbean.debbie.javafx;
 
-import com.truthbean.LoggerFactory;
 import com.truthbean.logger.LoggerConfig;
 import javafx.application.Application;
 import javafx.stage.Stage;

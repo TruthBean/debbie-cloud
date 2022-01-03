@@ -35,6 +35,7 @@ public class TruthBeanTypeFilter implements TypeFilter {
         Resource resource = metadataReader.getResource();
 
         String className = classMetadata.getClassName();
-        return className.startsWith("com.truthbean.debbie.spring.");
+        return !classMetadata.getClassName().equals("com.truthbean.debbie.spring.SpringBeanFactory")
+               && className.startsWith("com.truthbean.debbie.spring.");
     }
 }

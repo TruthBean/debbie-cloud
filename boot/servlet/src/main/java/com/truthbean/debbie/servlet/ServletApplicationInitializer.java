@@ -52,8 +52,9 @@ public class ServletApplicationInitializer extends AbstractApplicationFactory im
         handler.registerFilter(ctx);
 
         // if run with war package
-        if (debbieApplication == null)
-            super.postCallStarter();
+        if (debbieApplication == null) {
+            super.postCallStarter(this.factory());
+        }
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServletApplicationInitializer.class);

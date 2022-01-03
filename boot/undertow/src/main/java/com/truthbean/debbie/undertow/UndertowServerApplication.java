@@ -9,14 +9,13 @@
  */
 package com.truthbean.debbie.undertow;
 
-import com.truthbean.debbie.bean.BeanInitialization;
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.ApplicationArgs;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.mvc.filter.RouterFilterInfo;
 import com.truthbean.debbie.mvc.filter.RouterFilterManager;
 import com.truthbean.debbie.mvc.router.MvcRouterRegister;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
 import com.truthbean.debbie.server.AbstractWebServerApplication;
 import com.truthbean.debbie.undertow.handler.DispatcherHttpHandler;
 import com.truthbean.debbie.undertow.handler.HttpHandlerFilter;
@@ -47,14 +46,13 @@ public final class UndertowServerApplication extends AbstractWebServerApplicatio
     }
 
     @Override
-    public DebbieApplication init(DebbieConfigurationCenter factory, ApplicationContext applicationContext,
-                                     ClassLoader classLoader) {
-        this.configuration = factory.factory(UndertowConfiguration.class, applicationContext);
+    public DebbieApplication init(ApplicationContext applicationContext, ClassLoader classLoader) {
+        this.configuration = applicationContext.factory(UndertowConfiguration.class);
         if (this.configuration == null) {
             LOGGER.warn("debbie-undertow module is disabled, debbie.undertow.enable is false");
             return null;
         }
-        BeanInitialization beanInitialization = applicationContext.getBeanInitialization();
+        BeanInfoManager beanInitialization = applicationContext.getBeanInfoManager();
         MvcRouterRegister.registerRouter(configuration, applicationContext);
         RouterFilterManager.registerFilter(configuration, beanInitialization);
         RouterFilterManager.registerCharacterEncodingFilter(configuration, "/**");

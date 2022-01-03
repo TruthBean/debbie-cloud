@@ -9,13 +9,15 @@
  */
 package com.truthbean.debbie.hikari;
 
-import com.truthbean.debbie.bean.GlobalBeanFactory;
+import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContentHolder;
 import com.truthbean.debbie.properties.DebbieProperties;
 import com.truthbean.common.mini.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author TruthBean
@@ -23,6 +25,8 @@ import java.util.Map;
  * Created on 2019/05/17 22:46.
  */
 public class HikariProperties extends EnvironmentContentHolder implements DebbieProperties<HikariConfiguration> {
+
+    private final Map<String, HikariConfiguration> map = new HashMap<>();
     private HikariConfiguration configuration;
 
     //=================================================================================================================
@@ -39,14 +43,26 @@ public class HikariProperties extends EnvironmentContentHolder implements Debbie
     }
 
     @Override
-    public HikariConfiguration toConfiguration(final ApplicationContext applicationContext) {
+    public Set<String> getProfiles() {
+        return map.keySet();
+    }
+
+    @Override
+    public HikariConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
+        if (StringUtils.hasText(name)) {
+            return map.get(name);
+        }
+        return map.get(DEFAULT_PROFILE);
+    }
+
+    @Override
+    public HikariConfiguration getConfiguration(final ApplicationContext applicationContext) {
         if (configuration != null) {
             return configuration;
         }
-        applicationContext.getBeanInitialization().init(HikariConfiguration.class);
-        applicationContext.refreshBeans();
-        GlobalBeanFactory globalBeanFactory = applicationContext.getGlobalBeanFactory();
-        configuration = globalBeanFactory.factory(HikariConfiguration.class);
+
+        var beanFactory = new DebbieReflectionBeanFactory<>(HikariConfiguration.class, new HikariConfiguration());
+        configuration = beanFactory.factoryBean(applicationContext);
 
         final Map<String, String> matchedKey = getMatchedKey(HIKARI_X_KEY_PREFIX);
         matchedKey.forEach((key, value) -> {
@@ -54,6 +70,13 @@ public class HikariProperties extends EnvironmentContentHolder implements Debbie
             k = StringUtils.snakeCaseToCamelCaseTo(k);
             configuration.getHikariConfig().addDataSourceProperty(k, value);
         });
+        map.put(DEFAULT_PROFILE, configuration);
         return configuration;
+    }
+
+    @Override
+    public void close() {
+        map.clear();
+        configuration = null;
     }
 }

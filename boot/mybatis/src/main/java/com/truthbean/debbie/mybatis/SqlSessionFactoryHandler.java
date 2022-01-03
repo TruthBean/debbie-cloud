@@ -9,16 +9,15 @@
  */
 package com.truthbean.debbie.mybatis;
 
-import com.truthbean.debbie.bean.BeanInitialization;
-import com.truthbean.debbie.bean.DebbieBeanInfo;
-import com.truthbean.debbie.bean.DebbieClassBeanInfo;
+import com.truthbean.debbie.bean.BeanInfoManager;
+import com.truthbean.debbie.bean.GlobalBeanFactory;
+import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.io.ResourceResolver;
 import com.truthbean.debbie.jdbc.datasource.DataSourceFactory;
-import com.truthbean.debbie.jdbc.datasource.DataSourceFactoryBeanRegister;
 import com.truthbean.debbie.mybatis.configuration.MybatisConfiguration;
-import com.truthbean.debbie.mybatis.configuration.MybatisProperties;
 import com.truthbean.debbie.mybatis.transaction.DebbieManagedTransactionFactory;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.mybatis.transaction.MybatisTransactionFactory;
 import com.truthbean.debbie.reflection.ClassLoaderUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
@@ -35,6 +34,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 import org.apache.ibatis.type.*;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
@@ -57,23 +58,30 @@ public class SqlSessionFactoryHandler {
     private Configuration configuration;
     private InputStream mybatisConfigXmlInputStream;
 
-    private final ApplicationContext context;
-    private final BeanInitialization beanInitialization;
+    private final String prefix;
 
-    public SqlSessionFactoryHandler(DebbieConfigurationCenter configurationFactory, ApplicationContext context) {
-        this.context = context;
-        this.beanInitialization = context.getBeanInitialization();
-        this.mybatisConfiguration = new MybatisProperties(context).loadConfiguration();
+    public SqlSessionFactoryHandler(ApplicationContext context, MybatisConfiguration mybatisConfiguration,
+                                    MybatisTransactionFactory mybatisTransactionFactory) {
+        this.mybatisConfiguration = mybatisConfiguration;
         if (getMybatisConfigXmlInputStream() == null) {
-            buildConfiguration(configurationFactory);
+            buildConfiguration(context, mybatisTransactionFactory);
         }
+        prefix = mybatisTransactionFactory.name().toLowerCase();
+    }
+
+    public SqlSessionFactoryHandler(ApplicationContext context, MybatisConfiguration mybatisConfiguration) {
+        this.mybatisConfiguration = mybatisConfiguration;
+        if (getMybatisConfigXmlInputStream() == null) {
+            buildConfiguration(context, MybatisTransactionFactory.JDBC);
+        }
+        prefix = "jdbc";
     }
 
     private SqlSessionFactory sqlSessionFactory;
 
-    public void onApplicationEvent() {
+    /*public void onApplicationEvent() {
         configuration.getMappedStatementNames();
-    }
+    }*/
 
     private InputStream getMybatisConfigXmlInputStream() {
         if (mybatisConfigXmlInputStream == null) {
@@ -82,7 +90,7 @@ public class SqlSessionFactoryHandler {
                 try {
                     mybatisConfigXmlInputStream = Resources.getResourceAsStream(resource);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("", e);
                 }
             }
         }
@@ -95,21 +103,27 @@ public class SqlSessionFactoryHandler {
         }
     }
 
-    private DataSourceFactory getDataSourceFactoryOrInitIfNull(DebbieConfigurationCenter configurationFactory) {
-        DataSourceFactory dataSourceFactory = beanInitialization.getRegisterBean(DataSourceFactory.class);
+    private DataSourceFactory getDataSourceFactoryOrInitIfNull(ApplicationContext context) {
+        GlobalBeanFactory globalBeanFactory = context.getGlobalBeanFactory();
+        DataSourceFactory dataSourceFactory = globalBeanFactory.factoryIfPresent(DataSourceFactory.class);
         if (dataSourceFactory == null) {
-            var register = new DataSourceFactoryBeanRegister(configurationFactory, context);
+            /*var register = new DataSourceFactoryBeanRegister(configurationFactory, context);
             register.registerDataSourceFactory();
             context.refreshBeans();
-            dataSourceFactory = beanInitialization.getRegisterBean(DataSourceFactory.class);
+            dataSourceFactory = beanInitialization.getRegisterBean(DataSourceFactory.class);*/
         }
         return dataSourceFactory;
     }
 
-    private void buildConfiguration(DebbieConfigurationCenter configurationFactory) {
-        DataSourceFactory dataSourceFactory = getDataSourceFactoryOrInitIfNull(configurationFactory);
+    private void buildConfiguration(ApplicationContext context, MybatisTransactionFactory mybatisTransactionFactory) {
+        DataSourceFactory dataSourceFactory = getDataSourceFactoryOrInitIfNull(context);
         DataSource dataSource = dataSourceFactory.getDataSource();
-        TransactionFactory transactionFactory = new DebbieManagedTransactionFactory(dataSourceFactory.getDriverName());
+        TransactionFactory transactionFactory;
+        switch (mybatisTransactionFactory) {
+            default -> transactionFactory = new DebbieManagedTransactionFactory(dataSourceFactory.getDriverName());
+            case JDBC -> transactionFactory = new JdbcTransactionFactory();
+            case MANAGED -> transactionFactory = new ManagedTransactionFactory();
+        }
         Environment environment = new Environment(mybatisConfiguration.getEnvironment(), transactionFactory, dataSource);
         configuration = new Configuration(environment);
         mybatisConfiguration.getSettings().configTo(configuration);
@@ -135,11 +149,32 @@ public class SqlSessionFactoryHandler {
             }
         }
 
-        Set<DebbieClassBeanInfo<?>> alias = beanInitialization.getAnnotatedClass(Alias.class);
+        ResourceResolver resourceResolver = context.getResourceResolver();
+        Set<Class<?>> classes = resourceResolver.getCachedClasses();
+
+        Set<Class<?>> alias = new HashSet<>();
+        Set<Class<?>> mappedTypes = new HashSet<>();
+        Set<Class<?>> mappedJdbcTypes = new HashSet<>();
+        Set<Class<?>> mappers = new HashSet<>();
+
+        for (Class<?> clazz : classes) {
+            if (clazz.isAnnotationPresent(Alias.class)) {
+                alias.add(clazz);
+            }
+            if (clazz.isAnnotationPresent(MappedTypes.class)) {
+                mappedTypes.add(clazz);
+            }
+            if (clazz.isAnnotationPresent(MappedJdbcTypes.class)) {
+                mappedJdbcTypes.add(clazz);
+            }
+            if (clazz.isAnnotationPresent(Mapper.class)) {
+                mappers.add(clazz);
+            }
+        }
+
         TypeAliasRegistry typeAliasRegistry = configuration.getTypeAliasRegistry();
-        if (alias != null && !alias.isEmpty()) {
-            for (DebbieClassBeanInfo<?> typeAlias : alias) {
-                var typeAliasClass = typeAlias.getBeanClass();
+        if (!alias.isEmpty()) {
+            for (Class<?> typeAliasClass : alias) {
                 typeAliasRegistry.registerAlias(typeAliasClass);
                 LOGGER.trace("Registered type alias: '" + typeAliasClass + "'");
             }
@@ -154,18 +189,16 @@ public class SqlSessionFactoryHandler {
             }
         }
 
-        Set<DebbieClassBeanInfo<?>> mapped = new HashSet<>();
-        Set<DebbieClassBeanInfo<?>> mappedTypes = beanInitialization.getAnnotatedClass(MappedTypes.class);
-        if (mappedTypes != null && !mappedTypes.isEmpty()) {
+        Set<Class<?>> mapped = new HashSet<>();
+        if (!mappedTypes.isEmpty()) {
             mapped.addAll(mappedTypes);
         }
-        Set<DebbieClassBeanInfo<?>> mappedJdbcTypes = beanInitialization.getAnnotatedClass(MappedJdbcTypes.class);
-        if (mappedJdbcTypes != null && !mappedJdbcTypes.isEmpty()) {
+
+        if (!mappedJdbcTypes.isEmpty()) {
             mapped.addAll(mappedJdbcTypes);
         }
         if (!mapped.isEmpty()) {
-            for (DebbieClassBeanInfo<?> mappedType : mapped) {
-                var mappedTypeClass = mappedType.getBeanClass();
+            for (Class<?> mappedTypeClass : mapped) {
                 typeHandlerRegistry.register(mappedTypeClass);
                 LOGGER.trace("Registered type handlers: '" + mappedTypeClass + "'");
             }
@@ -184,12 +217,15 @@ public class SqlSessionFactoryHandler {
             configuration.addCache(cache);
         }
 
-        Set<DebbieClassBeanInfo<?>> mappers = beanInitialization.getAnnotatedClass(Mapper.class);
-        if (mappers != null && !mappers.isEmpty()) {
-            for (DebbieClassBeanInfo<?> mapper : mappers) {
-                Class<?> mapperClass = mapper.getBeanClass();
+        if (!mappers.isEmpty()) {
+            for (Class<?> mapperClass : mappers) {
                 configuration.addMapper(mapperClass);
                 LOGGER.trace("Registered type mapper: '" + mapperClass + "'");
+                BeanInfoManager beanInfoManager = context.getBeanInfoManager();
+                if (!beanInfoManager.isBeanRegistered(mapperClass)) {
+                    var factory = new DebbieMapperFactory<>(mapperClass, this);
+                    beanInfoManager.register(factory);
+                }
             }
         }
 
@@ -229,4 +265,11 @@ public class SqlSessionFactoryHandler {
         return sqlSessionFactory;
     }
 
+    public void registerMybatisConfiguration(BeanInfoManager beanInfoManager) {
+        beanInfoManager.register(new SimpleBeanFactory<>(configuration, true));
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
 }

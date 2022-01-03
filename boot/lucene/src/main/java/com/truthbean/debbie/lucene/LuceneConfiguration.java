@@ -18,6 +18,8 @@ import com.truthbean.debbie.properties.DebbieConfiguration;
  */
 public class LuceneConfiguration implements DebbieConfiguration {
 
+    private boolean enable;
+
     private String name = "default";
 
     private String dataPath;
@@ -31,6 +33,15 @@ public class LuceneConfiguration implements DebbieConfiguration {
     }
 
     @Override
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -40,7 +51,7 @@ public class LuceneConfiguration implements DebbieConfiguration {
     }
 
     @Override
-    public void reset() {
+    public void close() {
 
     }
 }

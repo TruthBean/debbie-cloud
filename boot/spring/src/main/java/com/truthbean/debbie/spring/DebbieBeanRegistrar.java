@@ -10,10 +10,10 @@
 package com.truthbean.debbie.spring;
 
 import com.truthbean.Logger;
+import com.truthbean.debbie.bean.BeanFactory;
 import com.truthbean.debbie.bean.BeanInfo;
-import com.truthbean.debbie.bean.BeanInfoFactory;
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.bean.BeanScanConfiguration;
-import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
 import com.truthbean.LoggerFactory;
@@ -55,7 +55,7 @@ public class DebbieBeanRegistrar implements ImportBeanDefinitionRegistrar, BeanC
     @Override
     public void registerBeanDefinitions(@NonNull AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         if (!registry.containsBeanDefinition(BEAN_INJECT_ANNOTATION_PROCESSOR_BEAN_NAME)) {
-            RootBeanDefinition definition = new RootBeanDefinition(DebbieBeanInjectAnnotationBeanPostProcessor.class);
+            RootBeanDefinition definition = new RootBeanDefinition(DebbieBeanInjectAnnotationBeanPostProcessor.class, DebbieBeanInjectAnnotationBeanPostProcessor::new);
             definition.setSource(null);
             definition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
             registry.registerBeanDefinition(BEAN_INJECT_ANNOTATION_PROCESSOR_BEAN_NAME, definition);
@@ -78,15 +78,15 @@ public class DebbieBeanRegistrar implements ImportBeanDefinitionRegistrar, BeanC
             configuration.addScanExcludeClasses(excludeClasses);
             configuration.addScanExcludePackages(excludePackages);
 
-            applicationFactory.config(configuration);
+            applicationFactory.config(configuration).create().build();
             ApplicationContext applicationContext = applicationFactory.getApplicationContext();
-            BeanInfoFactory debbieBeanInfoFactory = applicationContext.getBeanInfoFactory();
-            Set<BeanInfo<?>> allDebbieBeanInfo = debbieBeanInfoFactory.getAllDebbieBeanInfo();
+            BeanInfoManager debbieBeanInfoFactory = applicationContext.getBeanInfoManager();
+            Set<BeanInfo> allDebbieBeanInfo = debbieBeanInfoFactory.getAllBeanInfo();
             for (BeanInfo<?> beanInfo : allDebbieBeanInfo) {
                 Class beanClass = beanInfo.getBeanClass();
-                SpringDebbieBeanFactory factory = new SpringDebbieBeanFactory<>(debbieBeanInfoFactory, beanInfo);
-                factory.setGlobalBeanFactory(applicationContext.getGlobalBeanFactory());
-                registry.registerBeanDefinition(beanInfo.getServiceName(), new RootBeanDefinition(beanClass, () -> factory));
+                if (beanInfo instanceof BeanFactory<?> beanFactory) {
+                    registry.registerBeanDefinition(beanInfo.getServiceName(), new RootBeanDefinition(beanClass, () -> beanFactory.factoryBean(applicationContext)));
+                }
             }
         }
     }

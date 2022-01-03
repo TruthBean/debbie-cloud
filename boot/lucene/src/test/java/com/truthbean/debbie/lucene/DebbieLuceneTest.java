@@ -9,7 +9,11 @@
  */
 package com.truthbean.debbie.lucene;
 
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInject;
+import com.truthbean.debbie.jdbc.entity.EntityResolver;
+import com.truthbean.debbie.jdbc.repository.JdbcTransactionRepository;
 import com.truthbean.transformer.text.DoubleArrayTransformer;
 import com.truthbean.debbie.jdbc.datasource.DataSourceFactory;
 import com.truthbean.debbie.jdbc.repository.DynamicRepository;
@@ -40,7 +44,7 @@ public class DebbieLuceneTest {
                 .select("id", "createTime as date", "feature")
                 .from("face")
                 .orderBy("id").desc()
-                .toList(Feature.class);
+                .toList(LOGGER, new JdbcTransactionRepository<>(), EntityResolver.getInstance(), Feature.class);
         for (Feature feature : list) {
             helper.createIndex(feature);
         }
@@ -66,4 +70,6 @@ public class DebbieLuceneTest {
         DistanceFeature distanceFeature = helper.queryIndex(feature);
         System.out.println(distanceFeature);
     }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DebbieLuceneTest.class);
 }

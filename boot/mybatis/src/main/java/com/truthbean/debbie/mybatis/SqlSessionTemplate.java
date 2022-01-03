@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.truthbean.debbie.bean.BeanClosure;
+import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.mybatis.support.SqlSessionDebbieSupport;
 import com.truthbean.debbie.util.Assert;
 import org.apache.ibatis.cursor.Cursor;
@@ -357,7 +358,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
      * }
      * </pre>
      * <p>
-     * The implementation of {@link BeanClosure} forces bean context to use {@link BeanClosure#destroy()} method
+     * The implementation of {@link BeanClosure} forces bean context to use {@link BeanClosure#destruct(ApplicationContext)} ()} method
      * instead of {@link SqlSessionTemplate#close()} to shutdown gently.
      *
      * @see SqlSessionTemplate#close()
@@ -365,7 +366,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
      * @see "org.springframework.beans.factory.support.DisposableBeanAdapter#CLOSE_METHOD_NAME"
      */
     @Override
-    public void destroy() {
+    public void destruct(ApplicationContext applicationContext) {
         // This method forces spring disposer to avoid call of SqlSessionTemplate.close() which gives
         // UnsupportedOperationException
     }

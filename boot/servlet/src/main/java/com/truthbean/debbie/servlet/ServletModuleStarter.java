@@ -9,9 +9,10 @@
  */
 package com.truthbean.debbie.servlet;
 
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author truthbean
@@ -20,8 +21,9 @@ import com.truthbean.debbie.properties.DebbieConfigurationCenter;
 public class ServletModuleStarter implements DebbieModuleStarter {
 
     @Override
-    public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext applicationContext) {
-        configurationFactory.register(new ServletProperties(), ServletConfiguration.class);
+    public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new ServletProperties(), ServletConfiguration.class);
+        beanInfoManager.register(beanFactory);
     }
 
     @Override

@@ -9,7 +9,6 @@
  */
 package com.truthbean.debbie.mybatis.transaction;
 
-import com.truthbean.debbie.bean.BeanInitialization;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.jdbc.transaction.TransactionInfo;
 import com.truthbean.debbie.proxy.MethodProxyHandler;
@@ -35,7 +34,7 @@ public class MybatisTransactionalHandler implements MethodProxyHandler<JdbcTrans
 
     private int order;
 
-    private BeanInitialization beanInitialization;
+    private ApplicationContext applicationContext;
 
     private boolean autoCommit;
 
@@ -75,13 +74,13 @@ public class MybatisTransactionalHandler implements MethodProxyHandler<JdbcTrans
 
     @Override
     public void setApplicationContext(ApplicationContext context) {
-        beanInitialization = context.getBeanInitialization();
+        applicationContext = context;
     }
 
     @Override
     public void before() {
         LOGGER.debug("running before method (" + transactionInfo.getMethod() + ") invoke ..");
-        SqlSessionFactory sqlSessionFactory = beanInitialization.getRegisterBean(SqlSessionFactory.class);
+        SqlSessionFactory sqlSessionFactory = applicationContext.factory(SqlSessionFactory.class);
 
         TransactionInfo peek = null;
         try {

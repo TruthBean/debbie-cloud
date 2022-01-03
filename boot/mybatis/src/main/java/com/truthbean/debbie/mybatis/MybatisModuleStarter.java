@@ -10,15 +10,17 @@
 package com.truthbean.debbie.mybatis;
 
 import com.truthbean.debbie.bean.BeanComponentParser;
-import com.truthbean.debbie.bean.BeanInitialization;
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContent;
 import com.truthbean.debbie.mybatis.annotation.*;
 import com.truthbean.debbie.mybatis.configuration.MyBatisConfigurationSettings;
+import com.truthbean.debbie.mybatis.configuration.MybatisConfiguration;
 import com.truthbean.debbie.mybatis.configuration.MybatisProperties;
 import com.truthbean.debbie.mybatis.configuration.transformer.*;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
+import com.truthbean.transformer.DataTransformerCenter;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.AutoMappingBehavior;
 import org.apache.ibatis.session.AutoMappingUnknownColumnBehavior;
@@ -56,28 +58,27 @@ public class MybatisModuleStarter implements DebbieModuleStarter {
     }
 
     @Override
-    public void registerBean(ApplicationContext context, BeanInitialization beanInitialization) {
-        beanInitialization.init(MyBatisConfigurationSettings.class);
+    public void registerBean(ApplicationContext context, BeanInfoManager beanInfoManager) {
+        beanInfoManager.register(MyBatisConfigurationSettings.class);
+        MybatisProperties mybatisProperties = new MybatisProperties(context);
+        var configurationBeanFactory = new PropertiesConfigurationBeanFactory<>(mybatisProperties, MybatisConfiguration.class);
+        beanInfoManager.register(configurationBeanFactory);
+        beanInfoManager.registerBeanRegister(new MappedBeanRegister(context, configurationBeanFactory.factoryBean(context)));
+        beanInfoManager.registerBeanRegister(new MybatisBeanRegister(context));
 
-        registerTransformer(beanInitialization);
-
-        // MethodProxyHandlerRegister methodProxyHandlerRegister = beanFactoryHandler.getMethodProxyHandlerRegister();
-        // methodProxyHandlerRegister.register(JdbcTransactional.class, MybatisTransactionalHandler.class);
+        registerTransformer();
     }
 
-    private void registerTransformer(BeanInitialization beanInitialization) {
-        beanInitialization.registerDataTransformer(new AutoMappingBehaviorTransformer(), AutoMappingBehavior.class, String.class);
-        beanInitialization.registerDataTransformer(new AutoMappingUnknownColumnBehaviorTransformer(), AutoMappingUnknownColumnBehavior.class, String.class);
-        beanInitialization.registerDataTransformer(new ExecutorTypeTransformer(), ExecutorType.class, String.class);
-        beanInitialization.registerDataTransformer(new JdbcTypeTransformer(), JdbcType.class, String.class);
-        beanInitialization.registerDataTransformer(new LocalCacheScopeTransformer(), LocalCacheScope.class, String.class);
+    private void registerTransformer() {
+        DataTransformerCenter.register(new AutoMappingBehaviorTransformer(), AutoMappingBehavior.class, String.class);
+        DataTransformerCenter.register(new AutoMappingUnknownColumnBehaviorTransformer(), AutoMappingUnknownColumnBehavior.class, String.class);
+        DataTransformerCenter.register(new ExecutorTypeTransformer(), ExecutorType.class, String.class);
+        DataTransformerCenter.register(new JdbcTypeTransformer(), JdbcType.class, String.class);
+        DataTransformerCenter.register(new LocalCacheScopeTransformer(), LocalCacheScope.class, String.class);
     }
 
     @Override
-    public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext context) {
-        MappedBeanRegister register = new MappedBeanRegister(configurationFactory, context);
-        register.registerMapper();
-        register.registerSqlSessionFactory();
+    public void configure(ApplicationContext context) {
     }
 
     @Override

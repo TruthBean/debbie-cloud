@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.servlet;
 
+import com.truthbean.common.mini.util.StringUtils;
 import com.truthbean.debbie.bean.BeanScanConfiguration;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContentHolder;
@@ -16,6 +17,10 @@ import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.MvcProperties;
 import com.truthbean.debbie.properties.ClassesScanProperties;
 import com.truthbean.debbie.properties.DebbieProperties;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author TruthBean
@@ -28,6 +33,7 @@ public class ServletProperties extends EnvironmentContentHolder implements Debbi
 
     //========================================================================================
 
+    private final Map<String, ServletConfiguration> map = new HashMap<>();
     private static ServletConfiguration configuration;
     public static ServletConfiguration toConfiguration(ClassLoader classLoader) {
         if (configuration != null) {
@@ -46,8 +52,27 @@ public class ServletProperties extends EnvironmentContentHolder implements Debbi
     }
 
     @Override
-    public ServletConfiguration toConfiguration(ApplicationContext applicationContext) {
+    public Set<String> getProfiles() {
+        return map.keySet();
+    }
+
+    @Override
+    public ServletConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
+        if (DEFAULT_PROFILE.equals(name) || !StringUtils.hasText(name)) {
+            return getConfiguration(applicationContext);
+        }
+        return map.get(name);
+    }
+
+    @Override
+    public ServletConfiguration getConfiguration(ApplicationContext applicationContext) {
         ClassLoader classLoader = applicationContext.getClassLoader();
         return toConfiguration(classLoader);
+    }
+
+    @Override
+    public void close() throws Exception {
+        map.clear();
+        configuration = null;
     }
 }

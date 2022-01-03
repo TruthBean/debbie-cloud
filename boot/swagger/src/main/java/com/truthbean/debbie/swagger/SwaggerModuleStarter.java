@@ -29,7 +29,7 @@ public class SwaggerModuleStarter implements DebbieModuleStarter {
     }
 
     @Override
-    public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext context) {
+    public void configure(ApplicationContext context) {
         DebbieSwaggerConfiguration configuration = new DebbieSwaggerConfiguration();
         configuration.configure(context);
     }

@@ -9,10 +9,11 @@
  */
 package com.truthbean.debbie.tomcat;
 
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContent;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 import com.truthbean.debbie.servlet.ServletConfiguration;
 import com.truthbean.debbie.servlet.ServletProperties;
 
@@ -24,13 +25,15 @@ public class TomcatModuleStarter implements DebbieModuleStarter {
 
     @Override
     public boolean enable(EnvironmentContent envContent) {
-        return envContent.getBooleanValue(TomcatProperties.ENABLE_KEY, false);
+        return envContent.getBooleanValue(TomcatProperties.ENABLE_KEY, true);
     }
 
     @Override
-    public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext applicationContext) {
-        configurationFactory.register(new ServletProperties(), ServletConfiguration.class);
-        configurationFactory.register(new TomcatProperties(), TomcatConfiguration.class);
+    public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
+        var servletBeanFactory = new PropertiesConfigurationBeanFactory<>(new ServletProperties(), ServletConfiguration.class);
+        beanInfoManager.register(servletBeanFactory);
+        var tomcatBeanFactory = new PropertiesConfigurationBeanFactory<>(new TomcatProperties(), TomcatConfiguration.class);
+        beanInfoManager.register(tomcatBeanFactory);
     }
 
     @Override

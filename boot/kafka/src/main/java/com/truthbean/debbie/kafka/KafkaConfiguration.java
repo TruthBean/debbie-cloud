@@ -87,6 +87,9 @@ public class KafkaConfiguration implements DebbieConfiguration {
         @PropertyInject("session-timeout")
         private Integer sessionTimeout;
 
+        @PropertyInject("pull-timeout")
+        private Long pullTimeout = 10000L;
+
         public List<String> getBootstrapServers() {
             return bootstrapServers;
         }
@@ -159,6 +162,14 @@ public class KafkaConfiguration implements DebbieConfiguration {
             this.sessionTimeout = sessionTimeout;
         }
 
+        public Long getPullTimeout() {
+            return pullTimeout;
+        }
+
+        public void setPullTimeout(Long pullTimeout) {
+            this.pullTimeout = pullTimeout;
+        }
+
         public Properties toConsumerProperties() {
             Properties p = new Properties();
             if (bootstrapServers != null && !bootstrapServers.isEmpty()) {
@@ -201,6 +212,7 @@ public class KafkaConfiguration implements DebbieConfiguration {
         this.name = name;
     }
 
+    @Override
     public boolean isEnable() {
         return enable;
     }
@@ -210,7 +222,7 @@ public class KafkaConfiguration implements DebbieConfiguration {
     }
 
     @Override
-    public void reset() {
+    public void close() {
         this.bootstrapServers.clear();
     }
 }

@@ -9,18 +9,17 @@
  */
 package com.truthbean.debbie.servlet;
 
-import com.truthbean.Logger;
-import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.core.AbstractApplicationFactory;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.internal.DebbieApplicationFactory;
 import com.truthbean.debbie.mvc.router.Router;
 import com.truthbean.debbie.watcher.Watcher;
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
+
 import jakarta.servlet.ServletContainerInitializer;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.HandlesTypes;
-
 import java.util.Set;
 
 /**
@@ -29,33 +28,33 @@ import java.util.Set;
  * Created on 2018-01-07 22:30.
  */
 @HandlesTypes(value = {Watcher.class, Router.class})
-public class ServletApplicationInitializer extends DebbieApplicationFactory implements ServletContainerInitializer {
+public class ServletApplicationInitializer extends AbstractApplicationFactory implements ServletContainerInitializer {
 
     private final ApplicationContext applicationContext;
 
     public ServletApplicationInitializer() {
-        LOGGER.info("ServletApplicationInitializer init ...");
+        super(ServletApplicationInitializer.class);
         if (debbieApplication == null) {
-            debbieApplication = super.preInit().init(ServletApplicationInitializer.class).config().create().postCreate().build().factory();
             LOGGER.debug("run servlet module without application");
-            applicationContext = this.getApplicationContext();
+            applicationContext = getApplicationContext();
             super.config(ServletApplicationInitializer.class);
             super.callStarter();
         } else {
-            applicationContext = debbieApplication.getApplicationContext();
+            applicationContext = super.getApplicationContext();
         }
     }
 
     @Override
     public void onStartup(Set<Class<?>> classes, ServletContext ctx) throws ServletException {
         LOGGER.info("ServletContainerInitializer onStartup ...");
-        var handler = new ServletContextHandler(ctx, this.applicationContext);
+        var handler = new ServletContextHandler(ctx, applicationContext);
         handler.registerRouter();
         handler.registerFilter(ctx);
 
         // if run with war package
-        if (debbieApplication == null)
-            super.postCallStarter();
+        if (debbieApplication == null) {
+            super.postCallStarter(this.factory());
+        }
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServletApplicationInitializer.class);

@@ -23,7 +23,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 @BeanComponent
 public class KafkaMessageListener {
 
-    @KafkaConsumerListener(topics = "hkvs-alarm", async = true)
+    @KafkaConsumerListener(topics = "graalvm", async = true)
     public void onKafkaListener(ConsumerRecord<String, String> record) {
         logger.info(() -> "topic: " + record.topic());
         logger.info(() -> "offset: " + record.offset());

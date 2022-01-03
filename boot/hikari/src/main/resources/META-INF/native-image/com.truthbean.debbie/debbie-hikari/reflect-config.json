@@ -22,5 +22,57 @@
     "allPublicMethods" : true,
     "allDeclaredFields" : true,
     "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.hikari.HikariDataSourceFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.hikari.HikariConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setDataSourceClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setJdbcUrl", "parameterTypes": ["java.lang.String"] },
+      { "name": "setUsername", "parameterTypes": ["java.lang.String"] },
+      { "name": "setHikariPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setHikariAutoCommit", "parameterTypes": ["java.lang.Boolean"] },
+      { "name": "setDriverClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setTransactionIsolation", "parameterTypes": ["com.truthbean.debbie.jdbc.transaction.TransactionIsolationLevel"] },
+      { "name": "setSchema", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDataSource", "parameterTypes": ["javax.sql.DataSource"] },
+      { "name": "setConnectionTimeout", "parameterTypes": ["long"] },
+      { "name": "setIdleTimeout", "parameterTypes": ["long"] },
+      { "name": "setMaxLifetime", "parameterTypes": ["long"] },
+      { "name": "setConnectionTestQuery", "parameterTypes": ["java.lang.String"] },
+      { "name": "setMinimumIdle", "parameterTypes": ["int"] },
+      { "name": "setMaximumPoolSize", "parameterTypes": ["int"] },
+      { "name": "setMetricRegistry", "parameterTypes": ["java.lang.String"] },
+      { "name": "setHealthCheckRegistry", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPoolName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setInitializationFailTimeout", "parameterTypes": ["long"] },
+      { "name": "setIsolateInternalQueries", "parameterTypes": ["boolean"] },
+      { "name": "setAllowPoolSuspension", "parameterTypes": ["boolean"] },
+      { "name": "setReadOnly", "parameterTypes": ["boolean"] },
+      { "name": "setRegisterMbeans", "parameterTypes": ["boolean"] },
+      { "name": "setCatalog", "parameterTypes": ["java.lang.String"] },
+      { "name": "setConnectionInitSql", "parameterTypes": ["java.lang.String"] },
+      { "name": "setValidationTimeout", "parameterTypes": ["long"] },
+      { "name": "setLeakDetectionThreshold", "parameterTypes": ["long"] },
+      { "name": "setThreadFactory", "parameterTypes": ["java.util.concurrent.ThreadFactory"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
   }
 ]

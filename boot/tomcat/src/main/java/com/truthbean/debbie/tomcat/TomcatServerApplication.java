@@ -13,6 +13,7 @@ import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.boot.ApplicationArgs;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.env.EnvironmentContent;
 import com.truthbean.debbie.io.PathUtils;
 import com.truthbean.debbie.properties.DebbieConfigurationCenter;
 import com.truthbean.debbie.server.AbstractWebServerApplication;
@@ -40,6 +41,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author TruthBean
@@ -51,6 +53,11 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
     @Override
     public boolean isWeb() {
         return true;
+    }
+
+    @Override
+    public boolean isEnable(EnvironmentContent envContent) {
+        return super.isEnable(envContent) && envContent.getBooleanValue(TomcatProperties.ENABLE_KEY, true);
     }
 
     static {
@@ -116,7 +123,7 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
         // TODO ssl
     }
 
-    private void config(ClassLoader classLoader, List<ErrorPage> errorPages) {
+    private void config(ClassLoader classLoader, Set<ErrorPage> errorPages) {
         if (this.configuration.isDisableMBeanRegistry()) {
             Registry.disableRegistry();
         }
@@ -190,16 +197,15 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
     }
 
     @Override
-    public DebbieApplication init(DebbieConfigurationCenter factory, ApplicationContext applicationContext,
-                                     ClassLoader classLoader) {
-        this.configuration = factory.factory(TomcatConfiguration.class, applicationContext);
+    public DebbieApplication init(ApplicationContext applicationContext, ClassLoader classLoader) {
+        this.configuration = applicationContext.factory(TomcatConfiguration.class);
         if (this.configuration == null) {
             LOGGER.warn("debbie-tomcat module is disabled, debbie.tomcat.enable is false");
             return null;
         }
 
         GlobalBeanFactory globalBeanFactory = applicationContext.getGlobalBeanFactory();
-        List<ErrorPage> errorPages = globalBeanFactory.getBeanList(ErrorPage.class);
+        Set<ErrorPage> errorPages = globalBeanFactory.getBeanList(ErrorPage.class);
         config(classLoader, errorPages);
 
         super.setLogger(LOGGER);

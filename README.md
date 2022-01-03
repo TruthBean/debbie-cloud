@@ -2,4 +2,4 @@
 truthbean debbie cloud framework collections
 
 ## Note
-Need java 11 or above
+Need java 17 or above

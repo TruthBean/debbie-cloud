@@ -12,8 +12,7 @@ package com.truthbean.debbie.cron;
 import com.truthbean.Logger;
 import com.truthbean.debbie.bean.BeanCreatedException;
 import com.truthbean.debbie.bean.BeanFactory;
-import com.truthbean.debbie.bean.GlobalBeanFactory;
-import com.truthbean.debbie.env.EnvContentAware;
+import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContent;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.env.EnvironmentContentHolder;
@@ -21,28 +20,33 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.1.0
  * Created on 2020-08-11 09:39
  */
-public class SchedulerBeanFactory implements BeanFactory<Scheduler>, EnvContentAware {
+public class SchedulerBeanFactory implements BeanFactory<Scheduler> {
     private volatile Scheduler scheduler;
+    private final Set<String> beanNames;
 
-    private EnvironmentContent envContent;
-
-    @Override
-    public void setEnvContent(EnvironmentContent envContent) {
-        this.envContent = envContent;
+    public SchedulerBeanFactory(String...names) {
+        this.beanNames = new HashSet<>();
+        Collections.addAll(this.beanNames, names);
     }
 
     @Override
-    public Scheduler getBean() {
+    public Scheduler factoryBean(ApplicationContext applicationContext) {
         if (scheduler == null) {
             synchronized (SchedulerBeanFactory.class) {
                 if (scheduler == null) {
+                    EnvironmentContent envContent = applicationContext.getEnvContent();
                     if (envContent instanceof EnvironmentContentHolder) {
-                        ((EnvironmentContentHolder)envContent).addProperty("org.quartz.threadPool.threadCount", "10");
+                        int i = Runtime.getRuntime().availableProcessors();
+                        ((EnvironmentContentHolder)envContent).addProperty("org.quartz.threadPool.threadCount", String.valueOf(i));
                     }
                     try {
                         StdSchedulerFactory factory = new StdSchedulerFactory(envContent.getProperties());
@@ -58,8 +62,28 @@ public class SchedulerBeanFactory implements BeanFactory<Scheduler>, EnvContentA
     }
 
     @Override
-    public Class<Scheduler> getBeanType() {
+    public Scheduler factoryNamedBean(String name, ApplicationContext applicationContext) {
+        return factoryBean(applicationContext);
+    }
+
+    @Override
+    public Set<String> getBeanNames() {
+        return beanNames;
+    }
+
+    @Override
+    public Scheduler getCreatedBean() {
+        return this.scheduler;
+    }
+
+    @Override
+    public Class<?> getBeanClass() {
         return Scheduler.class;
+    }
+
+    @Override
+    public boolean isCreated() {
+        return this.scheduler != null;
     }
 
     @Override
@@ -68,11 +92,12 @@ public class SchedulerBeanFactory implements BeanFactory<Scheduler>, EnvContentA
     }
 
     @Override
-    public void destroy() {
+    public void destruct(ApplicationContext applicationContext) {
         if (this.scheduler != null) {
             try {
-                if (this.scheduler.isStarted() && !this.scheduler.isShutdown())
+                if (this.scheduler.isStarted() && !this.scheduler.isShutdown()) {
                     this.scheduler.shutdown(true);
+                }
             } catch (SchedulerException e) {
                 LOGGER.error("", e);
             }
@@ -80,8 +105,8 @@ public class SchedulerBeanFactory implements BeanFactory<Scheduler>, EnvContentA
     }
 
     @Override
-    public void setGlobalBeanFactory(GlobalBeanFactory globalBeanFactory) {
-
+    public Logger getLogger() {
+        return LOGGER;
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerBeanFactory.class);

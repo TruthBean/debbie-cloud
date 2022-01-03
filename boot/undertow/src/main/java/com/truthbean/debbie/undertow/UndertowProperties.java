@@ -16,18 +16,36 @@ import com.truthbean.debbie.mvc.MvcProperties;
 import com.truthbean.debbie.properties.ClassesScanProperties;
 import com.truthbean.debbie.server.BaseServerProperties;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * @author TruthBean
  * @since 0.0.1
  * Created on 2019/4/12 23:58.
  */
 public class UndertowProperties extends BaseServerProperties<UndertowConfiguration> {
+    private final Map<String, UndertowConfiguration> map = new HashMap<>();
     private UndertowConfiguration configuration;
 
     public static final String ENABLE_KEY = "debbie.undertow.enable";
 
     @Override
-    public UndertowConfiguration toConfiguration(ApplicationContext applicationContext) {
+    public Set<String> getProfiles() {
+        return map.keySet();
+    }
+
+    @Override
+    public UndertowConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
+        if (map.isEmpty() && DEFAULT_PROFILE.equals(name)) {
+            return getConfiguration(applicationContext);
+        }
+        return map.get(name);
+    }
+
+    @Override
+    public UndertowConfiguration getConfiguration(ApplicationContext applicationContext) {
         if (configuration != null) {
             return configuration;
         }
@@ -44,6 +62,14 @@ public class UndertowProperties extends BaseServerProperties<UndertowConfigurati
         UndertowProperties properties = new UndertowProperties();
         properties.loadAndSet(properties, configuration);
 
+        map.put(DEFAULT_PROFILE, configuration);
+
         return configuration;
+    }
+
+    @Override
+    public void close() throws Exception {
+        map.clear();
+        configuration = null;
     }
 }

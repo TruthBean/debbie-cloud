@@ -9,9 +9,11 @@
  */
 package com.truthbean.debbie.swagger;
 
-import com.truthbean.debbie.bean.BeanInitialization;
-import com.truthbean.debbie.bean.DebbieBeanInfo;
+import com.truthbean.debbie.bean.BeanInfoManager;
+import com.truthbean.debbie.bean.GlobalBeanFactory;
+import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.proxy.BeanProxyType;
 import io.swagger.v3.oas.integration.GenericOpenApiContextBuilder;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
@@ -32,20 +34,16 @@ public class DebbieSwaggerConfiguration {
     public void configure(ApplicationContext context) {
         OpenAPI oas = new OpenAPI();
 
-        BeanInitialization beanInitialization = context.getBeanInitialization();
-        beanInitialization.init(DebbieSwaggerRouter.class);
+        BeanInfoManager beanInitialization = context.getBeanInfoManager();
+        beanInitialization.register(DebbieSwaggerRouter.class);
 
-        Info info = beanInitialization.getRegisterBean(Info.class);
+        GlobalBeanFactory globalBeanFactory = context.getGlobalBeanFactory();
+
         DebbieSwaggerProperties properties = new DebbieSwaggerProperties();
-        if (info == null) {
-            info = properties.getInfo();
-        }
+        Info info = globalBeanFactory.factoryIfPresentOrElse(Info.class, properties::getInfo);
         oas.info(info);
 
-        Server server = beanInitialization.getRegisterBean(Server.class);
-        if (server == null) {
-            server = properties.getServer();
-        }
+        Server server = globalBeanFactory.factoryIfPresentOrElse(Server.class, properties::getServer);
         var servers = new ArrayList<Server>();
         servers.add(server);
         oas.servers(servers);
@@ -67,11 +65,8 @@ public class DebbieSwaggerConfiguration {
             result = oas;
         }
 
-        DebbieBeanInfo<OpenAPI> beanInfo = new DebbieBeanInfo<>(OpenAPI.class);
-        beanInfo.addBeanName("openApi");
-        beanInfo.setBean(result);
-        beanInitialization.initSingletonBean(beanInfo);
-        context.refreshBeans();
+        var beanFactory = new SimpleBeanFactory<>(result, OpenAPI.class, BeanProxyType.NO, "openApi");
+        beanInitialization.register(beanFactory);
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DebbieSwaggerConfiguration.class);

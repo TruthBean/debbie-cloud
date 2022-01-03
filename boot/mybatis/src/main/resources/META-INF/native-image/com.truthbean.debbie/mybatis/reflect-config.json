@@ -1,0 +1,228 @@
+[
+  {
+    "name": "com.truthbean.debbie.mybatis.MybatisModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.mybatis.configuration.MyBatisConfigurationSettings",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setCacheEnabled", "parameterTypes": ["boolean"] },
+      { "name": "setLazyLoadingEnabled", "parameterTypes": ["boolean"] },
+      { "name": "setAggressiveLazyLoading", "parameterTypes": ["boolean"] },
+      { "name": "setMultipleResultSetsEnabled", "parameterTypes": ["boolean"] },
+      { "name": "setUseColumnLabel", "parameterTypes": ["boolean"] },
+      { "name": "setUseGeneratedKeys", "parameterTypes": ["boolean"] },
+      { "name": "setAutoMappingBehavior", "parameterTypes": ["org.apache.ibatis.session.AutoMappingBehavior"] },
+      { "name": "setAutoMappingUnknownColumnBehavior", "parameterTypes": ["org.apache.ibatis.session.AutoMappingUnknownColumnBehavior"] },
+      { "name": "setDefaultExecutorType", "parameterTypes": ["org.apache.ibatis.session.ExecutorType"] },
+      { "name": "setDefaultStatementTimeout", "parameterTypes": ["java.lang.Integer"] },
+      { "name": "setDefaultFetchSize", "parameterTypes": ["java.lang.Integer"] },
+      { "name": "setSafeRowBoundsEnabled", "parameterTypes": ["boolean"] },
+      { "name": "setSafeResultHandlerEnabled", "parameterTypes": ["boolean"] },
+      { "name": "setMapUnderscoreToCamelCase", "parameterTypes": ["boolean"] },
+      { "name": "setLocalCacheScope", "parameterTypes": ["org.apache.ibatis.session.LocalCacheScope"] },
+      { "name": "setJdbcTypeForNull", "parameterTypes": ["org.apache.ibatis.type.JdbcType"] },
+      { "name": "setJdbcTypeForNull", "parameterTypes": ["org.apache.ibatis.type.JdbcType"] },
+      { "name": "setLazyLoadTriggerMethods", "parameterTypes": ["java.util.Set"] },
+      { "name": "setDefaultScriptingLanguage", "parameterTypes": ["java.lang.Class"] },
+      { "name": "setDefaultEnumTypeHandler", "parameterTypes": ["java.lang.Class"] },
+      { "name": "setCallSettersOnNulls", "parameterTypes": ["boolean"] },
+      { "name": "setReturnInstanceForEmptyRow", "parameterTypes": ["boolean"] },
+      { "name": "setLogPrefix", "parameterTypes": ["java.lang.String"] },
+      { "name": "setLogImpl", "parameterTypes": ["java.lang.Class"] },
+      { "name": "setProxyFactory", "parameterTypes": ["org.apache.ibatis.executor.loader.ProxyFactory"] },
+      { "name": "setVfsImpl", "parameterTypes": ["java.lang.Class"] },
+      { "name": "setUseActualParamName", "parameterTypes": ["boolean"] },
+      { "name": "setConfigurationFactory", "parameterTypes": ["java.lang.Class"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name" : "javassist.util.proxy.ProxyFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.javassist.util.proxy.ProxyFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.logging.slf4j.Slf4jImpl",
+    "allDeclaredFields": true,
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true,
+    "allDeclaredClasses": true
+  },
+  {
+    "name": "org.slf4j.Marker",
+    "allDeclaredFields": true,
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true,
+    "allDeclaredClasses": true
+  },
+  {
+    "name": "org.apache.ibatis.logging.nologging.NoLoggingImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.logging.stdout.StdOutImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.logging.jdk14.Jdk14LoggingImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.logging.log4j2.Log4j2Impl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.logging.log4j.Log4jImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.logging.slf4j.Slf4jImpl",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.io.JBoss6VFS",
+    "allPublicConstructors": true
+  },
+  {
+    "name": "org.apache.ibatis.io.DefaultVFS",
+    "allPublicConstructors": true
+  },
+  {
+    "name": "org.apache.ibatis.type.JdbcType",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "java.lang.invoke.MethodHandles",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.scripting.xmltags.XMLLanguageDriver",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "org.apache.ibatis.scripting.defaults.RawLanguageDriver",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

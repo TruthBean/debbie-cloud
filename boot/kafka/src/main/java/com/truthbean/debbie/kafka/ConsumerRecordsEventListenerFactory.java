@@ -10,7 +10,11 @@
 package com.truthbean.debbie.kafka;
 
 import com.truthbean.debbie.bean.BeanFactory;
-import com.truthbean.debbie.bean.GlobalBeanFactory;
+import com.truthbean.debbie.core.ApplicationContext;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -19,25 +23,43 @@ import com.truthbean.debbie.bean.GlobalBeanFactory;
  */
 public class ConsumerRecordsEventListenerFactory<K, V> implements BeanFactory<ConsumerRecordsEventListener<K, V>> {
     private final ConsumerRecordsEventListener<K, V> eventListener;
+    private final Set<String> beanNames = new HashSet<>();
 
-    public ConsumerRecordsEventListenerFactory() {
+    public ConsumerRecordsEventListenerFactory(String... names) {
         this.eventListener = new ConsumerRecordsEventListener<>();
+        if (names != null && names.length > 0) {
+            Collections.addAll(beanNames, names);
+        }
     }
 
     @Override
-    public ConsumerRecordsEventListener<K, V> getBean() {
+    public ConsumerRecordsEventListener<K, V> getCreatedBean() {
         return eventListener;
     }
 
     @Override
-    public ConsumerRecordsEventListener<K, V> factoryBean() {
+    public boolean isCreated() {
+        return true;
+    }
+
+    @Override
+    public ConsumerRecordsEventListener<K, V> factoryBean(ApplicationContext applicationContext) {
         return eventListener;
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
-    public Class<ConsumerRecordsEventListener> getBeanType() {
+    public ConsumerRecordsEventListener<K, V> factoryNamedBean(String name, ApplicationContext applicationContext) {
+        return eventListener;
+    }
+
+    @Override
+    public Class<?> getBeanClass() {
         return ConsumerRecordsEventListener.class;
+    }
+
+    @Override
+    public Set<String> getBeanNames() {
+        return beanNames;
     }
 
     @Override
@@ -46,12 +68,6 @@ public class ConsumerRecordsEventListenerFactory<K, V> implements BeanFactory<Co
     }
 
     @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void setGlobalBeanFactory(GlobalBeanFactory globalBeanFactory) {
-
+    public void destruct(ApplicationContext applicationContext) {
     }
 }

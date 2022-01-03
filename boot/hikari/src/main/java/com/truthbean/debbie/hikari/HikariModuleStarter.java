@@ -9,11 +9,12 @@
  */
 package com.truthbean.debbie.hikari;
 
-import com.truthbean.debbie.bean.BeanInitialization;
+import com.truthbean.debbie.bean.BeanInfoManager;
+import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContent;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author truthbean
@@ -29,13 +30,12 @@ public class HikariModuleStarter implements DebbieModuleStarter {
     }
 
     @Override
-    public void registerBean(ApplicationContext applicationContext, BeanInitialization beanInitialization) {
-        beanInitialization.init(HikariConfiguration.class);
+    public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
+        beanInfoManager.register(new PropertiesConfigurationBeanFactory<>(new HikariProperties(), HikariConfiguration.class));
     }
 
     @Override
-    public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext applicationContext) {
-        configurationFactory.register(new HikariProperties(), HikariConfiguration.class);
+    public void configure(ApplicationContext applicationContext) {
     }
 
     @Override

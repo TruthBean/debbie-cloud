@@ -18,10 +18,10 @@ module com.truthbean.debbie.javafx {
     requires transitive com.truthbean.debbie.core;
     requires transitive javafx.graphics;
     // requires javafx.controlsEmpty;
-    requires javafx.controls;
+    requires transitive javafx.controls;
     // requires javafx.graphicsEmpty;
     // requires javafx.baseEmpty;
-    requires javafx.fxml;
+    requires transitive javafx.fxml;
 
     exports com.truthbean.debbie.javafx;
 

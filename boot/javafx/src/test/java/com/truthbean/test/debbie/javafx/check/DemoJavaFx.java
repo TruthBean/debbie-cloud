@@ -7,7 +7,7 @@
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
  */
-package com.truthbean.debbie.javafx.check;
+package com.truthbean.test.debbie.javafx.check;
 
 import com.truthbean.debbie.javafx.DebbieJavaFx;
 import com.truthbean.debbie.javafx.PrimaryStage;

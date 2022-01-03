@@ -9,14 +9,11 @@
  */
 package com.truthbean.debbie.swagger.test;
 
-import com.truthbean.debbie.bean.BeanInitialization;
-import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.boot.DebbieBootApplication;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
 import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.router.MvcRouterRegister;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
 import com.truthbean.debbie.swagger.SwaggerReader;
 import com.truthbean.debbie.util.JacksonUtils;
 import io.swagger.v3.oas.integration.GenericOpenApiContextBuilder;
@@ -34,15 +31,12 @@ public class DebbieSwaggerTest {
         ApplicationFactory factory = ApplicationFactory.configure(DebbieSwaggerTest.class);
         ApplicationContext context = factory.getApplicationContext();
 
-        DebbieConfigurationCenter configurationFactory = context.getConfigurationCenter();
-        MvcConfiguration configuration = configurationFactory.factory(MvcConfiguration.class, context);
-
-        BeanInitialization beanInitialization = context.getBeanInitialization();
+        MvcConfiguration configuration = context.factory(MvcConfiguration.class);
 
         MvcRouterRegister.registerRouter(configuration, context);
 
         OpenAPI oas = new OpenAPI();
-        Info info = beanInitialization.getRegisterBean(Info.class);
+        Info info = context.factory(Info.class);
 
         oas.info(info);
         oas.servers(List.of(new Server().url("http://localhost:8090").description("debbie swagger example")));

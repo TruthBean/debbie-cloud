@@ -17,13 +17,12 @@ import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.concurrent.NamedThreadFactory;
 import com.truthbean.debbie.concurrent.ThreadPooledExecutor;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.event.DefaultEventPublisher;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.env.EnvironmentContent;
+import com.truthbean.debbie.event.DebbieEventPublisher;
 import com.truthbean.LoggerFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.lang.management.ManagementFactory;
 import java.time.Instant;
 import java.util.concurrent.ThreadFactory;
 
@@ -45,15 +44,19 @@ public class JavaFxApplication extends AbstractApplication  {
     }
 
     @Override
-    public DebbieApplication init(DebbieConfigurationCenter configurationCenter, ApplicationContext applicationContext,
-                                  ClassLoader classLoader) {
+    public boolean isEnable(EnvironmentContent envContent) {
+        return super.isEnable(envContent) && envContent.getBooleanValue(JavaFxModuleStarter.ENABLE_KEY, true);
+    }
+
+    @Override
+    public DebbieApplication init(ApplicationContext applicationContext, ClassLoader classLoader) {
         logger.trace("init ... ");
         GlobalBeanFactory globalBeanFactory = applicationContext.getGlobalBeanFactory();
 
         PrimaryStage primaryStage = globalBeanFactory.factory(PrimaryStage.class);
         PrimaryStageHolder.set(primaryStage);
 
-        DefaultEventPublisher eventPublisher = globalBeanFactory.factory("eventPublisher");
+        DebbieEventPublisher eventPublisher = globalBeanFactory.factory("eventPublisher");
         WindowsCloseEventListener.createInstance(eventPublisher);
         super.setLogger(logger);
 
@@ -65,7 +68,6 @@ public class JavaFxApplication extends AbstractApplication  {
 
     @Override
     protected void start(Instant beforeStartTime, ApplicationArgs args) {
-        double uptime = ManagementFactory.getRuntimeMXBean().getUptime();
         printStartTime();
         postBeforeStart();
         Runtime.getRuntime().addShutdownHook(new Thread(super::exit));

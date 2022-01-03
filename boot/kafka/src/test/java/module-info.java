@@ -23,5 +23,5 @@ open module com.truthbean.debbie.kafka.test {
     requires org.lz4.java;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.fasterxml.jackson.annotation;
-    requires com.truthbean.logger.slf4j.boot;
+    requires com.truthbean.logger.stdout.boot;
 }

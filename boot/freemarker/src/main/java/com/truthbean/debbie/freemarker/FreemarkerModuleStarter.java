@@ -9,11 +9,10 @@
  */
 package com.truthbean.debbie.freemarker;
 
-import com.truthbean.debbie.bean.BeanInitialization;
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContent;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
 
 /**
  * @author TruthBean
@@ -29,15 +28,13 @@ public class FreemarkerModuleStarter implements DebbieModuleStarter {
     }
 
     @Override
-    public void registerBean(ApplicationContext context, BeanInitialization beanInitialization) {
-        var freemarkerConfiguration = new DebbieFreemarkerConfiguration();
-        freemarkerConfiguration.register(context);
+    public void registerBean(ApplicationContext context, BeanInfoManager beanInfoManager) {
+        DefaultConfigurationBeanFactory beanFactory = new DefaultConfigurationBeanFactory("freemarkerConfiguration");
+        beanInfoManager.register(beanFactory);
     }
 
     @Override
-    public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext context) {
-        var freemarkerConfiguration = new DebbieFreemarkerConfiguration();
-        freemarkerConfiguration.configure(context);
+    public void configure(ApplicationContext context) {
     }
 
     @Override

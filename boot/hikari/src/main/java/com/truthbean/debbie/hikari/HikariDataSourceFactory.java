@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.hikari;
 
+import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.jdbc.datasource.DataSourceConfiguration;
 import com.truthbean.debbie.jdbc.datasource.DataSourceDriverName;
 import com.truthbean.debbie.jdbc.datasource.DataSourceFactory;
@@ -29,18 +30,20 @@ public class HikariDataSourceFactory implements DataSourceFactory {
     private HikariDataSource hikariDataSource;
     private DataSourceDriverName driverName;
 
+    private String name;
+
     @Override
     public DataSourceFactory factory(DataSource dataSource) {
         if (dataSource instanceof HikariDataSource) {
             hikariDataSource = (HikariDataSource) dataSource;
         }
+        this.name = "defaultHikariDataSourceFactory";
         return this;
     }
 
     @Override
     public DataSourceFactory factory(DataSourceConfiguration configuration) {
-        if (configuration instanceof HikariConfiguration) {
-            HikariConfiguration hikariConfiguration = (HikariConfiguration) configuration;
+        if (configuration instanceof HikariConfiguration hikariConfiguration) {
             HikariConfig config = hikariConfiguration.getHikariConfig();
             DataSourceDriverName driverName = configuration.getDriverName();
             if (hikariConfiguration.getDriverClassName() == null && driverName != null) {
@@ -63,11 +66,17 @@ public class HikariDataSourceFactory implements DataSourceFactory {
                 config.setTransactionIsolation(configuration.getDefaultTransactionIsolationLevel().name());
             }
             hikariDataSource = new HikariDataSource(config);
+            this.name = configuration.getName() + "HikariDataSourceFactory";
         } else {
             throw new ConfigurationTypeNotMatchedException();
         }
 
         return this;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -81,7 +90,12 @@ public class HikariDataSourceFactory implements DataSourceFactory {
     }
 
     @Override
-    public void destroy() {
+    public void close() {
+        hikariDataSource.close();
+    }
+
+    @Override
+    public void destruct(ApplicationContext applicationContext) {
         hikariDataSource.close();
     }
 

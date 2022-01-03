@@ -12,15 +12,15 @@ package com.truthbean.debbie.mybatis.configuration;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContentHolder;
 import com.truthbean.debbie.io.ResourceResolver;
+import com.truthbean.debbie.properties.DebbieProperties;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author truthbean
  * @since 0.0.2
  */
-public class MybatisProperties extends EnvironmentContentHolder {
+public class MybatisProperties extends EnvironmentContentHolder implements DebbieProperties<MybatisConfiguration> {
 
     public static final String ENABLE_KEY = "debbie.mybatis.enable";
     //===========================================================================
@@ -30,6 +30,7 @@ public class MybatisProperties extends EnvironmentContentHolder {
     private static final String MYBATIS_MAPPER_LOCATIONS = "debbie.mybatis.mapper-locations";
     //===========================================================================
 
+    private final Map<String, MybatisConfiguration> map = new HashMap<>();
     private final MybatisConfiguration configuration;
     private static MybatisProperties instance;
 
@@ -47,6 +48,7 @@ public class MybatisProperties extends EnvironmentContentHolder {
         List<String> list = getStringListValue(MYBATIS_MAPPER_LOCATIONS, ";");
         ResourceResolver resourceResolver = context.getResourceResolver();
         resolveMapperLocations(list, resourceResolver);
+        map.put(DEFAULT_PROFILE, configuration);
     }
 
     private void resolveMapperLocations(List<String> patternList, ResourceResolver resourceResolver) {
@@ -68,5 +70,21 @@ public class MybatisProperties extends EnvironmentContentHolder {
 
     public MybatisConfiguration loadConfiguration() {
         return configuration;
+    }
+
+    @Override
+    public Set<String> getProfiles() {
+        return map.keySet();
+    }
+
+    @Override
+    public MybatisConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
+        return map.get(name);
+    }
+
+    @Override
+    public void close() throws Exception {
+        map.clear();
+        instance = null;
     }
 }

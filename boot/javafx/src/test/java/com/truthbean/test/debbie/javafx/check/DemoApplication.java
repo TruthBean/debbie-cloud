@@ -7,26 +7,27 @@
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
  */
-package com.truthbean.debbie.javafx.check;
+package com.truthbean.test.debbie.javafx.check;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import com.truthbean.LoggerFactory;
+import com.truthbean.debbie.boot.DebbieApplication;
+import com.truthbean.debbie.boot.DebbieBootApplication;
+import com.truthbean.logger.LoggerConfig;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.1.0
- * Created on 2020-07-02 10:52.
+ * Created on 2020-07-02 10:44.
  */
-public class DemoController {
-    @FXML
-    private Label label;
+@DebbieBootApplication
+public class DemoApplication {
 
-    public void addImageDirButtonAction(ActionEvent actionEvent) {
-
+    static {
+        System.setProperty(LoggerConfig.NO_LOGGER, "true");
     }
 
-    public void addImageButtonAction(ActionEvent actionEvent) {
-
+    public static void main(String[] args) {
+        DebbieApplication application = DebbieApplication.create(DemoApplication.class, args);
+        application.start();
     }
 }

@@ -1,5 +1,17 @@
 [
   {
+    "name": "org.apache.tomcat.util.modeler.modules.MbeansDescriptorsIntrospectionSource",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
     "name" : "com.truthbean.debbie.tomcat.TomcatServerApplication",
     "methods": [
       { "name": "<init>", "parameterTypes": [] }

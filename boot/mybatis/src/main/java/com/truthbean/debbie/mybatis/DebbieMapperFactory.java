@@ -9,10 +9,16 @@
  */
 package com.truthbean.debbie.mybatis;
 
+import com.truthbean.common.mini.util.StringUtils;
 import com.truthbean.debbie.bean.BeanFactory;
 import com.truthbean.debbie.bean.GlobalBeanFactory;
+import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.mybatis.support.SqlSessionDebbieSupport;
 import org.apache.ibatis.session.SqlSessionFactory;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author TruthBean
@@ -20,27 +26,20 @@ import org.apache.ibatis.session.SqlSessionFactory;
  * Created on 2019/06/02 18:38.
  */
 public class DebbieMapperFactory<Mapper> extends SqlSessionDebbieSupport implements BeanFactory<Mapper> {
-    private Class<Mapper> mapperInterface;
+    private final Class<Mapper> mapperInterface;
 
-    private SqlSessionFactoryHandler handler;
+    private final Set<String> names = new HashSet<>();
 
-    public DebbieMapperFactory() {
-    }
+    private final SqlSessionFactoryHandler handler;
 
     public DebbieMapperFactory(Class<Mapper> mapperInterface, SqlSessionFactoryHandler handler) {
         this.mapperInterface = mapperInterface;
         this.handler = handler;
 
         setSqlSessionFactory();
-    }
 
-    @Override
-    public void setGlobalBeanFactory(GlobalBeanFactory globalBeanFactory) {
-
-    }
-
-    public void setHandler(SqlSessionFactoryHandler handler) {
-        this.handler = handler;
+        names.add(StringUtils.toFirstCharLowerCase(mapperInterface.getSimpleName()));
+        names.add(mapperInterface.getName());
     }
 
     private void setSqlSessionFactory() {
@@ -49,12 +48,32 @@ public class DebbieMapperFactory<Mapper> extends SqlSessionDebbieSupport impleme
     }
 
     @Override
-    public Mapper getBean() {
+    public Set<String> getBeanNames() {
+        return names;
+    }
+
+    @Override
+    public Mapper factoryBean(ApplicationContext applicationContext) {
         return getSqlSession().getMapper(mapperInterface);
     }
 
     @Override
-    public Class<Mapper> getBeanType() {
+    public Mapper factoryNamedBean(String name, ApplicationContext applicationContext) {
+        return getSqlSession().getMapper(mapperInterface);
+    }
+
+    @Override
+    public boolean isCreated() {
+        return true;
+    }
+
+    @Override
+    public Mapper getCreatedBean() {
+        return getSqlSession().getMapper(mapperInterface);
+    }
+
+    @Override
+    public Class<?> getBeanClass() {
         return mapperInterface;
     }
 
@@ -64,7 +83,30 @@ public class DebbieMapperFactory<Mapper> extends SqlSessionDebbieSupport impleme
     }
 
     @Override
-    public void destroy() {
-        // do nothing
+    public boolean equals(Object o) {
+        if (!isEquals(o)) {
+            return false;
+        }
+        if (this == o) return true;
+        if (!(o instanceof DebbieMapperFactory<?> that)) return false;
+        return Objects.equals(mapperInterface, that.mapperInterface) && Objects.equals(handler, that.handler);
+    }
+
+    @Override
+    public int hashCode() {
+        Set<String> beanNames = getBeanNames();
+        // 重新计算hashcode
+        int h = 0;
+        for (String obj : beanNames) {
+            if (obj != null) {
+                h += obj.hashCode();
+            }
+        }
+        return h + Objects.hash(mapperInterface, handler);
+    }
+
+    @Override
+    public void destruct(ApplicationContext applicationContext) {
+        names.clear();
     }
 }

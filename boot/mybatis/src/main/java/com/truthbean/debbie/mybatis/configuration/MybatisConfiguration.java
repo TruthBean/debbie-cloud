@@ -47,6 +47,11 @@ public class MybatisConfiguration implements DebbieConfiguration {
     private Cache cache;
 
     @Override
+    public boolean isEnable() {
+        return true;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -152,7 +157,7 @@ public class MybatisConfiguration implements DebbieConfiguration {
     }
 
     @Override
-    public void reset() {
+    public void close() {
 
     }
 }

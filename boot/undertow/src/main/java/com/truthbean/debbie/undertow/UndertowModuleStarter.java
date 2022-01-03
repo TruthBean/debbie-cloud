@@ -9,10 +9,12 @@
  */
 package com.truthbean.debbie.undertow;
 
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.env.EnvironmentContent;
 import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author truthbean
@@ -26,8 +28,9 @@ public class UndertowModuleStarter implements DebbieModuleStarter {
     }
 
     @Override
-    public void configure(DebbieConfigurationCenter configurationFactory, ApplicationContext applicationContext) {
-        configurationFactory.register(new UndertowProperties(), UndertowConfiguration.class);
+    public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
+        var undertowBeanFactory = new PropertiesConfigurationBeanFactory<>(new UndertowProperties(), UndertowConfiguration.class);
+        beanInfoManager.register(undertowBeanFactory);
     }
 
     @Override

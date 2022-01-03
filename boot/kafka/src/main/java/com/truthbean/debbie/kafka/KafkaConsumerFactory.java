@@ -14,13 +14,17 @@ import com.truthbean.debbie.concurrent.NamedThreadFactory;
 import com.truthbean.debbie.concurrent.ThreadPooledExecutor;
 import com.truthbean.debbie.event.DebbieEventPublisher;
 import com.truthbean.LoggerFactory;
+import com.truthbean.debbie.reflection.ReflectionHelper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.Deserializer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.io.Closeable;
 import java.time.Duration;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -36,22 +40,40 @@ public class KafkaConsumerFactory<K, V> implements Closeable {
     private final AtomicBoolean running = new AtomicBoolean(false);
 
     private final ThreadFactory namedThreadFactory = new NamedThreadFactory("KafkaConsumer", true);
-    private final ThreadPooledExecutor taskThreadPool = new ThreadPooledExecutor(1, 1, namedThreadFactory);
+    private final ThreadPooledExecutor taskThreadPool = new ThreadPooledExecutor(1, 1, 10_0000, namedThreadFactory, 5000L);
 
-    public KafkaConsumerFactory(KafkaConfiguration configuration, DebbieEventPublisher eventPublisher) {
-        this.consumer = new KafkaConsumer<>(configuration.getConsumer().toConsumerProperties());
+    @SuppressWarnings("unchecked")
+    public KafkaConsumerFactory(KafkaConfiguration configuration, Properties extraProperties, DebbieEventPublisher eventPublisher) {
+        KafkaConfiguration.Consumer consumer = configuration.getConsumer();
+        Class<?> keyDeserializerClass = consumer.getKeyDeserializer();
+        Class<?> valueDeserializerClass = consumer.getValueDeserializer();
+        Deserializer<K> keyDeserializer;
+        if (keyDeserializerClass != null) {
+            keyDeserializer = (Deserializer<K>) ReflectionHelper.newInstance(keyDeserializerClass);
+        } else {
+            keyDeserializer = (Deserializer<K>) new StringDeserializer();
+        }
+        Deserializer<V> valueDeserializer;
+        if (valueDeserializerClass != null) {
+            valueDeserializer = (Deserializer<V>) ReflectionHelper.newInstance(valueDeserializerClass);
+        } else {
+            valueDeserializer = (Deserializer<V>) new StringDeserializer();
+        }
+        Properties properties = consumer.toConsumerProperties();
+        properties.putAll(extraProperties);
+        this.consumer = new KafkaConsumer<>(properties, keyDeserializer, valueDeserializer);
         this.eventPublisher = eventPublisher;
     }
 
     public void consumer(final ThreadPooledExecutor executor,
-                         final List<KafkaConsumerListenerMethodInfo> list, final Set<String> topics) {
+                         final List<KaKafkaMessageConsumerInfo> list, final Set<String> topics, long timeout) {
         try {
             taskThreadPool.execute(() -> {
                 consumer.subscribe(topics);
                 running.set(true);
                 // ConsumerRecordsEvent<K, V> event;
                 while (running.get()) {
-                    ConsumerRecords<K, V> records = consumer.poll(Duration.ofMillis(1000));
+                    ConsumerRecords<K, V> records = consumer.poll(Duration.ofMillis(timeout));
                     if (records != null && !records.isEmpty()) {
                         // event = new ConsumerRecordsEvent<>(this, records);
                         // eventPublisher.publishEvent(event);
@@ -65,17 +87,17 @@ public class KafkaConsumerFactory<K, V> implements Closeable {
                                         executor.execute(() -> {
                                             Class<?> type = info.getParameterType();
                                             if (type.isInstance(value)) {
-                                                info.invokeMethod(value);
+                                                info.invoke(value);
                                             } else if (type == ConsumerRecord.class) {
-                                                info.invokeMethod(record);
+                                                info.invoke(record);
                                             }
                                         });
                                     } else {
                                         Class<?> type = info.getParameterType();
                                         if (type.isInstance(value)) {
-                                            info.invokeMethod(value);
+                                            info.invoke(value);
                                         } else if (type == ConsumerRecord.class) {
-                                            info.invokeMethod(record);
+                                            info.invoke(record);
                                         }
                                     }
                                 }

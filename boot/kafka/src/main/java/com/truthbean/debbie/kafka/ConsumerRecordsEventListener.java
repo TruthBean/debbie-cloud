@@ -36,5 +36,10 @@ public class ConsumerRecordsEventListener<K, V> implements DebbieEventListener<C
         }
     }
 
+    @Override
+    public Class<ConsumerRecordsEvent> getEventType() {
+        return ConsumerRecordsEvent.class;
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(ConsumerRecordsEventListener.class);
 }

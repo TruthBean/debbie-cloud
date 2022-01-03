@@ -15,6 +15,7 @@
 module com.truthbean.debbie.mybatis {
     exports com.truthbean.debbie.mybatis;
     exports com.truthbean.debbie.mybatis.configuration;
+    exports com.truthbean.debbie.mybatis.transaction;
     requires transitive com.truthbean.debbie.jdbc;
     requires static org.mybatis;
 

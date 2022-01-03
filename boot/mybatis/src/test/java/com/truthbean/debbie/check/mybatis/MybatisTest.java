@@ -13,7 +13,8 @@ import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
 import com.truthbean.debbie.jdbc.datasource.DataSourceFactory;
 import com.truthbean.debbie.mybatis.SqlSessionFactoryHandler;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
+import com.truthbean.debbie.mybatis.configuration.MybatisConfiguration;
+import com.truthbean.debbie.mybatis.configuration.MybatisProperties;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,19 +26,17 @@ import java.time.LocalDateTime;
 public class MybatisTest {
 
     private static ApplicationContext applicationContext;
-    private static DebbieConfigurationCenter configurationFactory;
 
     @BeforeAll
     static void before() {
         ApplicationFactory applicationFactory = ApplicationFactory.configure(MybatisTest.class);
         applicationContext = applicationFactory.getApplicationContext();
         DataSourceFactory dataSourceFactory = applicationContext.getGlobalBeanFactory().factory("dataSourceFactory");
-        configurationFactory = applicationContext.getConfigurationCenter();
     }
 
     @Test
     public void testSqlSessionFactory() throws IOException {
-        SqlSessionFactoryHandler handler = new SqlSessionFactoryHandler(configurationFactory, applicationContext);
+        SqlSessionFactoryHandler handler = new SqlSessionFactoryHandler(applicationContext, new MybatisProperties(applicationContext).loadConfiguration());
         SqlSessionFactory sqlSessionFactory = handler.buildSqlSessionFactory();
 
         System.out.println(sqlSessionFactory);
@@ -45,7 +44,7 @@ public class MybatisTest {
 
     @Test
     public void testSelectOneSurname() throws IOException {
-        SqlSessionFactoryHandler handler = new SqlSessionFactoryHandler(configurationFactory, applicationContext);
+        SqlSessionFactoryHandler handler = new SqlSessionFactoryHandler(applicationContext, new MybatisProperties(applicationContext).loadConfiguration());
         SqlSessionFactory sqlSessionFactory = handler.buildSqlSessionFactory();
 
         try (SqlSession session = sqlSessionFactory.openSession()) {
@@ -57,7 +56,7 @@ public class MybatisTest {
 
     @Test
     public void testDataTimeMapper() throws IOException {
-        SqlSessionFactoryHandler handler = new SqlSessionFactoryHandler(configurationFactory, applicationContext);
+        SqlSessionFactoryHandler handler = new SqlSessionFactoryHandler(applicationContext, new MybatisProperties(applicationContext).loadConfiguration());
         SqlSessionFactory sqlSessionFactory = handler.buildSqlSessionFactory();
 
         try (SqlSession session = sqlSessionFactory.openSession()) {

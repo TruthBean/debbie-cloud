@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.tomcat;
 
+import com.truthbean.common.mini.util.StringUtils;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.reflection.ClassLoaderUtils;
 import com.truthbean.debbie.server.BaseServerProperties;
@@ -17,6 +18,9 @@ import com.truthbean.LoggerFactory;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author TruthBean
@@ -43,10 +47,24 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
     private static final String TOMCAT_RESOURCES_MAX_CACHE = "debbie.server.tomcat.resources.max-cache";
     //===========================================================================
 
+    private final Map<String, TomcatConfiguration> map = new HashMap<>();
     private TomcatConfiguration configuration;
 
     @Override
-    public TomcatConfiguration toConfiguration(ApplicationContext applicationContext) {
+    public Set<String> getProfiles() {
+        return map.keySet();
+    }
+
+    @Override
+    public TomcatConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
+        if (DEFAULT_PROFILE.equals(name) || !StringUtils.hasText(name)) {
+            return getConfiguration(applicationContext);
+        }
+        return map.get(name);
+    }
+
+    @Override
+    public TomcatConfiguration getConfiguration(ApplicationContext applicationContext) {
         if (configuration != null) {
             return configuration;
         }
@@ -89,8 +107,16 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
         configuration.setCachingAllowed(properties.getBooleanValue(TOMCAT_RESOURCES_CACHING_ALLOWED, true));
         configuration.setCacheMaxSize(properties.getIntegerValue(TOMCAT_RESOURCES_MAX_CACHE, 102400));
 
+        map.put(DEFAULT_PROTOCOL, configuration);
+
         return configuration;
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TomcatProperties.class);
+
+    @Override
+    public void close() throws Exception {
+        map.clear();
+        configuration = null;
+    }
 }

@@ -19,7 +19,7 @@ import com.truthbean.debbie.env.EnvironmentContent;
  */
 public class JavaFxModuleStarter implements DebbieModuleStarter {
 
-    private static final String ENABLE_KEY = "debbie.javafx.enable";
+    static final String ENABLE_KEY = "debbie.javafx.enable";
 
     @Override
     public boolean enable(EnvironmentContent envContent) {

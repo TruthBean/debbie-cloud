@@ -9,14 +9,11 @@
  */
 package com.truthbean.debbie.spring;
 
-import com.truthbean.debbie.bean.BeanInitialization;
+import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.bean.BeanScanConfiguration;
-import com.truthbean.debbie.bean.BeanType;
-import com.truthbean.debbie.bean.DebbieBeanInfo;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import com.truthbean.debbie.env.EnvironmentContent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -29,12 +26,18 @@ public class SpringModuleStarter implements DebbieModuleStarter {
 
     private volatile ConfigurableApplicationContext applicationContext;
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void starter(DebbieConfigurationCenter configurationFactory, ApplicationContext applicationContext) {
-        BeanInitialization beanInitialization = applicationContext.getBeanInitialization();
+    public boolean enable(EnvironmentContent envContent) {
+        return envContent.getBooleanValue("debbie.spring.enable", true);
+    }
 
-        BeanScanConfiguration configuration = configurationFactory.factory(BeanScanConfiguration.class, applicationContext);
+    /**
+     * 放到starter注册是因为new AnnotationConfigApplicationContext的时候启动并完成了注册的过程
+     */
+    @Override
+    public void starter(ApplicationContext applicationContext) {
+        BeanInfoManager beanInfoManager = applicationContext.getBeanInfoManager();
+        BeanScanConfiguration configuration = applicationContext.factory(BeanScanConfiguration.class);
         String scanBasePackage = configuration.getScanBasePackage();
         Class<?> applicationClass = configuration.getApplicationClass();
 
@@ -52,34 +55,24 @@ public class SpringModuleStarter implements DebbieModuleStarter {
         }
         String[] names = this.applicationContext.getBeanDefinitionNames();
         for (String name : names) {
-            Object bean = this.applicationContext.getBean(name);
-            Class<?> beanClass = bean.getClass();
-            DebbieBeanInfo beanInfo = new DebbieBeanInfo<>(beanClass);
-            beanInfo.setBean(bean);
-            beanInfo.addBeanName(name);
-            if (this.applicationContext.isSingleton(name)) {
-                beanInfo.setBeanType(BeanType.SINGLETON);
-            } else {
-                beanInfo.setBeanType(BeanType.NO_LIMIT);
-                AutowireCapableBeanFactory autowireCapableBeanFactory = this.applicationContext.getAutowireCapableBeanFactory();
-                SpringDebbieBeanFactory beanFactory =
-                        new SpringDebbieBeanFactory<>(applicationContext.getBeanInfoFactory(), beanClass, name);
-                beanFactory.setSpringBeanFactory(autowireCapableBeanFactory);
-                beanFactory.setSingleton(false);
-                beanInfo.setBeanFactory(beanFactory);
-            }
-
-            if (!applicationContext.getGlobalBeanFactory().containsBean(name)) {
-                beanInitialization.initBean(beanInfo);
-            }
+            beanInfoManager.register(new SpringBeanFactory(this.applicationContext, name));
         }
-        applicationContext.refreshBeans();
     }
 
     @Override
-    public void release(DebbieConfigurationCenter configurationFactory, ApplicationContext debbieApplicationContext) {
-        if (applicationContext != null)
+    public void postStarter(ApplicationContext applicationContext) {
+        // if spring application context is refreshed
+        if (!this.applicationContext.isActive()) {
+            // just call 'refresh' once
+            this.applicationContext.refresh();
+        }
+    }
+
+    @Override
+    public void release(ApplicationContext debbieApplicationContext) {
+        if (applicationContext != null) {
             applicationContext.close();
+        }
     }
 
     @Override

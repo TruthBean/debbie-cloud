@@ -10,37 +10,35 @@
 package com.truthbean.debbie.freemarker;
 
 import com.truthbean.debbie.bean.*;
+import com.truthbean.debbie.core.ApplicationContext;
 import freemarker.template.Configuration;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 /**
  * @author TruthBean
  * @since 0.0.2
  */
-public class DefaultConfigurationBeanFactory implements BeanFactory<Configuration>, ClassLoaderAware {
+public class DefaultConfigurationBeanFactory implements BeanFactory<Configuration> {
 
     private Configuration configuration;
-    private ClassLoader classLoader;
 
-    public DefaultConfigurationBeanFactory() {
+    private final Set<String> names = new HashSet<>();
+
+    public DefaultConfigurationBeanFactory(String...names) {
+        if (names != null && names.length > 0) {
+            Collections.addAll(this.names, names);
+        }
     }
 
     @Override
-    public void setGlobalBeanFactory(GlobalBeanFactory beanFactory) {
-
-    }
-
-    @Override
-    public void setClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
-    @Override
-    public Configuration getBean() {
+    public Configuration factoryBean(ApplicationContext applicationContext) {
         if (configuration == null) {
             configuration = new Configuration(Configuration.VERSION_2_3_30);
-            configuration.setClassLoaderForTemplateLoading(this.classLoader, "/templates");
+            configuration.setClassLoaderForTemplateLoading(applicationContext.getClassLoader(), "/templates");
             configuration.setDefaultEncoding("UTF-8");
             configuration.setLocale(Locale.CHINA);
         }
@@ -49,7 +47,22 @@ public class DefaultConfigurationBeanFactory implements BeanFactory<Configuratio
     }
 
     @Override
-    public Class<Configuration> getBeanType() {
+    public Configuration factoryNamedBean(String name, ApplicationContext applicationContext) {
+        return factoryBean(applicationContext);
+    }
+
+    @Override
+    public boolean isCreated() {
+        return configuration != null;
+    }
+
+    @Override
+    public Configuration getCreatedBean() {
+        return configuration;
+    }
+
+    @Override
+    public Class<?> getBeanClass() {
         return Configuration.class;
     }
 
@@ -59,7 +72,12 @@ public class DefaultConfigurationBeanFactory implements BeanFactory<Configuratio
     }
 
     @Override
-    public void destroy() {
+    public Set<String> getBeanNames() {
+        return names;
+    }
+
+    @Override
+    public void destruct(ApplicationContext applicationContext) {
         if (configuration != null) {
             configuration.clearEncodingMap();
             configuration.clearSharedVariables();

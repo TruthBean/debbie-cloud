@@ -14,6 +14,7 @@ import com.truthbean.debbie.env.EnvironmentContentHolder;
 import com.truthbean.debbie.properties.DebbieProperties;
 
 import java.net.URL;
+import java.util.Set;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -33,7 +34,22 @@ public class LuceneProperties extends EnvironmentContentHolder implements Debbie
     }
 
     @Override
-    public LuceneConfiguration toConfiguration(ApplicationContext applicationContext) {
+    public Set<String> getProfiles() {
+        return null;
+    }
+
+    @Override
+    public LuceneConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
+        return null;
+    }
+
+    @Override
+    public LuceneConfiguration getConfiguration(ApplicationContext applicationContext) {
         return configuration;
+    }
+
+    @Override
+    public void close() throws Exception {
+
     }
 }
