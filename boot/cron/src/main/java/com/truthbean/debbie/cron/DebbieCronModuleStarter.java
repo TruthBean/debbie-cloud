@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 TruthBean(Rogar·Q)
+ * Copyright (c) 2022 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -31,8 +31,8 @@ public class DebbieCronModuleStarter implements DebbieModuleStarter {
     }
 
     @Override
-    public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInitialization) {
+    public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
         SchedulerBeanFactory schedulerBeanFactory = new SchedulerBeanFactory("scheduler");
-        beanInitialization.register(schedulerBeanFactory);
+        beanInfoManager.registerBeanInfo(schedulerBeanFactory);
     }
 }

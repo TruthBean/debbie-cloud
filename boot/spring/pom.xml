@@ -5,7 +5,7 @@
     <parent>
         <artifactId>debbie-boot</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.5.3-RELEASE</version>
+        <version>0.5.4-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -52,6 +52,13 @@
             <version>${truthbean.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!--<dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>logger-spring-boot-starter</artifactId>
+            <version>${truthbean.version}</version>
+            <scope>test</scope>
+        </dependency>-->
     </dependencies>
 
 </project>

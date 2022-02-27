@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 TruthBean(Rogar·Q)
+ * Copyright (c) 2022 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -44,7 +44,15 @@ public class DebbieBeanInjectAnnotationBeanPostProcessor extends AutowiredAnnota
             if (Annotation.class.isAssignableFrom(inject)) {
                 autowiredAnnotationTypes.add((Class<? extends Annotation>) inject);
             }
-            LOGGER.trace(() -> "Debbie @Inject supported for autowiring");
+            LOGGER.trace(() -> "Debbie @javax.inject.Inject supported for autowiring");
+        } catch (ClassNotFoundException ignored) {
+        }
+        try {
+            Class<?> inject = Class.forName("jakarta.inject.Inject");
+            if (Annotation.class.isAssignableFrom(inject)) {
+                autowiredAnnotationTypes.add((Class<? extends Annotation>) inject);
+            }
+            LOGGER.trace(() -> "Debbie @jakarta.inject.Inject supported for autowiring");
         } catch (ClassNotFoundException ignored) {
         }
         try {
@@ -52,7 +60,15 @@ public class DebbieBeanInjectAnnotationBeanPostProcessor extends AutowiredAnnota
             if (Annotation.class.isAssignableFrom(resource)) {
                 autowiredAnnotationTypes.add((Class<? extends Annotation>) resource);
             }
-            LOGGER.trace(() -> "Debbie @Resource supported for autowiring");
+            LOGGER.trace(() -> "Debbie @javax.annotation.Resource supported for autowiring");
+        } catch (ClassNotFoundException ignored) {
+        }
+        try {
+            Class<?> resource = Class.forName("jakarta.annotation.Resource");
+            if (Annotation.class.isAssignableFrom(resource)) {
+                autowiredAnnotationTypes.add((Class<? extends Annotation>) resource);
+            }
+            LOGGER.trace(() -> "Debbie @jakarta.annotation.Resource supported for autowiring");
         } catch (ClassNotFoundException ignored) {
         }
         autowiredAnnotationTypes.add(Autowired.class);

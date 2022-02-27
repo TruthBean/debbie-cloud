@@ -1,5 +1,7 @@
 package com.truthbean.debbie.spring;
 
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanFactory;
 import com.truthbean.debbie.bean.BeanType;
 import com.truthbean.debbie.bean.NonBean;
@@ -7,6 +9,7 @@ import com.truthbean.debbie.core.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -86,4 +89,27 @@ public class SpringBeanFactory implements BeanFactory<Object> {
         names.add(name);
         return names;
     }
+
+    @Override
+    public Logger getLogger() {
+        return LOGGER;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SpringBeanFactory that)) {
+            return false;
+        }
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpringBeanFactory.class);
 }

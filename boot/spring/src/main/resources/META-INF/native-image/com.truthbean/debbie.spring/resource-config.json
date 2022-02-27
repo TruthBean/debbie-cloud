@@ -1,0 +1,19 @@
+{
+    "resources": [
+        {
+            "pattern": "META-INF/spring.factories"
+        },
+        {
+            "pattern": "META-INF/spring.handlers"
+        },
+        {
+            "pattern": "META-INF/spring.schemas"
+        },
+        {
+            "pattern": "META-INF/spring.tooling"
+        },
+        {
+            "pattern": "META-INF/spring-configuration-metadata.json"
+        }
+    ]
+}

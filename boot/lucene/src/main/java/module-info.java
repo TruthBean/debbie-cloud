@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 TruthBean(Rogar·Q)
+ * Copyright (c) 2022 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -17,7 +17,7 @@ module com.truthbean.debbie.lucene {
     requires transitive com.truthbean.debbie.core;
     // requires static lucene.queryparser;
     // requires static lucene.analyzers.common;
-    requires static lucene.core;
+    requires static org.apache.lucene.core;
 
     exports com.truthbean.debbie.lucene.annotation;
 

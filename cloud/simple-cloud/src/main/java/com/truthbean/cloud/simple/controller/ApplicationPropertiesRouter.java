@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 TruthBean(Rogar·Q)
+ * Copyright (c) 2022 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -15,6 +15,7 @@ import com.truthbean.debbie.mvc.router.GetRouter;
 import com.truthbean.debbie.mvc.router.PostRouter;
 import com.truthbean.debbie.mvc.router.Router;
 
+import java.io.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created on 2021-02-19 18:22
  */
 @Router
-public class ApplicationPropertiesRouter {
+public class ApplicationPropertiesRouter implements Closeable {
 
     private static final Map<String, String> cache = new ConcurrentHashMap<>();
 
@@ -52,4 +53,10 @@ public class ApplicationPropertiesRouter {
     public Map<String, String> applicationProperties() {
         return cache;
     }
+
+    @Override
+    public void close() throws IOException {
+        cache.clear();
+    }
+
 }

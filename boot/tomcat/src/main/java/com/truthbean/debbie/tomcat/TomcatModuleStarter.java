@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 TruthBean(Rogar·Q)
+ * Copyright (c) 2022 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -31,9 +31,9 @@ public class TomcatModuleStarter implements DebbieModuleStarter {
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
         var servletBeanFactory = new PropertiesConfigurationBeanFactory<>(new ServletProperties(), ServletConfiguration.class);
-        beanInfoManager.register(servletBeanFactory);
+        beanInfoManager.registerBeanInfo(servletBeanFactory);
         var tomcatBeanFactory = new PropertiesConfigurationBeanFactory<>(new TomcatProperties(), TomcatConfiguration.class);
-        beanInfoManager.register(tomcatBeanFactory);
+        beanInfoManager.registerBeanInfo(tomcatBeanFactory);
     }
 
     @Override

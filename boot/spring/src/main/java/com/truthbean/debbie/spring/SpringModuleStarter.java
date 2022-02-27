@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 TruthBean(Rogar·Q)
+ * Copyright (c) 2022 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -17,6 +17,8 @@ import com.truthbean.debbie.env.EnvironmentContent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Set;
+
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.0.2
@@ -24,11 +26,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class SpringModuleStarter implements DebbieModuleStarter {
 
-    private volatile ConfigurableApplicationContext applicationContext;
+    private volatile AnnotationConfigApplicationContext applicationContext;
 
     @Override
     public boolean enable(EnvironmentContent envContent) {
         return envContent.getBooleanValue("debbie.spring.enable", true);
+    }
+
+    @Override
+    public void configure(ApplicationContext applicationContext) {
+        this.applicationContext = new AnnotationConfigApplicationContext();
     }
 
     /**
@@ -37,25 +44,40 @@ public class SpringModuleStarter implements DebbieModuleStarter {
     @Override
     public void starter(ApplicationContext applicationContext) {
         BeanInfoManager beanInfoManager = applicationContext.getBeanInfoManager();
+        // cache
+        String[] names = this.applicationContext.getBeanDefinitionNames();
+
+        // scanned class to be registered to spring
         BeanScanConfiguration configuration = applicationContext.factory(BeanScanConfiguration.class);
-        String scanBasePackage = configuration.getScanBasePackage();
+        Set<String> scanBasePackages = configuration.getScanBasePackages();
+        Set<Class<?>> classes = configuration.getScanClasses();
         Class<?> applicationClass = configuration.getApplicationClass();
 
-        if (scanBasePackage != null) {
-            this.applicationContext = new AnnotationConfigApplicationContext(scanBasePackage);
+        if (scanBasePackages != null && !scanBasePackages.isEmpty()) {
+            for (String scanBasePackage : scanBasePackages) {
+                this.applicationContext.scan(scanBasePackage);
+            }
         } else if (applicationClass != null) {
-            this.applicationContext = new AnnotationConfigApplicationContext(applicationClass);
-        } else {
-            this.applicationContext = new AnnotationConfigApplicationContext();
+            String packageName = applicationClass.getPackageName();
+            this.applicationContext.scan(packageName);
+        }
+        if (applicationClass != null) {
+            this.applicationContext.register(applicationClass);
+        }
+        if (!classes.isEmpty()) {
+            for (Class<?> c : classes) {
+                this.applicationContext.register(c);
+            }
         }
         // if spring application context is refreshed
         if (!this.applicationContext.isActive()) {
             // just call 'refresh' once
             this.applicationContext.refresh();
         }
-        String[] names = this.applicationContext.getBeanDefinitionNames();
+
+        // spring to debbie
         for (String name : names) {
-            beanInfoManager.register(new SpringBeanFactory(this.applicationContext, name));
+            beanInfoManager.registerBeanInfo(new SpringBeanFactory(this.applicationContext, name));
         }
     }
 

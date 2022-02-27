@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 TruthBean(Rogar·Q)
+ * Copyright (c) 2022 TruthBean(Rogar·Q)
  *    Debbie is licensed under Mulan PSL v2.
  *    You can use this software according to the terms and conditions of the Mulan PSL v2.
  *    You may obtain a copy of Mulan PSL v2 at:
@@ -62,7 +62,7 @@ public class MybatisModuleStarter implements DebbieModuleStarter {
         beanInfoManager.register(MyBatisConfigurationSettings.class);
         MybatisProperties mybatisProperties = new MybatisProperties(context);
         var configurationBeanFactory = new PropertiesConfigurationBeanFactory<>(mybatisProperties, MybatisConfiguration.class);
-        beanInfoManager.register(configurationBeanFactory);
+        beanInfoManager.registerBeanInfo(configurationBeanFactory);
         beanInfoManager.registerBeanRegister(new MappedBeanRegister(context, configurationBeanFactory.factoryBean(context)));
         beanInfoManager.registerBeanRegister(new MybatisBeanRegister(context));
 

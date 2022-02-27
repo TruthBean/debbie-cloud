@@ -11,7 +11,7 @@ import com.truthbean.debbie.boot.DebbieBootApplication;
 public class DebbieApplicationTest {
 
     static {
-        System.setProperty(DebbieApplication.DISABLE_DEBBIE, "false");
+        System.setProperty(DebbieApplication.DISABLE_DEBBIE, "true");
         System.setProperty("logging.level.com.truthbean", "debug");
         System.setProperty("logging.level.org.springframework", "debug");
     }
