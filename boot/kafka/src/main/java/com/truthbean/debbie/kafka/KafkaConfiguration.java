@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,12 +9,13 @@
  */
 package com.truthbean.debbie.kafka;
 
+import com.truthbean.core.util.StringUtils;
+import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.transformer.collection.ListStringTransformer;
 import com.truthbean.debbie.properties.DebbieConfiguration;
 import com.truthbean.debbie.properties.NestedPropertiesConfiguration;
 import com.truthbean.debbie.properties.PropertiesConfiguration;
 import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.common.mini.util.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 
 import java.util.ArrayList;
@@ -29,8 +30,6 @@ import java.util.Properties;
  */
 @PropertiesConfiguration(keyPrefix = "debbie.kafka")
 public class KafkaConfiguration implements DebbieConfiguration {
-
-    private String name = "default";
 
     private boolean enable = true;
 
@@ -204,17 +203,23 @@ public class KafkaConfiguration implements DebbieConfiguration {
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public boolean isEnable() {
+        return enable;
     }
 
     @Override
-    public boolean isEnable() {
-        return enable;
+    public String getProfile() {
+        return EnvironmentDepositoryHolder.DEFAULT_PROFILE;
+    }
+
+    @Override
+    public String getCategory() {
+        return EnvironmentDepositoryHolder.DEFAULT_CATEGORY;
+    }
+
+    @Override
+    public <T extends DebbieConfiguration> T copy() {
+        return (T) this;
     }
 
     public void setEnable(boolean enable) {

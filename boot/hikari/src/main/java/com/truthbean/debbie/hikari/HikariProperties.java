@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,11 +9,11 @@
  */
 package com.truthbean.debbie.hikari;
 
+import com.truthbean.core.util.StringUtils;
 import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContentHolder;
+import com.truthbean.debbie.environment.DebbieEnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieProperties;
-import com.truthbean.common.mini.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,9 +24,9 @@ import java.util.Set;
  * @since 0.0.1
  * Created on 2019/05/17 22:46.
  */
-public class HikariProperties extends EnvironmentContentHolder implements DebbieProperties<HikariConfiguration> {
+public class HikariProperties extends DebbieEnvironmentDepositoryHolder implements DebbieProperties<HikariConfiguration> {
 
-    private final Map<String, HikariConfiguration> map = new HashMap<>();
+    private final Map<String, Map<String, HikariConfiguration>> map = new HashMap<>();
     private HikariConfiguration configuration;
 
     //=================================================================================================================
@@ -48,11 +48,18 @@ public class HikariProperties extends EnvironmentContentHolder implements Debbie
     }
 
     @Override
-    public HikariConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
-        if (StringUtils.hasText(name)) {
-            return map.get(name);
-        }
-        return map.get(DEFAULT_PROFILE);
+    public Map<String, Map<String, HikariConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
+        return map;
+    }
+
+    @Override
+    public Set<String> getCategories(String profile) {
+        return map.getOrDefault(getDefaultProfile(), new HashMap<>()).keySet();
+    }
+
+    @Override
+    public HikariConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return configuration;
     }
 
     @Override
@@ -61,7 +68,7 @@ public class HikariProperties extends EnvironmentContentHolder implements Debbie
             return configuration;
         }
 
-        var beanFactory = new DebbieReflectionBeanFactory<>(HikariConfiguration.class, new HikariConfiguration());
+        var beanFactory = new DebbieReflectionBeanFactory<>(HikariConfiguration.class, new HikariConfiguration(applicationContext));
         configuration = beanFactory.factoryBean(applicationContext);
 
         final Map<String, String> matchedKey = getMatchedKey(HIKARI_X_KEY_PREFIX);
@@ -70,12 +77,15 @@ public class HikariProperties extends EnvironmentContentHolder implements Debbie
             k = StringUtils.snakeCaseToCamelCaseTo(k);
             configuration.getHikariConfig().addDataSourceProperty(k, value);
         });
-        map.put(DEFAULT_PROFILE, configuration);
+        Map<String, HikariConfiguration> configurationMap = new HashMap<>();
+        configurationMap.put(DEFAULT_CATEGORY, configuration);
+        map.put(DEFAULT_PROFILE, configurationMap);
         return configuration;
     }
 
     @Override
     public void close() {
+        map.forEach((k, m) -> m.clear());
         map.clear();
         configuration = null;
     }

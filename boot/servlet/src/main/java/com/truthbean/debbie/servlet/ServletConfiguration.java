@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -17,11 +17,11 @@ import com.truthbean.debbie.mvc.MvcConfiguration;
  * Created on 2019/3/10 18:56.
  */
 public class ServletConfiguration extends MvcConfiguration {
-    public ServletConfiguration(ClassLoader classLoader) {
-        super(classLoader);
+    public ServletConfiguration(ClassLoader classLoader, MvcConfiguration configuration) {
+        super(configuration);
     }
 
     public ServletConfiguration(MvcConfiguration configuration, ClassLoader classLoader) {
-        super(configuration, classLoader);
+        super(configuration);
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -10,7 +10,7 @@
 package com.truthbean.debbie.mybatis.configuration;
 
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContentHolder;
+import com.truthbean.debbie.environment.DebbieEnvironmentDepositoryHolder;
 import com.truthbean.debbie.io.ResourceResolver;
 import com.truthbean.debbie.properties.DebbieProperties;
 
@@ -20,7 +20,7 @@ import java.util.*;
  * @author truthbean
  * @since 0.0.2
  */
-public class MybatisProperties extends EnvironmentContentHolder implements DebbieProperties<MybatisConfiguration> {
+public class MybatisProperties extends DebbieEnvironmentDepositoryHolder implements DebbieProperties<MybatisConfiguration> {
 
     public static final String ENABLE_KEY = "debbie.mybatis.enable";
     //===========================================================================
@@ -77,9 +77,23 @@ public class MybatisProperties extends EnvironmentContentHolder implements Debbi
         return map.keySet();
     }
 
-    @Override
     public MybatisConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
         return map.get(name);
+    }
+
+    @Override
+    public Map<String, Map<String, MybatisConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getCategories(String profile) {
+        return null;
+    }
+
+    @Override
+    public MybatisConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return null;
     }
 
     @Override

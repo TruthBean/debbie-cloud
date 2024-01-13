@@ -1,7 +1,8 @@
 package com.truthbean.debbie.cron.test;
 
+import com.truthbean.debbie.boot.ApplicationBootContext;
 import com.truthbean.debbie.boot.DebbieApplication;
-import com.truthbean.debbie.env.EnvironmentContentHolder;
+import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.test.annotation.DebbieApplicationTest;
 import org.junit.jupiter.api.Test;
 import org.quartz.JobDetail;
@@ -23,19 +24,16 @@ public class QuartzTest {
     }
 
     public static void main(String[] args) {
-        doDebbie(args);
-        //doCron();
+        DebbieApplication.create(QuartzTest.class, args)
+                .start()
+                .then(QuartzTest::doCron);
     }
 
-    private static void doDebbie(String[] args) {
-        DebbieApplication.run(QuartzTest.class, args);
-    }
-
-    private static void doCron() {
+    private static void doCron(ApplicationBootContext context) {
         try {
-            EnvironmentContentHolder properties = new EnvironmentContentHolder();
-            properties.addProperty("org.quartz.threadPool.threadCount", "10");
-            StdSchedulerFactory factory = new StdSchedulerFactory(properties.getProperties());
+            EnvironmentDepositoryHolder environmentHolder = context.getEnvironmentHolder();
+            environmentHolder.addProperty("org.quartz.threadPool.threadCount", "10");
+            StdSchedulerFactory factory = new StdSchedulerFactory(environmentHolder.getAllProperties());
             Scheduler scheduler = factory.getScheduler();
 
             // define the job and tie it to our HelloJob class

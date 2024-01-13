@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -16,7 +16,14 @@ import com.truthbean.debbie.core.ApplicationFactory;
 public class FreemarkerTest {
 
     public static void main(String[] args) {
-        var application = ApplicationFactory.factory(FreemarkerTest.class, args);
-        application.start();
+        ApplicationFactory.newEmpty()
+                .preInit(args)
+                .init(FreemarkerTest.class.getClassLoader())
+                .config()
+                .create()
+                .postCreate()
+                .build()
+                .factory()
+                .start();
     }
 }

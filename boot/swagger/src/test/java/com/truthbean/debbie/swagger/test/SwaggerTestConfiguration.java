@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  *    Debbie is licensed under Mulan PSL v2.
  *    You can use this software according to the terms and conditions of the Mulan PSL v2.
  *    You may obtain a copy of Mulan PSL v2 at:
@@ -33,6 +33,6 @@ public class SwaggerTestConfiguration {
                 .license(new License()
                         .name("Apache 2.0")
                         .url("http://www.apache.org/licenses/LICENSE-2.0.html"))
-                .version("0.5.4-RELEASE");
+                .version("0.5.5-RELEASE");
     }
 }

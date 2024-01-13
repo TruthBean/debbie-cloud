@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.lucene;
 
+import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
 
 /**
@@ -37,13 +38,23 @@ public class LuceneConfiguration implements DebbieConfiguration {
         return enable;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    @Override
+    public String getProfile() {
+        return EnvironmentDepositoryHolder.DEFAULT_PROFILE;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public String getCategory() {
+        return EnvironmentDepositoryHolder.DEFAULT_CATEGORY;
+    }
+
+    @Override
+    public <T extends DebbieConfiguration> T copy() {
+        return (T) this;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 
     public void setName(String name) {

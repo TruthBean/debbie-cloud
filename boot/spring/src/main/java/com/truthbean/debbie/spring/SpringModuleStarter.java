@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -13,8 +13,7 @@ import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.bean.BeanScanConfiguration;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContent;
-import org.springframework.context.ConfigurableApplicationContext;
+import com.truthbean.debbie.environment.Environment;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Set;
@@ -29,8 +28,8 @@ public class SpringModuleStarter implements DebbieModuleStarter {
     private volatile AnnotationConfigApplicationContext applicationContext;
 
     @Override
-    public boolean enable(EnvironmentContent envContent) {
-        return envContent.getBooleanValue("debbie.spring.enable", true);
+    public boolean enable(Environment environment) {
+        return DebbieModuleStarter.super.enable(environment) && environment.getBooleanValue("debbie.spring.enable", true);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class SpringModuleStarter implements DebbieModuleStarter {
         String[] names = this.applicationContext.getBeanDefinitionNames();
 
         // scanned class to be registered to spring
-        BeanScanConfiguration configuration = applicationContext.factory(BeanScanConfiguration.class);
+        BeanScanConfiguration configuration = applicationContext.getGlobalBeanFactory().factory(BeanScanConfiguration.class);
         Set<String> scanBasePackages = configuration.getScanBasePackages();
         Set<Class<?>> classes = configuration.getScanClasses();
         Class<?> applicationClass = configuration.getApplicationClass();

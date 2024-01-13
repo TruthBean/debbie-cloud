@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -54,7 +54,7 @@ public abstract class DebbieSpringBeanFactory<Bean> implements BeanFactory<Bean>
         this.applicationContext = applicationContext;
         this.debbieBeanInfoFactory = applicationContext.getBeanInfoManager();
         this.beanClass = (Class<Bean>) beanInfo.getBeanClass();
-        this.name = beanInfo.getServiceName();
+        this.name = beanInfo.getName();
         this.logger = LoggerFactory.getLogger("com.truthbean.debbie.spring.DebbieSpringBeanFactory<" + beanClass.getName() + ">");
         this.isCreateBySpring = false;
     }
@@ -72,7 +72,6 @@ public abstract class DebbieSpringBeanFactory<Bean> implements BeanFactory<Bean>
         }
     }
 
-    @Override
     public Bean factoryNamedBean(String name, ApplicationContext applicationContext) {
         if (springBeanFactory != null) {
             return springBeanFactory.getBean(name, beanClass);
@@ -109,7 +108,7 @@ public abstract class DebbieSpringBeanFactory<Bean> implements BeanFactory<Bean>
         if (!isCreateBySpring) {
             BeanInfo<Bean> beanInfo = debbieBeanInfoFactory.getBeanInfo(name, getBeanClass(), false, false);
             if (beanInfo instanceof BeanFactory<Bean> beanFactory) {
-                return beanFactory.factoryNamedBean(name, applicationContext);
+                return beanFactory.factoryBean(applicationContext);
             }
         }
         return null;

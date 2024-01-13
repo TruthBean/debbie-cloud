@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -36,12 +36,26 @@ public class UndertowProperties extends BaseServerProperties<UndertowConfigurati
         return map.keySet();
     }
 
-    @Override
     public UndertowConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
         if (map.isEmpty() && DEFAULT_PROFILE.equals(name)) {
             return getConfiguration(applicationContext);
         }
         return map.get(name);
+    }
+
+    @Override
+    public Map<String, Map<String, UndertowConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
+        return null;
+    }
+
+    @Override
+    public Set<String> getCategories(String profile) {
+        return null;
+    }
+
+    @Override
+    public UndertowConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return null;
     }
 
     @Override
@@ -56,11 +70,11 @@ public class UndertowProperties extends BaseServerProperties<UndertowConfigurati
         BeanScanConfiguration beanConfiguration = ClassesScanProperties.toConfiguration(classLoader);
 
         MvcConfiguration mvcConfiguration = MvcProperties.toConfiguration(classLoader);
-        configuration.copyFrom(mvcConfiguration);
-        configuration.copyFrom(beanConfiguration);
+        // configuration.copyFrom(mvcConfiguration);
+        // configuration.copyFrom(beanConfiguration);
 
         UndertowProperties properties = new UndertowProperties();
-        properties.loadAndSet(properties, configuration);
+        properties.loadAndSet("default", properties, configuration);
 
         map.put(DEFAULT_PROFILE, configuration);
 

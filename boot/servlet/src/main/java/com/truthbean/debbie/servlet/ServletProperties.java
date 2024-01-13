@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,10 +9,9 @@
  */
 package com.truthbean.debbie.servlet;
 
-import com.truthbean.common.mini.util.StringUtils;
 import com.truthbean.debbie.bean.BeanScanConfiguration;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContentHolder;
+import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.MvcProperties;
 import com.truthbean.debbie.properties.ClassesScanProperties;
@@ -27,7 +26,7 @@ import java.util.Set;
  * @since 0.0.1
  * Created on 2019/3/10 17:39.
  */
-public class ServletProperties extends EnvironmentContentHolder implements DebbieProperties<ServletConfiguration> {
+public class ServletProperties extends EnvironmentDepositoryHolder implements DebbieProperties<ServletConfiguration> {
 
     //========================================================================================
 

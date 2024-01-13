@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -18,6 +18,30 @@ import com.truthbean.debbie.server.AbstractServerConfiguration;
  */
 public class UndertowConfiguration extends AbstractServerConfiguration {
     protected UndertowConfiguration(ClassLoader classLoader) {
-        super(classLoader);
+        super();
+    }
+
+    @Override
+    public boolean isEnable() {
+        return true;
+    }
+
+    @Override
+    public String getProfile() {
+        return "all";
+    }
+
+    @Override
+    public String getCategory() {
+        return "default";
+    }
+
+    @Override
+    public UndertowConfiguration copy() {
+        return this;
+    }
+
+    @Override
+    public void close() {
     }
 }

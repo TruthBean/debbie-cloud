@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  *    Debbie is licensed under Mulan PSL v2.
  *    You can use this software according to the terms and conditions of the Mulan PSL v2.
  *    You may obtain a copy of Mulan PSL v2 at:
@@ -9,9 +9,8 @@
  */
 package com.truthbean.debbie.mybatis;
 
-import com.truthbean.common.mini.util.StringUtils;
+import com.truthbean.core.util.StringUtils;
 import com.truthbean.debbie.bean.BeanFactory;
-import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.mybatis.support.SqlSessionDebbieSupport;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -48,7 +47,7 @@ public class DebbieMapperFactory<Mapper> extends SqlSessionDebbieSupport impleme
     }
 
     @Override
-    public Set<String> getBeanNames() {
+    public Set<String> getAllName() {
         return names;
     }
 
@@ -57,7 +56,6 @@ public class DebbieMapperFactory<Mapper> extends SqlSessionDebbieSupport impleme
         return getSqlSession().getMapper(mapperInterface);
     }
 
-    @Override
     public Mapper factoryNamedBean(String name, ApplicationContext applicationContext) {
         return getSqlSession().getMapper(mapperInterface);
     }
@@ -94,7 +92,7 @@ public class DebbieMapperFactory<Mapper> extends SqlSessionDebbieSupport impleme
 
     @Override
     public int hashCode() {
-        Set<String> beanNames = getBeanNames();
+        Set<String> beanNames = getAllName();
         // 重新计算hashcode
         int h = 0;
         for (String obj : beanNames) {

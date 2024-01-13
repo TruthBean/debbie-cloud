@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -13,9 +13,8 @@ import com.truthbean.Logger;
 import com.truthbean.debbie.bean.BeanCreatedException;
 import com.truthbean.debbie.bean.BeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContent;
 import com.truthbean.LoggerFactory;
-import com.truthbean.debbie.env.EnvironmentContentHolder;
+import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
@@ -43,13 +42,11 @@ public class SchedulerBeanFactory implements BeanFactory<Scheduler> {
         if (scheduler == null) {
             synchronized (SchedulerBeanFactory.class) {
                 if (scheduler == null) {
-                    EnvironmentContent envContent = applicationContext.getEnvContent();
-                    if (envContent instanceof EnvironmentContentHolder) {
-                        int i = Runtime.getRuntime().availableProcessors();
-                        ((EnvironmentContentHolder)envContent).addProperty("org.quartz.threadPool.threadCount", String.valueOf(i));
-                    }
+                    EnvironmentDepositoryHolder envContent = applicationContext.getEnvironmentHolder();
+                    int i = Runtime.getRuntime().availableProcessors();
+                    envContent.addProperty("org.quartz.threadPool.threadCount", String.valueOf(i));
                     try {
-                        StdSchedulerFactory factory = new StdSchedulerFactory(envContent.getProperties());
+                        StdSchedulerFactory factory = new StdSchedulerFactory(envContent.getAllProperties());
                         this.scheduler = factory.getScheduler();
                     } catch (SchedulerException e) {
                         LOGGER.error("", e);
@@ -62,12 +59,7 @@ public class SchedulerBeanFactory implements BeanFactory<Scheduler> {
     }
 
     @Override
-    public Scheduler factoryNamedBean(String name, ApplicationContext applicationContext) {
-        return factoryBean(applicationContext);
-    }
-
-    @Override
-    public Set<String> getBeanNames() {
+    public Set<String> getAllName() {
         return beanNames;
     }
 

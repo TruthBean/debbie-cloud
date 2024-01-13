@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -71,12 +71,10 @@ public class HttpServletResponseWrapper implements HttpServletResponse {
         return response.encodeRedirectURL(url);
     }
 
-    @Override
     public String encodeUrl(String url) {
         return response.encodeURL(url);
     }
 
-    @Override
     public String encodeRedirectUrl(String url) {
         return response.encodeRedirectURL(url);
     }
@@ -131,7 +129,6 @@ public class HttpServletResponseWrapper implements HttpServletResponse {
         response.setStatus(sc);
     }
 
-    @Override
     public void setStatus(int sc, String sm) {
         response.setStatus(sc);
     }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.freemarker;
 
+import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.io.MediaType;
 import com.truthbean.debbie.io.MediaTypeInfo;
@@ -33,8 +34,7 @@ public class FreemarkerHandler extends AbstractTemplateViewHandler<Object, Strin
     @Override
     public String transform(Object s) {
         configure();
-        if (s instanceof String) {
-            String string = (String) s;
+        if (s instanceof String string) {
             try {
                 Template template = configuration.getTemplate(string + mvcConfiguration.getTemplateSuffix());
                 return FreeMarkerTemplateUtils.processTemplateIntoString(template, null);
@@ -52,8 +52,7 @@ public class FreemarkerHandler extends AbstractTemplateViewHandler<Object, Strin
     @Override
     public void handleResponse(RouterResponse response, Object s) {
         configure();
-        if (s instanceof String) {
-            String string = (String) s;
+        if (s instanceof String string) {
             try {
                 Template template = configuration.getTemplate(string + mvcConfiguration.getTemplateSuffix());
                 String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, response.getModelAttributes());
@@ -62,19 +61,20 @@ public class FreemarkerHandler extends AbstractTemplateViewHandler<Object, Strin
                 LOGGER.error("", e);
                 response.setContent(e.getMessage());
             }
-        } else if (s instanceof FreemarkerTemplateView) {
-            ((FreemarkerTemplateView) s).setConfiguration(configuration);
-            response.setContent(((FreemarkerTemplateView) s).render());
+        } else if (s instanceof FreemarkerTemplateView view) {
+            view.setConfiguration(configuration);
+            response.setContent(view.render());
         }
     }
 
     private void configure() {
         ApplicationContext context = getApplicationContext();
+        GlobalBeanFactory globalBeanFactory = context.getGlobalBeanFactory();
         if (mvcConfiguration == null) {
-            mvcConfiguration = MvcProperties.toConfiguration(context.getClassLoader());
+            mvcConfiguration =  globalBeanFactory.factory(MvcConfiguration.class);
         }
         if (configuration == null) {
-            configuration = context.getGlobalBeanFactory().factory("freemarkerConfiguration");
+            configuration = globalBeanFactory.factory("freemarkerConfiguration");
         }
     }
 

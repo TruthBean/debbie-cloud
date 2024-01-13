@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -13,6 +13,7 @@ import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.ApplicationArgs;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.filter.RouterFilterInfo;
 import com.truthbean.debbie.mvc.filter.RouterFilterManager;
 import com.truthbean.debbie.mvc.router.MvcRouterRegister;
@@ -47,18 +48,23 @@ public final class UndertowServerApplication extends AbstractWebServerApplicatio
 
     @Override
     public DebbieApplication init(ApplicationContext applicationContext, ClassLoader classLoader) {
-        this.configuration = applicationContext.factory(UndertowConfiguration.class);
+        this.configuration = applicationContext.getGlobalBeanFactory().factory(UndertowConfiguration.class);
+        if (this.configuration == null) {
+            LOGGER.warn("debbie-undertow module is disabled, debbie.undertow.enable is false");
+            return null;
+        }
+        MvcConfiguration mvcConfiguration = applicationContext.getGlobalBeanFactory().factory(MvcConfiguration.class);
         if (this.configuration == null) {
             LOGGER.warn("debbie-undertow module is disabled, debbie.undertow.enable is false");
             return null;
         }
         BeanInfoManager beanInitialization = applicationContext.getBeanInfoManager();
-        MvcRouterRegister.registerRouter(configuration, applicationContext);
-        RouterFilterManager.registerFilter(configuration, beanInitialization);
-        RouterFilterManager.registerCharacterEncodingFilter(configuration, "/**");
-        RouterFilterManager.registerCorsFilter(configuration, "/**");
-        RouterFilterManager.registerCsrfFilter(configuration, "/**");
-        RouterFilterManager.registerSecurityFilter(configuration, "/**");
+        MvcRouterRegister.registerRouter(mvcConfiguration, applicationContext);
+        RouterFilterManager.registerFilter(mvcConfiguration, beanInitialization);
+        RouterFilterManager.registerCharacterEncodingFilter(mvcConfiguration, "/**");
+        RouterFilterManager.registerCorsFilter(mvcConfiguration, "/**");
+        RouterFilterManager.registerCsrfFilter(mvcConfiguration, "/**");
+        RouterFilterManager.registerSecurityFilter(mvcConfiguration, "/**");
 
         SessionManager sessionManager = new InMemorySessionManager(configuration.getName());
         SessionCookieConfig sessionConfig = new SessionCookieConfig();

@@ -33,8 +33,12 @@ public class SqlSessionFactoryBeanFactory extends SqlSessionDebbieSupport implem
         setSqlSessionFactory(sqlSessionFactory);
     }
 
-    @Override
     public Set<String> getBeanNames() {
+        return names;
+    }
+
+    @Override
+    public Set<String> getAllName() {
         return names;
     }
 
@@ -44,7 +48,6 @@ public class SqlSessionFactoryBeanFactory extends SqlSessionDebbieSupport implem
         return getSqlSessionFactory();
     }
 
-    @Override
     public SqlSessionFactory factoryNamedBean(String name, ApplicationContext applicationContext) {
         setSqlSessionFactory();
         return getSqlSessionFactory();

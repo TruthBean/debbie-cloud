@@ -74,7 +74,7 @@ public class KafkaMessageConsumerResolver {
         }
 
         if (!topicSet.isEmpty()) {
-            KafkaConfiguration kafkaConfiguration = applicationContext.factory(KafkaConfiguration.class);
+            KafkaConfiguration kafkaConfiguration = applicationContext.getGlobalBeanFactory().factory(KafkaConfiguration.class);
             consumerFactory.consumer(executor, list, topicSet, kafkaConfiguration.getConsumer().getPullTimeout());
         }
     }

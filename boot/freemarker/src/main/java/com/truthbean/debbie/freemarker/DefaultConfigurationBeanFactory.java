@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2022 TruthBean(Rogar·Q)
+ * Copyright (c) 2023 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -11,6 +11,7 @@ package com.truthbean.debbie.freemarker;
 
 import com.truthbean.debbie.bean.*;
 import com.truthbean.debbie.core.ApplicationContext;
+import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 
 import java.util.Collections;
@@ -24,7 +25,7 @@ import java.util.Set;
  */
 public class DefaultConfigurationBeanFactory implements BeanFactory<Configuration> {
 
-    private Configuration configuration;
+    private volatile Configuration configuration;
 
     private final Set<String> names = new HashSet<>();
 
@@ -37,18 +38,14 @@ public class DefaultConfigurationBeanFactory implements BeanFactory<Configuratio
     @Override
     public Configuration factoryBean(ApplicationContext applicationContext) {
         if (configuration == null) {
-            configuration = new Configuration(Configuration.VERSION_2_3_30);
-            configuration.setClassLoaderForTemplateLoading(applicationContext.getClassLoader(), "/templates");
+            configuration = new Configuration(Configuration.VERSION_2_3_31);
+            configuration.setClassLoaderForTemplateLoading(applicationContext.getClassLoader(), "/templates/");
             configuration.setDefaultEncoding("UTF-8");
             configuration.setLocale(Locale.CHINA);
+            configuration.setClassicCompatible(true);
         }
 
         return configuration;
-    }
-
-    @Override
-    public Configuration factoryNamedBean(String name, ApplicationContext applicationContext) {
-        return factoryBean(applicationContext);
     }
 
     @Override
@@ -72,7 +69,7 @@ public class DefaultConfigurationBeanFactory implements BeanFactory<Configuratio
     }
 
     @Override
-    public Set<String> getBeanNames() {
+    public Set<String> getAllName() {
         return names;
     }
 

@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2022 TruthBean(Rogar·Q)
+  Copyright (c) 2023 TruthBean(Rogar·Q)
   Debbie is licensed under Mulan PSL v2.
   You can use this software according to the terms and conditions of the Mulan PSL v2.
   You may obtain a copy of Mulan PSL v2 at:
@@ -9,17 +9,12 @@
  */
 package com.truthbean.debbie.kafka;
 
-import com.truthbean.common.mini.util.StringUtils;
 import com.truthbean.debbie.bean.*;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
-import com.truthbean.debbie.concurrent.Async;
-import com.truthbean.debbie.concurrent.ThreadPooledExecutor;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContent;
+import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.event.DebbieEventPublisher;
-import com.truthbean.debbie.reflection.ReflectionHelper;
 
-import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -33,8 +28,8 @@ public class KafkaModuleStarter implements DebbieModuleStarter {
     private volatile KafkaConsumerFactory<?, ?> consumerFactory;
 
     @Override
-    public boolean enable(EnvironmentContent envContent) {
-        return envContent.getBooleanValue(ENABLE_KEY, true);
+    public boolean enable(Environment environment) {
+        return DebbieModuleStarter.super.enable(environment) && environment.getBooleanValue(ENABLE_KEY, true);
     }
 
     @Override
@@ -61,8 +56,8 @@ public class KafkaModuleStarter implements DebbieModuleStarter {
         KafkaConfiguration kafkaConfiguration = factory.factory(KafkaConfiguration.class);
         DebbieEventPublisher eventPublisher = factory.factory(DebbieEventPublisher.class);
         // kafka consumer
-        EnvironmentContent envContent = applicationContext.getEnvContent();
-        Map<String, String> matchedKey = envContent.getMatchedKey("debbie.kafka.x");
+        Environment environment = applicationContext.getDefaultEnvironment();
+        Map<String, String> matchedKey = environment.getMatchedKey("debbie.kafka.x");
         Properties properties = new Properties();
         matchedKey.forEach((key, value) -> {
             var k = key.substring("debbie.kafka.x".length());
