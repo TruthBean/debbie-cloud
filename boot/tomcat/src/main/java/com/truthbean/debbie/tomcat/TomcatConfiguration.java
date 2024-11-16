@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,6 +9,8 @@
  */
 package com.truthbean.debbie.tomcat;
 
+import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
+import com.truthbean.debbie.properties.DebbieConfiguration;
 import com.truthbean.debbie.server.AbstractServerConfiguration;
 
 import java.nio.charset.Charset;
@@ -20,19 +22,19 @@ import java.nio.charset.Charset;
  */
 public class TomcatConfiguration extends AbstractServerConfiguration {
 
-    public TomcatConfiguration(ClassLoader classLoader){
-        super(classLoader);
+    public TomcatConfiguration(){
+        super();
     }
 
-    public TomcatConfiguration(AbstractServerConfiguration abstractServerConfiguration, ClassLoader classLoader) {
-        super(classLoader);
+    public TomcatConfiguration(AbstractServerConfiguration abstractServerConfiguration) {
+        super();
         port(abstractServerConfiguration.getPort());
         host(abstractServerConfiguration.getHost());
-        web(abstractServerConfiguration.isWeb());
-        enableCors(abstractServerConfiguration.isEnableCors());
-        setCorsOrigins(abstractServerConfiguration.getCorsOrigins());
-        setCorsHeaders(abstractServerConfiguration.getCorsHeaders());
-        setCorsMethods(abstractServerConfiguration.getCorsMethods());
+        // web(abstractServerConfiguration.isWeb());
+        // enableCors(abstractServerConfiguration.isEnableCors());
+        // setCorsOrigins(abstractServerConfiguration.getCorsOrigins());
+        // setCorsHeaders(abstractServerConfiguration.getCorsHeaders());
+        // setCorsMethods(abstractServerConfiguration.getCorsMethods());
     }
 
     private String webappDir;
@@ -112,5 +114,29 @@ public class TomcatConfiguration extends AbstractServerConfiguration {
 
     public void setCacheMaxSize(Integer cacheMaxSize) {
         this.cacheMaxSize = cacheMaxSize;
+    }
+
+    @Override
+    public boolean isEnable() {
+        return true;
+    }
+
+    @Override
+    public String getProfile() {
+        return EnvironmentDepositoryHolder.DEFAULT_PROFILE;
+    }
+
+    @Override
+    public String getCategory() {
+        return EnvironmentDepositoryHolder.DEFAULT_CATEGORY;
+    }
+
+    @Override
+    public TomcatConfiguration copy() {
+        return this;
+    }
+
+    @Override
+    public void close() {
     }
 }

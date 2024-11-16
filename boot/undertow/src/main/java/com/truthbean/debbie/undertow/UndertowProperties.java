@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -17,6 +17,7 @@ import com.truthbean.debbie.properties.ClassesScanProperties;
 import com.truthbean.debbie.server.BaseServerProperties;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,17 +46,17 @@ public class UndertowProperties extends BaseServerProperties<UndertowConfigurati
 
     @Override
     public Map<String, Map<String, UndertowConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
-        return null;
+        return new HashMap<>();
     }
 
     @Override
     public Set<String> getCategories(String profile) {
-        return null;
+        return new HashSet<>();
     }
 
     @Override
     public UndertowConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
-        return null;
+        return getConfiguration(applicationContext);
     }
 
     @Override

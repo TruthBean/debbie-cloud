@@ -47,6 +47,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
 
         <dependency>
             <groupId>com.truthbean</groupId>
@@ -56,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>com.truthbean</groupId>
-            <artifactId>log4j2-boot</artifactId>
+            <artifactId>truthbean-log4j2-boot</artifactId>
             <version>${truthbean.version}</version>
             <scope>test</scope>
         </dependency>

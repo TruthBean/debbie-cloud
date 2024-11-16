@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,15 +9,14 @@
  */
 package com.truthbean.debbie.tomcat;
 
+import com.truthbean.core.util.StringUtils;
 import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.boot.ApplicationArgs;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContent;
+import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.io.PathUtils;
-import com.truthbean.debbie.properties.DebbieConfigurationCenter;
 import com.truthbean.debbie.server.AbstractWebServerApplication;
-import com.truthbean.common.mini.util.StringUtils;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.connector.Connector;
@@ -56,7 +55,7 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
     }
 
     @Override
-    public boolean isEnable(EnvironmentContent envContent) {
+    public boolean isEnable(Environment envContent) {
         return super.isEnable(envContent) && envContent.getBooleanValue(TomcatProperties.ENABLE_KEY, true);
     }
 
@@ -71,7 +70,7 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
         String webappDir = configuration.getWebappDir();
         var webappPath = new File(webappDir);
         if (!webappPath.exists()) {
-            final String userDir = PathUtils.getUserDir(configuration.getClassLoader());
+            final String userDir = PathUtils.getUserDir(configuration.getClass().getClassLoader());
             if (userDir == null) {
                 try {
                     webappDir = Files.createTempDirectory("default-doc-base").toFile().getAbsolutePath();
@@ -198,7 +197,7 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
 
     @Override
     public DebbieApplication init(ApplicationContext applicationContext, ClassLoader classLoader) {
-        this.configuration = applicationContext.factory(TomcatConfiguration.class);
+        this.configuration = applicationContext.getGlobalBeanFactory().factory(TomcatConfiguration.class);
         if (this.configuration == null) {
             LOGGER.warn("debbie-tomcat module is disabled, debbie.tomcat.enable is false");
             return null;

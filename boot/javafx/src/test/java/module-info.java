@@ -6,4 +6,5 @@
 open module com.truthbean.debbie.javafx.test {
     requires com.truthbean.logger.core;
     requires com.truthbean.debbie.javafx;
+    // exports com.truthbean.debbie.javafx.check;
 }

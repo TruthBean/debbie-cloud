@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -16,14 +16,17 @@ module com.truthbean.debbie.servlet {
     exports com.truthbean.debbie.servlet;
     exports com.truthbean.debbie.servlet.response.view;
 
+    exports org.apache.commons.fileupload;
+    exports org.apache.commons.fileupload.servlet;
+
     requires transitive com.truthbean.debbie.mvc;
     requires transitive jakarta.servlet;
     requires transitive org.apache.commons.io;
     requires static jakarta.servlet.jsp.jstl;
     requires transitive jakarta.servlet.jsp;
-    requires transitive jakarta.el;
-    requires transitive jakarta.xml.bind;
-    requires static jakarta.activation;
+    // requires transitive jakarta.el;
+    // requires transitive jakarta.xml.bind;
+    // requires static jakarta.activation;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter
             with com.truthbean.debbie.servlet.ServletModuleStarter;

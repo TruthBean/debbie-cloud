@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,13 +9,11 @@
  */
 package com.truthbean.debbie.servlet;
 
-import com.truthbean.common.mini.util.StringUtils;
-import com.truthbean.debbie.bean.BeanScanConfiguration;
+import com.truthbean.core.util.StringUtils;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.env.EnvironmentContentHolder;
+import com.truthbean.debbie.environment.DebbieEnvironmentDepositoryHolder;
 import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.MvcProperties;
-import com.truthbean.debbie.properties.ClassesScanProperties;
 import com.truthbean.debbie.properties.DebbieProperties;
 
 import java.util.HashMap;
@@ -27,7 +25,7 @@ import java.util.Set;
  * @since 0.0.1
  * Created on 2019/3/10 17:39.
  */
-public class ServletProperties extends EnvironmentContentHolder implements DebbieProperties<ServletConfiguration> {
+public class ServletProperties extends DebbieEnvironmentDepositoryHolder implements DebbieProperties<ServletConfiguration> {
 
     //========================================================================================
 
@@ -40,13 +38,10 @@ public class ServletProperties extends EnvironmentContentHolder implements Debbi
             return configuration;
         }
 
-        configuration = new ServletConfiguration(classLoader);
+        configuration = new ServletConfiguration();
 
         MvcConfiguration webConfiguration = MvcProperties.toConfiguration(classLoader);
         configuration.copyFrom(webConfiguration);
-
-        BeanScanConfiguration beanScanConfiguration = ClassesScanProperties.toConfiguration(classLoader);
-        configuration.copyFrom(beanScanConfiguration);
 
         return configuration;
     }
@@ -57,11 +52,21 @@ public class ServletProperties extends EnvironmentContentHolder implements Debbi
     }
 
     @Override
-    public ServletConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
-        if (DEFAULT_PROFILE.equals(name) || !StringUtils.hasText(name)) {
+    public Map<String, Map<String, ServletConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
+        return Map.of();
+    }
+
+    @Override
+    public Set<String> getCategories(String profile) {
+        return Set.of();
+    }
+
+    @Override
+    public ServletConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        if (DEFAULT_PROFILE.equals(profile) || !StringUtils.hasText(category)) {
             return getConfiguration(applicationContext);
         }
-        return map.get(name);
+        return map.get(category);
     }
 
     @Override

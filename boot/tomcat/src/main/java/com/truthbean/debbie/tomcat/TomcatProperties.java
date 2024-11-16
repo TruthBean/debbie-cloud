@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,7 +9,6 @@
  */
 package com.truthbean.debbie.tomcat;
 
-import com.truthbean.common.mini.util.StringUtils;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.reflection.ClassLoaderUtils;
 import com.truthbean.debbie.server.BaseServerProperties;
@@ -56,11 +55,18 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
     }
 
     @Override
-    public TomcatConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
-        if (DEFAULT_PROFILE.equals(name) || !StringUtils.hasText(name)) {
-            return getConfiguration(applicationContext);
-        }
-        return map.get(name);
+    public Map<String, Map<String, TomcatConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
+        return Map.of();
+    }
+
+    @Override
+    public Set<String> getCategories(String profile) {
+        return Set.of();
+    }
+
+    @Override
+    public TomcatConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return getConfiguration(applicationContext);
     }
 
     @Override
@@ -75,9 +81,9 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
         }
 
         TomcatProperties properties = new TomcatProperties();
-        configuration = new TomcatConfiguration(classLoader);
+        configuration = new TomcatConfiguration();
 
-        properties.loadAndSet(properties, configuration);
+        properties.loadAndSet(DEFAULT_CATEGORY, properties, configuration);
 
         String userDir;
         URL userDirUrl = classLoader.getResource("");
@@ -107,7 +113,7 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
         configuration.setCachingAllowed(properties.getBooleanValue(TOMCAT_RESOURCES_CACHING_ALLOWED, true));
         configuration.setCacheMaxSize(properties.getIntegerValue(TOMCAT_RESOURCES_MAX_CACHE, 102400));
 
-        map.put(DEFAULT_PROTOCOL, configuration);
+        map.put(DEFAULT_PROFILE, configuration);
 
         return configuration;
     }

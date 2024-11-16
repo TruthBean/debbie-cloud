@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -27,7 +27,7 @@ import org.springframework.context.annotation.FilterType;
 @EnableDebbieApplication
 public class DebbieSpringTest {
     static {
-        System.setProperty(DebbieApplication.DISABLE_DEBBIE, "false");
+        System.setProperty(DebbieApplication.DISABLE_DEBBIE, "true");
         System.setProperty("logging.level.com.truthbean", "debug");
         System.setProperty("logging.level.org.springframework", "debug");
     }

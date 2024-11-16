@@ -2,8 +2,13 @@ package com.truthbean.debbie.spring;
 
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
+import com.truthbean.debbie.boot.ApplicationBootContext;
 import com.truthbean.debbie.boot.DebbieApplication;
+import com.truthbean.debbie.boot.DebbieExitedApplication;
+import com.truthbean.debbie.boot.DebbieStartedApplication;
 import com.truthbean.debbie.core.ApplicationContext;
+
+import java.util.function.Consumer;
 
 /**
  * @author TruthBean
@@ -19,17 +24,19 @@ public class SpringDebbieApplication implements DebbieApplication {
     }
 
     @Override
-    public void start() {
+    public DebbieStartedApplication start() {
         LOGGER.info("debbie start by spring");
+        return this;
     }
 
     @Override
-    public void exit() {
+    public DebbieApplication then(Consumer<ApplicationBootContext> applicationBootContextConsumer) {
+        return this;
     }
 
     @Override
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
+    public DebbieExitedApplication exit() {
+        return this;
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringDebbieApplication.class);

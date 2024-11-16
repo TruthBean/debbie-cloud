@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -24,7 +24,7 @@ module com.truthbean.debbie.kafka {
 
     exports com.truthbean.debbie.kafka;
 
-    opens com.truthbean.debbie.kafka to com.truthbean.debbie.core, com.truthbean.common.mini;
+    opens com.truthbean.debbie.kafka to com.truthbean.debbie.core, com.truthbean.core;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter with com.truthbean.debbie.kafka.KafkaModuleStarter;
 }

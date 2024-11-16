@@ -2,7 +2,7 @@ package com.truthbean.debbie.spring;
 
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
-import com.truthbean.debbie.env.EnvironmentContent;
+import com.truthbean.debbie.environment.Environment;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
@@ -14,7 +14,7 @@ import java.util.Properties;
  * @since 0.5.4
  * Created on 2022/02/03 10:09.
  */
-public class SpringEnvContent implements EnvironmentContent {
+public class SpringEnvContent implements Environment {
 
     private final ConfigurableEnvironment environment;
 
@@ -23,17 +23,7 @@ public class SpringEnvContent implements EnvironmentContent {
     }
 
     @Override
-    public int getPriority() {
-        return 5;
-    }
-
-    @Override
-    public String getProfile() {
-        return "spring";
-    }
-
-    @Override
-    public Properties getProperties() {
+    public Properties properties() {
         Properties properties = new Properties();
         MutablePropertySources sources = environment.getPropertySources();
         for (PropertySource<?> source : sources) {
@@ -46,6 +36,10 @@ public class SpringEnvContent implements EnvironmentContent {
     @Override
     public Logger getLogger() {
         return LOGGER;
+    }
+
+    @Override
+    public void clear() {
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringEnvContent.class);

@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>com.truthbean</groupId>
-            <artifactId>stdout-boot</artifactId>
+            <artifactId>truthbean-stdout-boot</artifactId>
             <version>${truthbean.version}</version>
             <scope>test</scope>
         </dependency>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -76,9 +76,9 @@ public final class UndertowServerApplication extends AbstractWebServerApplicatio
 
         // reverse order to fix the chain order
         List<RouterFilterInfo> filters = RouterFilterManager.getReverseOrderFilters();
-        HttpHandler next = new DispatcherHttpHandler(configuration, applicationContext);
+        HttpHandler next = new DispatcherHttpHandler(configuration, mvcConfiguration, applicationContext);
         for (RouterFilterInfo filter : filters) {
-            next = new HttpHandlerFilter(next, filter, applicationContext, configuration);
+            next = new HttpHandlerFilter(next, filter, applicationContext, mvcConfiguration);
         }
 
         // set as next handler your root handler

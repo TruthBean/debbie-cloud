@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -48,12 +48,7 @@ public class ServletContextHandler {
     private ServletConfiguration servletConfiguration;
 
     private void setServletConfiguration() {
-        if (ServletProperties.isPropertiesEmpty()) {
-            // TODO 提供properties无法加载的方案
-            servletConfiguration = new ServletConfiguration(classLoader);
-        } else {
-            servletConfiguration = ServletProperties.toConfiguration(classLoader);
-        }
+        servletConfiguration = ServletProperties.toConfiguration(classLoader);
     }
 
     private void handleServletContext(ServletContext servletContext) {

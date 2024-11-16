@@ -53,7 +53,7 @@
 
         <dependency>
             <groupId>com.truthbean</groupId>
-            <artifactId>slf4j-boot</artifactId>
+            <artifactId>truthbean-slf4j-boot</artifactId>
             <version>${truthbean.version}</version>
             <scope>test</scope>
         </dependency>

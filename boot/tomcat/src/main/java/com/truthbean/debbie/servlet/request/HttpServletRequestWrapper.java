@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -20,7 +20,6 @@ import jakarta.servlet.http.*;
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import java.io.*;
@@ -187,7 +186,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
 
     private Map<String, List<Object>> getMultipartParams() {
         Map<String, List<Object>> map = new HashMap<>();
-        if (ServletFileUpload.isMultipartContent(request)) {
+        /*if (ServletFileUpload.isMultipartContent(request)) {
             var maxMemorySize = 1024 * 1024 * 1024;
             var tempDirectory = new File(System.getProperty("java.io.tmpdir"));
             // Create a factory for disk-based file items
@@ -212,7 +211,7 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
             } catch (FileUploadException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         return map;
     }
 
@@ -449,7 +448,6 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
         return request.getRequestDispatcher(path);
     }
 
-    @Override
     public String getRealPath(String path) {
         return request.getServletContext().getRealPath(path);
     }
@@ -507,6 +505,21 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
     @Override
     public DispatcherType getDispatcherType() {
         return request.getDispatcherType();
+    }
+
+    @Override
+    public String getRequestId() {
+        return request.getRequestId();
+    }
+
+    @Override
+    public String getProtocolRequestId() {
+        return request.getProtocolRequestId();
+    }
+
+    @Override
+    public ServletConnection getServletConnection() {
+        return request.getServletConnection();
     }
 
     @Override
@@ -641,11 +654,6 @@ public class HttpServletRequestWrapper implements HttpServletRequest {
 
     @Override
     public boolean isRequestedSessionIdFromURL() {
-        return request.isRequestedSessionIdFromURL();
-    }
-
-    @Override
-    public boolean isRequestedSessionIdFromUrl() {
         return request.isRequestedSessionIdFromURL();
     }
 

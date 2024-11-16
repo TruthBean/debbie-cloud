@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  *    Debbie is licensed under Mulan PSL v2.
  *    You can use this software according to the terms and conditions of the Mulan PSL v2.
  *    You may obtain a copy of Mulan PSL v2 at:
@@ -9,7 +9,7 @@
  */
 package com.truthbean.debbie.swagger;
 
-import com.truthbean.common.mini.util.StringUtils;
+import com.truthbean.core.util.StringUtils;
 import io.swagger.v3.core.util.AnnotationsUtils;
 import io.swagger.v3.oas.annotations.security.OAuthScope;
 import io.swagger.v3.oas.models.security.OAuthFlow;

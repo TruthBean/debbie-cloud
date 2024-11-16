@@ -73,7 +73,7 @@
 
         <dependency>
             <groupId>com.truthbean</groupId>
-            <artifactId>log4j2-boot</artifactId>
+            <artifactId>truthbean-log4j2-boot</artifactId>
             <version>${truthbean.version}</version>
             <scope>test</scope>
         </dependency>
@@ -105,7 +105,7 @@
         </dependency>
         <dependency>
             <groupId>com.truthbean</groupId>
-            <artifactId>juli-bridge</artifactId>
+            <artifactId>truthbean-juli-bridge</artifactId>
             <version>${truthbean.version}</version>
             <scope>test</scope>
         </dependency>

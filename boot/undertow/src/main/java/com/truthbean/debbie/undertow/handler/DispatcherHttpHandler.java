@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -10,6 +10,7 @@
 package com.truthbean.debbie.undertow.handler;
 
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.request.RouterRequest;
 import com.truthbean.debbie.mvc.router.MvcRouterHandler;
 import com.truthbean.debbie.mvc.router.RouterInfo;
@@ -34,10 +35,13 @@ public class DispatcherHttpHandler implements HttpHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherHttpHandler.class);
 
     private final UndertowConfiguration configuration;
+    private final MvcConfiguration mvcConfiguration;
     private final ApplicationContext applicationContext;
 
-    public DispatcherHttpHandler(final UndertowConfiguration configuration, ApplicationContext applicationContext) {
+    public DispatcherHttpHandler(final UndertowConfiguration configuration, final MvcConfiguration mvcConfiguration,
+                                 ApplicationContext applicationContext) {
         this.configuration = configuration;
+        this.mvcConfiguration = mvcConfiguration;
         this.applicationContext = applicationContext;
     }
 
@@ -65,12 +69,12 @@ public class DispatcherHttpHandler implements HttpHandler {
             return;
         }
         RouterRequest httpRequest = getHttpRequestInfo(exchange);
-        byte[] bytes = MvcRouterHandler.handleStaticResources(httpRequest, configuration.getStaticResourcesMapping());
+        byte[] bytes = MvcRouterHandler.handleStaticResources(httpRequest, mvcConfiguration.getStaticResourcesMapping());
         if (bytes != null) {
             var sender = exchange.getResponseSender();
             sender.send(ByteBuffer.wrap(bytes));
         } else {
-            RouterInfo routerInfo = MvcRouterHandler.getMatchedRouter(httpRequest, configuration);
+            RouterInfo routerInfo = MvcRouterHandler.getMatchedRouter(httpRequest, mvcConfiguration);
             LOGGER.debug(httpRequest::toString);
 
             var response = MvcRouterHandler.handleRouter(routerInfo, applicationContext);

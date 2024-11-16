@@ -7,7 +7,8 @@ import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
-import com.truthbean.debbie.env.EnvironmentContent;
+import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.event.AbstractDebbieEvent;
 import com.truthbean.debbie.io.ResourceResolver;
 import com.truthbean.debbie.proxy.BeanProxyType;
@@ -101,6 +102,11 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
     }
 
     @Override
+    public void registerReflectionBeanRegister(Class<? extends Annotation> annotationClass) {
+
+    }
+
+    @Override
     public void registerClass(Class<?> beanClass) {
         this.applicationContext.registerBean(beanClass);
     }
@@ -138,26 +144,26 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
 
     @Override
     public boolean registerBeanInfo(BeanInfo<?> beanInfo) {
-        this.applicationContext.registerBean(beanInfo.getServiceName(), beanInfo.getBeanClass());
+        this.applicationContext.registerBean(beanInfo.getName(), beanInfo.getBeanClass());
         return true;
     }
 
     @Override
     public ApplicationFactory register(BeanInfo<?> beanInfo) {
-        this.applicationContext.registerBean(beanInfo.getServiceName(), beanInfo.getBeanClass());
+        this.applicationContext.registerBean(beanInfo.getName(), beanInfo.getBeanClass());
         return this;
     }
 
     @Override
     public ApplicationFactory register(BeanFactory<?> beanFactory) {
-        this.applicationContext.registerBean(beanFactory.getServiceName(), beanFactory.getBeanClass(), beanFactory.factoryBean(this));
+        this.applicationContext.registerBean(beanFactory.getName(), beanFactory.getBeanClass(), beanFactory.factoryBean(this));
         return this;
     }
 
     @Override
     public ApplicationFactory register(Collection<BeanInfo<?>> beanInfos) {
         for (BeanInfo<?> beanInfo : beanInfos) {
-            this.applicationContext.registerBean(beanInfo.getServiceName(), beanInfo.getBeanClass());
+            this.applicationContext.registerBean(beanInfo.getName(), beanInfo.getBeanClass());
         }
         return this;
     }
@@ -187,6 +193,11 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
     @Override
     public <T> T factoryWithoutProxy(Class<T> type) {
         return applicationContext.getBean(type);
+    }
+
+    @Override
+    public <T> T factory(String serviceName, Class<T> type) {
+        return applicationContext.getBean(serviceName, type);
     }
 
     @Override
@@ -240,6 +251,26 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
     }
 
     @Override
+    public <T> T factoryConfiguration(Class<T> type, String profile, String category) {
+        return null;
+    }
+
+    @Override
+    public <T> T factory(BeanInjection<T> injection) {
+        return null;
+    }
+
+    @Override
+    public <T> T factoryByRawBean(BeanInjection<T> injection, T rawBean) {
+        return null;
+    }
+
+    @Override
+    public <T> T factory(BeanInjection<T> injection, BeanSupplier<T> beanInfo) {
+        return null;
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <Bean> Set<Bean> getBeanList(Class<Bean> superType) {
         String[] names = applicationContext.getBeanNamesForType(superType);
@@ -249,6 +280,11 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
             set.add(bean);
         }
         return set;
+    }
+
+    @Override
+    public <T> List<T> factories(Class<T> beanType) {
+        return List.of();
     }
 
     @Override
@@ -267,10 +303,10 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
         List<BeanInfo<? extends BeanScanConfiguration>> list = this.getBeanInfoList(BeanScanConfiguration.class, true);
         Set<String> packages = new HashSet<>();
         for (BeanInfo<? extends BeanScanConfiguration> info : list) {
-            Set<String> names = info.getBeanNames();
+            Set<String> names = info.getAllName();
             for (String name : names) {
                 if (info instanceof BeanFactory<?> beanFactory) {
-                    BeanScanConfiguration bean = (BeanScanConfiguration) beanFactory.factoryNamedBean(name, context);
+                    BeanScanConfiguration bean = (BeanScanConfiguration) beanFactory.factoryBean(context);
                     packages.addAll(bean.getScanBasePackages());
                 }
             }
@@ -372,8 +408,13 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
     }
 
     @Override
-    public EnvironmentContent getEnvContent() {
-        return new SpringEnvContent(applicationContext.getEnvironment());
+    public EnvironmentDepositoryHolder getEnvironmentHolder() {
+        return null;
+    }
+
+    @Override
+    public Environment getDefaultEnvironment() {
+        return null;
     }
 
     @Override
@@ -394,11 +435,6 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
     @Override
     public Set<BeanLifecycle> getBeanLifecycle() {
         return beanLifecycles;
-    }
-
-    @Override
-    public <T extends I, I> void registerSingleBean(Class<I> beanClass, T bean, String... names) {
-        applicationContext.registerBean(beanClass, () -> bean);
     }
 
     @Override
@@ -528,6 +564,11 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
     }
 
     @Override
+    public List<BeanInfo> getBeanInfoList(BeanInjection beanInjection) {
+        return List.of();
+    }
+
+    @Override
     public <Bean> List<BeanInfo<? extends Bean>> getBeanInfoList(Class<Bean> type, boolean require) {
         DefaultListableBeanFactory factory = applicationContext.getDefaultListableBeanFactory();
         Map<String, Bean> map = factory.getBeansOfType(type);
@@ -551,6 +592,11 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
 
     @Override
     public <Bean> BeanFactory<Bean> getBeanFactory(String serviceName, Class<Bean> type, boolean require) {
+        return null;
+    }
+
+    @Override
+    public <Bean> BeanFactory<Bean> getFinalBeanFactory(String serviceName, Class<Bean> type, boolean require) {
         return null;
     }
 

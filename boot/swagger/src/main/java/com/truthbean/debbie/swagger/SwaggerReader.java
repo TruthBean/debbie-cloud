@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  *    Debbie is licensed under Mulan PSL v2.
  *    You can use this software according to the terms and conditions of the Mulan PSL v2.
  *    You may obtain a copy of Mulan PSL v2 at:
@@ -15,11 +15,11 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import com.fasterxml.jackson.databind.introspect.AnnotatedParameter;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.truthbean.core.util.StringUtils;
 import com.truthbean.debbie.io.MediaTypeInfo;
 import com.truthbean.debbie.mvc.request.HttpMethod;
 import com.truthbean.debbie.mvc.router.*;
 import com.truthbean.debbie.mvc.url.RouterPathFragments;
-import com.truthbean.common.mini.util.StringUtils;
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverters;
 import io.swagger.v3.core.converter.ResolvedSchema;

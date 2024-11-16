@@ -34,17 +34,6 @@ public class SpringBeanFactory implements BeanFactory<Object> {
     }
 
     @Override
-    public Object factoryNamedBean(String name, ApplicationContext applicationContext) {
-        return this.applicationContext.getBean(name);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Object factoryProxiedBean(String name, Class beanInterface, ApplicationContext applicationContext) {
-        return this.applicationContext.getBean(name, beanInterface);
-    }
-
-    @Override
     public boolean isCreated() {
         return true;
     }
@@ -84,7 +73,7 @@ public class SpringBeanFactory implements BeanFactory<Object> {
     }
 
     @Override
-    public Set<String> getBeanNames() {
+    public Set<String> getAllName() {
         Set<String> names = new HashSet<>();
         names.add(name);
         return names;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 TruthBean(Rogar·Q)
+ * Copyright (c) 2024 TruthBean(Rogar·Q)
  *    Debbie is licensed under Mulan PSL v2.
  *    You can use this software according to the terms and conditions of the Mulan PSL v2.
  *    You may obtain a copy of Mulan PSL v2 at:
@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.swagger.test;
 
+import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.boot.DebbieBootApplication;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
@@ -31,12 +32,14 @@ public class DebbieSwaggerTest {
         ApplicationFactory factory = ApplicationFactory.configure(DebbieSwaggerTest.class);
         ApplicationContext context = factory.getApplicationContext();
 
-        MvcConfiguration configuration = context.factory(MvcConfiguration.class);
+        GlobalBeanFactory beanFactory = context.getGlobalBeanFactory();
+
+        MvcConfiguration configuration = beanFactory.factory(MvcConfiguration.class);
 
         MvcRouterRegister.registerRouter(configuration, context);
 
         OpenAPI oas = new OpenAPI();
-        Info info = context.factory(Info.class);
+        Info info = beanFactory.factory(Info.class);
 
         oas.info(info);
         oas.servers(List.of(new Server().url("http://localhost:8090").description("debbie swagger example")));

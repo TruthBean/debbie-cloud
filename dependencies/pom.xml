@@ -27,12 +27,12 @@
         <dependencies>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>common-mini</artifactId>
+                <artifactId>truthbean-core</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>transformer</artifactId>
+                <artifactId>truthbean-transformer</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <!-- debbie -->
