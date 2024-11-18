@@ -48,12 +48,7 @@ public class ServletContextHandler {
     private ServletConfiguration servletConfiguration;
 
     private void setServletConfiguration() {
-        if (ServletProperties.isPropertiesEmpty()) {
-            // TODO 提供properties无法加载的方案
-            servletConfiguration = new ServletConfiguration(classLoader);
-        } else {
-            servletConfiguration = ServletProperties.toConfiguration(classLoader);
-        }
+        servletConfiguration = ServletProperties.toConfiguration(classLoader);
     }
 
     private void handleServletContext(ServletContext servletContext) {

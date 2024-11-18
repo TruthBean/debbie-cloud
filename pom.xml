@@ -72,7 +72,7 @@
         <url>https://github.com/truthbean/debbie-cloud/issues</url>
     </issueManagement>
 
-    <profiles>
+    <!--<profiles>
         <profile>
             <id>release</id>
             <build>
@@ -103,10 +103,10 @@
                 </plugins>
             </build>
         </profile>
-    </profiles>
+    </profiles>-->
 
     <build>
-        <plugins>
+        <!--<plugins>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -245,7 +245,7 @@
                     <charset>UTF-8</charset>
                     <encoding>UTF-8</encoding>
                     <docencoding>UTF-8</docencoding>
-                    <doclint>none</doclint> <!--忽略无法识别注释的错误-->
+                    <doclint>none</doclint> &lt;!&ndash;忽略无法识别注释的错误&ndash;&gt;
                 </configuration>
                 <executions>
                     <execution>
@@ -256,7 +256,7 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+        </plugins>-->
 
     </build>
 

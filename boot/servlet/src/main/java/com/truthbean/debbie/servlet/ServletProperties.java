@@ -9,12 +9,11 @@
  */
 package com.truthbean.debbie.servlet;
 
-import com.truthbean.debbie.bean.BeanScanConfiguration;
+import com.truthbean.core.util.StringUtils;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
+import com.truthbean.debbie.environment.DebbieEnvironmentDepositoryHolder;
 import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.MvcProperties;
-import com.truthbean.debbie.properties.ClassesScanProperties;
 import com.truthbean.debbie.properties.DebbieProperties;
 
 import java.util.HashMap;
@@ -26,7 +25,7 @@ import java.util.Set;
  * @since 0.0.1
  * Created on 2019/3/10 17:39.
  */
-public class ServletProperties extends EnvironmentDepositoryHolder implements DebbieProperties<ServletConfiguration> {
+public class ServletProperties extends DebbieEnvironmentDepositoryHolder implements DebbieProperties<ServletConfiguration> {
 
     //========================================================================================
 
@@ -39,13 +38,10 @@ public class ServletProperties extends EnvironmentDepositoryHolder implements De
             return configuration;
         }
 
-        configuration = new ServletConfiguration(classLoader);
+        configuration = new ServletConfiguration();
 
         MvcConfiguration webConfiguration = MvcProperties.toConfiguration(classLoader);
         configuration.copyFrom(webConfiguration);
-
-        BeanScanConfiguration beanScanConfiguration = ClassesScanProperties.toConfiguration(classLoader);
-        configuration.copyFrom(beanScanConfiguration);
 
         return configuration;
     }
@@ -55,12 +51,26 @@ public class ServletProperties extends EnvironmentDepositoryHolder implements De
         return map.keySet();
     }
 
-    @Override
     public ServletConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
         if (DEFAULT_PROFILE.equals(name) || !StringUtils.hasText(name)) {
             return getConfiguration(applicationContext);
         }
         return map.get(name);
+    }
+
+    @Override
+    public Map<String, Map<String, ServletConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
+        return Map.of();
+    }
+
+    @Override
+    public Set<String> getCategories(String profile) {
+        return Set.of();
+    }
+
+    @Override
+    public ServletConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return getConfiguration(applicationContext);
     }
 
     @Override

@@ -24,7 +24,7 @@ module com.truthbean.debbie.servlet {
     requires transitive org.apache.commons.io;
     requires static jakarta.servlet.jsp.jstl;
     requires transitive jakarta.servlet.jsp;
-    // requires transitive jakarta.el;
+    requires transitive jakarta.el;
     // requires transitive jakarta.xml.bind;
     // requires static jakarta.activation;
 
