@@ -30,7 +30,7 @@ public class MybatisProperties extends DebbieEnvironmentDepositoryHolder impleme
     private static final String MYBATIS_MAPPER_LOCATIONS = "debbie.mybatis.mapper-locations";
     //===========================================================================
 
-    private final Map<String, MybatisConfiguration> map = new HashMap<>();
+    private final Map<String, Map<String, MybatisConfiguration>> map = new HashMap<>();
     private final MybatisConfiguration configuration;
     private static MybatisProperties instance;
 
@@ -48,7 +48,7 @@ public class MybatisProperties extends DebbieEnvironmentDepositoryHolder impleme
         List<String> list = getStringListValue(MYBATIS_MAPPER_LOCATIONS, ";");
         ResourceResolver resourceResolver = context.getResourceResolver();
         resolveMapperLocations(list, resourceResolver);
-        map.put(DEFAULT_PROFILE, configuration);
+        map.computeIfAbsent(DEFAULT_PROFILE, k -> new HashMap<>()).put(DEFAULT_CATEGORY, configuration);
     }
 
     private void resolveMapperLocations(List<String> patternList, ResourceResolver resourceResolver) {
@@ -78,22 +78,22 @@ public class MybatisProperties extends DebbieEnvironmentDepositoryHolder impleme
     }
 
     public MybatisConfiguration getConfiguration(String name, ApplicationContext applicationContext) {
-        return map.get(name);
+        return map.getOrDefault(DEFAULT_PROFILE, new HashMap<>()).get(name);
     }
 
     @Override
     public Map<String, Map<String, MybatisConfiguration>> getAllProfiledCategoryConfiguration(ApplicationContext applicationContext) {
-        return null;
+        return map;
     }
 
     @Override
     public Set<String> getCategories(String profile) {
-        return null;
+        return map.getOrDefault(profile, new HashMap<>()).keySet();
     }
 
     @Override
     public MybatisConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
-        return null;
+        return map.getOrDefault(profile, new HashMap<>()).get(category);
     }
 
     @Override
