@@ -81,7 +81,7 @@ public class KafkaConfiguration implements DebbieConfiguration {
         private Integer autoCommitInterval;
 
         @PropertyInject("auto-offset-reset")
-        private String autoOffsetReset;
+        private String autoOffsetReset = "latest";
 
         @PropertyInject("session-timeout")
         private Integer sessionTimeout;
