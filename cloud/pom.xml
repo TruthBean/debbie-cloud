@@ -14,6 +14,7 @@
     </modules>
 
     <artifactId>cloud</artifactId>
+    <name>debbie-cloud</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

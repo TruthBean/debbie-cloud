@@ -35,6 +35,11 @@ public class SpringDebbieApplication implements DebbieApplication {
     }
 
     @Override
+    public DebbieStartedApplication afterStarted(Consumer<ApplicationBootContext> applicationBootContextConsumer) {
+        return this;
+    }
+
+    @Override
     public DebbieExitedApplication exit() {
         return this;
     }

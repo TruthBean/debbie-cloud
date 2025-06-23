@@ -26,7 +26,7 @@ public class QuartzTest {
     public static void main(String[] args) {
         DebbieApplication.create(QuartzTest.class, args)
                 .start()
-                .then(QuartzTest::doCron);
+                .afterStarted(QuartzTest::doCron);
     }
 
     private static void doCron(ApplicationBootContext context) {

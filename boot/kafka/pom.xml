@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>debbie-kafka</artifactId>
+    <name>debbie-kafka</name>
 
     <properties>
         <java.version>17</java.version>

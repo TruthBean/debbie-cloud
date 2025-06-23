@@ -35,7 +35,7 @@ public class KafkaModuleStarter implements DebbieModuleStarter {
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
         DebbieReflectionBeanFactory<KafkaConfiguration> debbieBeanInfo = new DebbieReflectionBeanFactory<>(KafkaConfiguration.class);
-        debbieBeanInfo.addBeanName("kafkaConfiguration");
+        debbieBeanInfo.addBeanName("kafkaConfiguration", KafkaConfiguration.class.getName());
         beanInfoManager.registerBeanInfo(debbieBeanInfo);
 
         var beanFactory = new ConsumerRecordsEventListenerFactory<>("consumerRecordsEventListener");

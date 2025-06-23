@@ -9,8 +9,10 @@
  */
 package com.truthbean.debbie.servlet;
 
-import com.truthbean.debbie.core.AbstractApplicationFactory;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.core.ApplicationFactory;
+import com.truthbean.debbie.internal.ApplicationContextHolder;
+import com.truthbean.debbie.internal.DebbieApplicationFactory;
 import com.truthbean.debbie.mvc.router.Router;
 import com.truthbean.debbie.watcher.Watcher;
 import com.truthbean.Logger;
@@ -28,32 +30,31 @@ import java.util.Set;
  * Created on 2018-01-07 22:30.
  */
 @HandlesTypes(value = {Watcher.class, Router.class})
-public class ServletApplicationInitializer extends AbstractApplicationFactory implements ServletContainerInitializer {
-
-    private final ApplicationContext applicationContext;
-
+public class ServletApplicationInitializer implements ServletContainerInitializer {
     public ServletApplicationInitializer() {
-        super(ServletApplicationInitializer.class);
-        if (debbieApplication == null) {
+        if (ApplicationContextHolder.getApplicationContext() == null) {
             LOGGER.debug("run servlet module without application");
-            applicationContext = getApplicationContext();
-            super.config(ServletApplicationInitializer.class);
-            super.callStarter();
-        } else {
-            applicationContext = super.getApplicationContext();
         }
     }
 
     @Override
     public void onStartup(Set<Class<?>> classes, ServletContext ctx) throws ServletException {
         LOGGER.info("ServletContainerInitializer onStartup ...");
+        ApplicationContext applicationContext = ApplicationContextHolder.getApplicationContext();
+        ApplicationFactory applicationFactory = null;
+        boolean runWithWar = false;
+        if (applicationContext == null) {
+            applicationFactory = ApplicationFactory.newEmpty().preInit(ServletApplicationInitializer.class).init().config(ServletApplicationInitializer.class).create();
+            applicationContext = ApplicationContextHolder.getApplicationContext();
+            runWithWar = true;
+        }
         var handler = new ServletContextHandler(ctx, applicationContext);
         handler.registerRouter();
         handler.registerFilter(ctx);
 
-        // if run with war package
-        if (debbieApplication == null) {
-            super.postCallStarter(this.factory());
+        // if run with a war package
+        if (runWithWar && applicationFactory instanceof DebbieApplicationFactory) {
+            ((DebbieApplicationFactory)applicationFactory).postCallStarter(applicationFactory.factory());
         }
     }
 

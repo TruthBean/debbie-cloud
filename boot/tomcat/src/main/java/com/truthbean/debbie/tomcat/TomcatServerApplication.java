@@ -148,6 +148,7 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
 
         StandardJarScanFilter filter = new StandardJarScanFilter();
         filter.setTldSkip(TldSkipPatterns.tldSkipPatterns());
+        filter.setTldScan("jakarta.servlet.jsp.jstl-*.jar");
         StandardJarScanner jarScanner = (StandardJarScanner) ctx.getJarScanner();
         jarScanner.setJarScanFilter(filter);
         // jarScanner.setScanManifest(false);

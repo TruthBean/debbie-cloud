@@ -126,11 +126,11 @@
                 <artifactId>debbie-netty</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
-            <dependency>
+            <!--<dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-rmi</artifactId>
                 <version>${truthbean.version}</version>
-            </dependency>
+            </dependency>-->
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-server</artifactId>

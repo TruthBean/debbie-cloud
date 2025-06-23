@@ -23,13 +23,17 @@ module com.truthbean.debbie.tomcat {
 
     // requires transitive ecj;
     requires transitive jakarta.servlet.jsp.jstl;
-    requires commons.fileupload;
+
+    requires transitive org.apache.commons.io;
 
     opens com.truthbean.logger.juli;
     exports com.truthbean.logger.juli;
 
     exports com.truthbean.debbie.servlet;
     exports com.truthbean.debbie.servlet.response.view;
+
+    exports org.apache.commons.fileupload;
+    exports org.apache.commons.fileupload.servlet;
 
     provides org.apache.juli.logging.Log with com.truthbean.logger.juli.JuliLogger;
 
