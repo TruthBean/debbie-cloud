@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2024 TruthBean(Rogar·Q)
+ * Copyright (c) 2025 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -17,6 +17,7 @@ import com.truthbean.debbie.bean.BeanScanConfiguration;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
 import com.truthbean.LoggerFactory;
+import com.truthbean.debbie.event.DebbieReadyEvent;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -31,6 +32,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * DebbieBeanRegistrar and SpringModuleStarter is conflict!
+ *
  * @author TruthBean/Rogar·Q
  * @since 0.0.2
  * Created on 2020-06-04 23:43
@@ -47,13 +50,29 @@ public class DebbieBeanRegistrar implements ImportBeanDefinitionRegistrar, BeanC
 
     private final ApplicationFactory applicationFactory;
 
-    public DebbieBeanRegistrar() {
-        LOGGER.debug(() -> "enable debbie bean by spring");
-        applicationFactory = ApplicationFactory.newEmpty();
+    private static volatile boolean enable = true;
+
+    static void disable() {
+        DebbieBeanRegistrar.enable = false;
     }
 
+    public DebbieBeanRegistrar() {
+        if (!enable) {
+            applicationFactory = null;
+            return;
+        }
+        LOGGER.debug(() -> "enable debbie bean by spring" + this);
+        applicationFactory = ApplicationFactory.newEmpty();
+        SpringModuleStarter.disable();
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public void registerBeanDefinitions(@NonNull AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+        if (!enable) {
+            return;
+        }
+
         if (!registry.containsBeanDefinition(BEAN_INJECT_ANNOTATION_PROCESSOR_BEAN_NAME)) {
             RootBeanDefinition definition = new RootBeanDefinition(DebbieBeanInjectAnnotationBeanPostProcessor.class, DebbieBeanInjectAnnotationBeanPostProcessor::new);
             definition.setSource(null);
@@ -65,28 +84,33 @@ public class DebbieBeanRegistrar implements ImportBeanDefinitionRegistrar, BeanC
         Map<String, Object> annotationAttributes = importingClassMetadata.getAnnotationAttributes(EnableDebbieApplication.class.getName());
         AnnotationAttributes mapperScanAttrs = AnnotationAttributes.fromMap(annotationAttributes);
         if (mapperScanAttrs != null) {
-            String[] basePackages = (String[]) mapperScanAttrs.get("basePackages");
-            Class<?>[] classes = (Class<?>[]) mapperScanAttrs.get("classes");
-            String[] excludePackages = (String[]) mapperScanAttrs.get("excludePackages");
-            Class<?>[] excludeClasses = (Class<?>[]) mapperScanAttrs.get("excludeClasses");
+            Object scan = mapperScanAttrs.get("scan");
+            if (scan instanceof AnnotationAttributes scanAnnoAttrs) {
+                String[] basePackages = (String[]) scanAnnoAttrs.get("basePackages");
+                Class<?>[] classes = (Class<?>[]) scanAnnoAttrs.get("classes");
+                String[] excludePackages = (String[]) scanAnnoAttrs.get("excludePackages");
+                Class<?>[] excludeClasses = (Class<?>[]) scanAnnoAttrs.get("excludeClasses");
 
-            applicationFactory.init(classLoader);
+                applicationFactory.init(classLoader);
 
-            BeanScanConfiguration configuration = new BeanScanConfiguration();
-            configuration.addScanBasePackages(basePackages);
-            configuration.addScanClasses(classes);
-            configuration.addScanExcludeClasses(excludeClasses);
-            configuration.addScanExcludePackages(excludePackages);
+                BeanScanConfiguration configuration = new BeanScanConfiguration(classLoader);
+                configuration.addScanBasePackages(basePackages);
+                configuration.addScanClasses(classes);
+                configuration.addScanExcludeClasses(excludeClasses);
+                configuration.addScanExcludePackages(excludePackages);
 
-            applicationFactory.config(configuration).create().build();
-            ApplicationContext applicationContext = applicationFactory.getApplicationContext();
-            BeanInfoManager debbieBeanInfoFactory = applicationContext.getBeanInfoManager();
-            Set<BeanInfo> allDebbieBeanInfo = debbieBeanInfoFactory.getAllBeanInfo();
-            for (BeanInfo<?> beanInfo : allDebbieBeanInfo) {
-                Class beanClass = beanInfo.getBeanClass();
-                if (beanInfo instanceof BeanFactory<?> beanFactory) {
-                    registry.registerBeanDefinition(beanInfo.getName(), new RootBeanDefinition(beanClass, () -> beanFactory.factoryBean(applicationContext)));
+                applicationFactory.config(configuration).create().build();
+                ApplicationContext applicationContext = applicationFactory.getApplicationContext();
+                BeanInfoManager debbieBeanInfoFactory = applicationContext.getBeanInfoManager();
+                Set<BeanInfo> allDebbieBeanInfo = debbieBeanInfoFactory.getAllBeanInfo();
+                for (BeanInfo<?> beanInfo : allDebbieBeanInfo) {
+                    Class beanClass = beanInfo.getBeanClass();
+                    if (beanInfo instanceof BeanFactory<?> beanFactory) {
+                        registry.registerBeanDefinition(beanInfo.getName(), new RootBeanDefinition(beanClass, () -> beanFactory.factoryBean(applicationContext)));
+                    }
                 }
+
+                applicationContext.publishEvent(new DebbieReadyEvent(applicationContext, this));
             }
         }
     }

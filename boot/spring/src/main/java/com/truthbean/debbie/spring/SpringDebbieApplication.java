@@ -6,7 +6,6 @@ import com.truthbean.debbie.boot.ApplicationBootContext;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.boot.DebbieExitedApplication;
 import com.truthbean.debbie.boot.DebbieStartedApplication;
-import com.truthbean.debbie.core.ApplicationContext;
 
 import java.util.function.Consumer;
 
@@ -17,9 +16,9 @@ import java.util.function.Consumer;
  */
 public class SpringDebbieApplication implements DebbieApplication {
 
-    private final ApplicationContext applicationContext;
+    private final SpringApplicationFactory applicationContext;
 
-    public SpringDebbieApplication(ApplicationContext applicationContext) {
+    public SpringDebbieApplication(SpringApplicationFactory applicationContext) {
         this.applicationContext = applicationContext;
     }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2024 TruthBean(Rogar·Q)
+ * Copyright (c) 2025 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -9,8 +9,11 @@
  */
 package com.truthbean.debbie.spring.check;
 
+import com.truthbean.debbie.bean.DebbieScan;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.spring.EnableDebbieApplication;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,16 +27,19 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(basePackages = "com.truthbean", includeFilters = {
         @ComponentScan.Filter(type = FilterType.CUSTOM, classes = TruthBeanTypeFilter.class)
 })
-@EnableDebbieApplication
+// @SpringBootApplication
+@EnableDebbieApplication(scan = @DebbieScan(basePackages = "com.truthbean"))
 public class DebbieSpringTest {
     static {
-        System.setProperty(DebbieApplication.DISABLE_DEBBIE, "true");
+        System.setProperty(DebbieApplication.DISABLE_DEBBIE, "false");
+        System.setProperty("debbie.spring.enable", "false");
+        System.setProperty("logging.level.root", "info");
         System.setProperty("logging.level.com.truthbean", "debug");
         System.setProperty("logging.level.org.springframework", "debug");
     }
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(DebbieSpringTest.class);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringApplicationTest.class, args); //new AnnotationConfigApplicationContext(DebbieSpringTest.class);
         String applicationName = applicationContext.getApplicationName();
         System.out.println(applicationName);
         TestSpringBean bean = applicationContext.getBean(TestSpringBean.class);

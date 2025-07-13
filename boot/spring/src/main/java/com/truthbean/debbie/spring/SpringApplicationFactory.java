@@ -299,6 +299,19 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
     }
 
     @Override
+    public <T> boolean containsBean(Class<T> beanType, String beanName) {
+        String[] names = applicationContext.getBeanNamesForType(beanType);
+        if (names.length > 0) {
+            for (String name : names) {
+                if (Objects.equals(beanName, name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void printGraalvmConfig(ApplicationContext context) {
         List<BeanInfo<? extends BeanScanConfiguration>> list = this.getBeanInfoList(BeanScanConfiguration.class, true);
         Set<String> packages = new HashSet<>();

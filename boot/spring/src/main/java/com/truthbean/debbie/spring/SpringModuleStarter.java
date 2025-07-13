@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2024 TruthBean(Rogar·Q)
+ * Copyright (c) 2025 TruthBean(Rogar·Q)
  * Debbie is licensed under Mulan PSL v2.
  * You can use this software according to the terms and conditions of the Mulan PSL v2.
  * You may obtain a copy of Mulan PSL v2 at:
@@ -19,6 +19,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.util.Set;
 
 /**
+ * DebbieBeanRegistrar and SpringModuleStarter is conflict!
+ *
  * @author TruthBean/Rogar·Q
  * @since 0.0.2
  * Created on 2020-06-07 13:53
@@ -27,9 +29,19 @@ public class SpringModuleStarter implements DebbieModuleStarter {
 
     private volatile AnnotationConfigApplicationContext applicationContext;
 
+    private static volatile boolean enable = true;
+
+    static void disable() {
+        SpringModuleStarter.enable = false;
+    }
+
     @Override
     public boolean enable(Environment environment) {
-        return DebbieModuleStarter.super.enable(environment) && environment.getBooleanValue("debbie.spring.enable", true);
+        boolean enable = DebbieModuleStarter.super.enable(environment) && environment.getBooleanValue("debbie.spring.enable", true);
+        if (SpringModuleStarter.enable && enable) {
+            DebbieBeanRegistrar.disable();
+        }
+        return enable;
     }
 
     @Override
@@ -43,8 +55,6 @@ public class SpringModuleStarter implements DebbieModuleStarter {
     @Override
     public void starter(ApplicationContext applicationContext) {
         BeanInfoManager beanInfoManager = applicationContext.getBeanInfoManager();
-        // cache
-        String[] names = this.applicationContext.getBeanDefinitionNames();
 
         // scanned class to be registered to spring
         BeanScanConfiguration configuration = applicationContext.getGlobalBeanFactory().factory(BeanScanConfiguration.class);
@@ -60,7 +70,7 @@ public class SpringModuleStarter implements DebbieModuleStarter {
             String packageName = applicationClass.getPackageName();
             this.applicationContext.scan(packageName);
         }
-        if (applicationClass != null) {
+        if (applicationClass != null && !beanInfoManager.containsBean(applicationClass)) {
             this.applicationContext.register(applicationClass);
         }
         if (!classes.isEmpty()) {
@@ -74,9 +84,13 @@ public class SpringModuleStarter implements DebbieModuleStarter {
             this.applicationContext.refresh();
         }
 
+        // cache
+        String[] names = this.applicationContext.getBeanDefinitionNames();
         // spring to debbie
         for (String name : names) {
-            beanInfoManager.registerBeanInfo(new SpringBeanFactory(this.applicationContext, name));
+            if (!beanInfoManager.containsBean(name)) {
+                beanInfoManager.registerBeanInfo(new SpringBeanFactory(this.applicationContext, name));
+            }
         }
     }
 

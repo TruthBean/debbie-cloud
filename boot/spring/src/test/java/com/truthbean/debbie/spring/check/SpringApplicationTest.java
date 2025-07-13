@@ -2,25 +2,29 @@ package com.truthbean.debbie.spring.check;
 
 import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanInject;
+import com.truthbean.debbie.bean.DebbieScan;
 import com.truthbean.debbie.boot.DebbieApplication;
-import com.truthbean.debbie.boot.DebbieBootApplication;
 import com.truthbean.debbie.event.DebbieReadyEvent;
 import com.truthbean.debbie.event.EventMethodListener;
+import com.truthbean.debbie.spring.EnableDebbieApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author TruthBean
  * @since 0.5.3
  */
-@DebbieBootApplication(customInjectType = Autowired.class)
-public class DebbieApplicationTest {
+@SpringBootApplication
+@EnableDebbieApplication(scan = @DebbieScan(basePackages = "com.truthbean"))
+public class SpringApplicationTest {
 
     static {
         System.setProperty(DebbieApplication.DISABLE_DEBBIE, "false");
-        System.setProperty("debbie.spring.enable", "true");
+        System.setProperty("debbie.spring.enable", "false");
         System.setProperty("logging.level.root", "info");
         System.setProperty("logging.level.com.truthbean", "debug");
-        System.setProperty("logging.level.org.springframework", "debug");
+        System.setProperty("logging.level.org.springframework", "info");
     }
 
     @Autowired
@@ -36,6 +40,6 @@ public class DebbieApplicationTest {
     }
 
     public static void main(String[] args) {
-        DebbieApplication.run(DebbieApplicationTest.class, args);
+        SpringApplication.run(SpringApplicationTest.class, args);
     }
 }
