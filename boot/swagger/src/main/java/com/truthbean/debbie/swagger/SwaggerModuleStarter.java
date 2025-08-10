@@ -45,7 +45,7 @@ public class SwaggerModuleStarter implements DebbieModuleStarter {
         String path = RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "swagger-ui");
         String host = envContent.getStringValue("debbie.server.host", "localhost");
         String port = envContent.getStringValue("debbie.server.port", "8080");
-        LOGGER.info("swagger page: http://" + host + ":/" + port + "/" + path);
+        LOGGER.info("swagger page: http://" + host + ":" + port + "/" + (path.startsWith("/") ? path.substring(1) : path));
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SwaggerModuleStarter.class);

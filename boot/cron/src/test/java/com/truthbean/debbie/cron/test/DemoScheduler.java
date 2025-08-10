@@ -24,4 +24,9 @@ public class DemoScheduler {
     public void task() {
         System.out.println("....");
     }
+
+    @DebbieTask(cron = "* * * * * ?")
+    public void task1() {
+        System.out.println("....111");
+    }
 }

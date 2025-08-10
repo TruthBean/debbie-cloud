@@ -11,9 +11,13 @@ package com.truthbean.debbie.cron;
 
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
+import com.truthbean.debbie.task.TaskInfo;
 import org.quartz.*;
 import org.quartz.simpl.PropertySettingJobFactory;
 import org.quartz.spi.TriggerFiredBundle;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -22,9 +26,13 @@ import org.quartz.spi.TriggerFiredBundle;
  */
 public class DebbieCronJobFactory extends PropertySettingJobFactory {
 
-    private final DebbieSchedulerJobInfo jobInfo;
-    public DebbieCronJobFactory(DebbieSchedulerJobInfo jobInfo) {
-        this.jobInfo = jobInfo;
+    private final Map<JobKey, TaskInfo> jobInfoMap = new ConcurrentHashMap<>();
+
+    public DebbieCronJobFactory() {
+    }
+
+    public void addJobInfo(JobKey jobKey, TaskInfo jobInfo) {
+        jobInfoMap.put(jobKey, jobInfo);
     }
 
     @Override
@@ -41,7 +49,7 @@ public class DebbieCronJobFactory extends PropertySettingJobFactory {
                                 "', class=" + jobClass.getName());
             }
             if (jobClass == SchedulerJobProxy.class) {
-                job = new SchedulerJobProxy(jobInfo);
+                job = new SchedulerJobProxy(jobInfoMap.get(jobDetail.getKey()));
             } else {
                 job = jobClass.getConstructor().newInstance();
             }

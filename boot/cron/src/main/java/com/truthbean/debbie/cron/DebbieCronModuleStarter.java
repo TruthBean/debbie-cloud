@@ -12,6 +12,7 @@ package com.truthbean.debbie.cron;
 import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.environment.Environment;
 import org.quartz.impl.StdSchedulerFactory;
 
 /**
@@ -28,6 +29,11 @@ public class DebbieCronModuleStarter implements DebbieModuleStarter {
     @Override
     public int getOrder() {
         return 9;
+    }
+
+    @Override
+    public boolean enable(Environment environment) {
+        return environment.getBooleanValue("debbie.quartz.enable", true);
     }
 
     @Override

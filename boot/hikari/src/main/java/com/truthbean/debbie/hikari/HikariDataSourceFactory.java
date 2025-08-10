@@ -50,13 +50,13 @@ public class HikariDataSourceFactory implements DataSourceFactory {
                 this.driverName = driverName;
                 config.setDriverClassName(driverName.getDriverName());
             }
-            if (hikariConfiguration.getJdbcUrl() == null) {
+            if (hikariConfiguration.getJdbcUrl() == null || hikariConfiguration.getJdbcUrl().isBlank()) {
                 config.setJdbcUrl(configuration.getUrl());
             }
-            if (hikariConfiguration.getUsername() == null) {
+            if (hikariConfiguration.getUsername() == null || hikariConfiguration.getUsername().isBlank()) {
                 config.setUsername(configuration.getUser());
             }
-            if (hikariConfiguration.getHikariPassword() == null) {
+            if (hikariConfiguration.getHikariPassword() == null || hikariConfiguration.getHikariPassword().isBlank()) {
                 config.setPassword(configuration.getPassword());
             }
             if (hikariConfiguration.getHikariAutoCommit() == null) {

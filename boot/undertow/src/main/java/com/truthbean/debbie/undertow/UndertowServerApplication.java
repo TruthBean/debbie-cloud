@@ -13,6 +13,7 @@ import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.boot.ApplicationArgs;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.mvc.MvcConfiguration;
 import com.truthbean.debbie.mvc.filter.RouterFilterInfo;
 import com.truthbean.debbie.mvc.filter.RouterFilterManager;
@@ -44,6 +45,11 @@ public final class UndertowServerApplication extends AbstractWebServerApplicatio
     @Override
     public boolean isWeb() {
         return true;
+    }
+
+    @Override
+    public boolean isEnable(Environment environment) {
+        return super.isEnable(environment) && environment.getBooleanValue(UndertowProperties.ENABLE_KEY, true);
     }
 
     @Override

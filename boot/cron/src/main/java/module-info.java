@@ -10,10 +10,16 @@
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.5.0
- * Created on 2021-05-09 16:53
+ * Created on 2021-01-27 18:11
  */
-open module com.truthbean.debbie.cron.test {
-    requires com.truthbean.debbie.cron;
-    requires static quartz;
-    requires com.truthbean.debbie.test;
+module com.truthbean.debbie.cron {
+    requires java.base;
+
+    requires transitive com.truthbean.debbie.core;
+    requires org.quartz;
+
+    exports com.truthbean.debbie.cron;
+
+    provides com.truthbean.debbie.boot.DebbieModuleStarter with com.truthbean.debbie.cron.DebbieCronModuleStarter;
+    provides com.truthbean.debbie.task.TaskAction with com.truthbean.debbie.cron.CronTaskAction;
 }

@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.cron;
 
+import com.truthbean.debbie.task.TaskInfo;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -20,8 +21,8 @@ import org.quartz.JobExecutionException;
  */
 public class SchedulerJobProxy implements Job {
 
-    private final DebbieSchedulerJobInfo jobInfo;
-    public SchedulerJobProxy(DebbieSchedulerJobInfo jobInfo) {
+    private final TaskInfo jobInfo;
+    public SchedulerJobProxy(TaskInfo jobInfo) {
         this.jobInfo = jobInfo;
     }
 
