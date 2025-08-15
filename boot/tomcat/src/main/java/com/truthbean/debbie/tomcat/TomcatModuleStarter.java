@@ -25,7 +25,9 @@ public class TomcatModuleStarter implements DebbieModuleStarter {
 
     @Override
     public boolean enable(Environment envContent) {
-        return envContent.getBooleanValue(TomcatProperties.ENABLE_KEY, true);
+        return DebbieModuleStarter.super.enable(envContent) && envContent.getBoolean("debbie.mvc.enable", true)
+                && envContent.getBoolean("debbie.servlet.enable", true)
+                && envContent.getBooleanValue(TomcatProperties.ENABLE_KEY, true);
     }
 
     @Override

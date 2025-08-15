@@ -24,7 +24,8 @@ public class FreemarkerModuleStarter implements DebbieModuleStarter {
 
     @Override
     public boolean enable(Environment envContent) {
-        return DebbieModuleStarter.super.enable(envContent) && envContent.getBooleanValue(ENABLE_KEY, true);
+        return DebbieModuleStarter.super.enable(envContent) && envContent.getBooleanValue("debbie.mvc.enable", true)
+                && envContent.getBooleanValue(ENABLE_KEY, true);
     }
 
     @Override

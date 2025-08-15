@@ -43,7 +43,8 @@ public class MybatisModuleStarter implements DebbieModuleStarter {
 
     @Override
     public boolean enable(Environment environment) {
-        return DebbieModuleStarter.super.enable(environment) && environment.getBooleanValue(MybatisProperties.ENABLE_KEY, true);
+        return DebbieModuleStarter.super.enable(environment) && environment.getBoolean("debbie.jdbc.enable", true)
+                && environment.getBooleanValue(MybatisProperties.ENABLE_KEY, true);
     }
 
     @Override

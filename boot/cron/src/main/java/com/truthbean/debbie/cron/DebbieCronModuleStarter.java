@@ -28,12 +28,13 @@ public class DebbieCronModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 9;
+        return 29;
     }
 
     @Override
     public boolean enable(Environment environment) {
-        return environment.getBooleanValue("debbie.quartz.enable", true);
+        return DebbieModuleStarter.super.enable(environment) && environment.getBooleanValue("debbie.task.enable", true)
+                && environment.getBooleanValue("debbie.quartz.enable", true);
     }
 
     @Override

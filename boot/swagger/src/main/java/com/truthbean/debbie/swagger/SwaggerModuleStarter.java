@@ -24,7 +24,8 @@ public class SwaggerModuleStarter implements DebbieModuleStarter {
 
     @Override
     public boolean enable(Environment envContent) {
-        return envContent.getBooleanValue(DebbieSwaggerProperties.ENABLE_KEY, true);
+        return DebbieModuleStarter.super.enable(envContent) && envContent.getBoolean("debbie.mvc.enable", true)
+                && envContent.getBooleanValue(DebbieSwaggerProperties.ENABLE_KEY, true);
     }
 
     @Override
