@@ -33,6 +33,11 @@ public class HikariDataSourceFactory implements DataSourceFactory {
     private String name;
 
     @Override
+    public <T extends DataSourceConfiguration> boolean support(T configuration) {
+        return configuration instanceof HikariConfiguration;
+    }
+
+    @Override
     public DataSourceFactory factory(DataSource dataSource) {
         if (dataSource instanceof HikariDataSource) {
             hikariDataSource = (HikariDataSource) dataSource;

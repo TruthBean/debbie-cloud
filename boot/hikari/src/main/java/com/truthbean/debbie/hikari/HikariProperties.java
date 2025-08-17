@@ -53,8 +53,14 @@ public class HikariProperties extends DebbieEnvironmentDepositoryHolder implemen
     }
 
     @Override
+    public boolean containConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        getConfiguration(applicationContext);
+        return map.containsKey(profile) && map.get(profile).containsKey(category);
+    }
+
+    @Override
     public Set<String> getCategories(String profile) {
-        return map.getOrDefault(getDefaultProfile(), new HashMap<>()).keySet();
+        return map.getOrDefault(profile, new HashMap<>()).keySet();
     }
 
     @Override
@@ -80,6 +86,7 @@ public class HikariProperties extends DebbieEnvironmentDepositoryHolder implemen
         Map<String, HikariConfiguration> configurationMap = new HashMap<>();
         configurationMap.put(DEFAULT_CATEGORY, configuration);
         map.put(DEFAULT_PROFILE, configurationMap);
+        // configuration.getDriverProperties().put("dataSource.logWriter", new PrintWriter(System.out));
         return configuration;
     }
 

@@ -55,6 +55,11 @@ public class LuceneProperties extends DebbieEnvironmentDepositoryHolder implemen
     }
 
     @Override
+    public boolean containConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return false;
+    }
+
+    @Override
     public LuceneConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
         return configuration;
     }

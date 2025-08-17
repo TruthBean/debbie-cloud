@@ -128,12 +128,14 @@ public final class SqlSessionUtils {
         Assert.notNull(sessionFactory, NO_SQL_SESSION_FACTORY_SPECIFIED);
 
         TransactionInfo transactionInfo = TransactionManager.peek();
-        SqlSessionHolder holder = (SqlSessionHolder) transactionInfo.getResource(sessionFactory);
-        if ((holder != null) && (holder.getSqlSession() == session)) {
-            LOGGER.debug("Releasing transactional SqlSession [" + session + "]");
-        } else {
-            // LOGGER.debug("Closing non transactional SqlSession [" + session + "]");
-            // session.close();
+        if (transactionInfo != null) {
+            SqlSessionHolder holder = (SqlSessionHolder) transactionInfo.getResource(sessionFactory);
+            if ((holder != null) && (holder.getSqlSession() == session)) {
+                LOGGER.debug("Releasing transactional SqlSession [" + session + "]");
+            } else {
+                // LOGGER.debug("Closing non transactional SqlSession [" + session + "]");
+                // session.close();
+            }
         }
     }
 
@@ -149,9 +151,12 @@ public final class SqlSessionUtils {
         Assert.notNull(sessionFactory, NO_SQL_SESSION_FACTORY_SPECIFIED);
 
         TransactionInfo transactionInfo = TransactionManager.peek();
-        SqlSessionHolder holder = (SqlSessionHolder) transactionInfo.getResource(sessionFactory);
+        if (transactionInfo != null) {
+            SqlSessionHolder holder = (SqlSessionHolder) transactionInfo.getResource(sessionFactory);
 
-        return (holder != null) && (holder.getSqlSession() == session);
+            return (holder != null) && (holder.getSqlSession() == session);
+        }
+        return false;
     }
 
     /**

@@ -25,7 +25,7 @@ public class HikariModuleStarter implements DebbieModuleStarter {
 
     @Override
     public boolean enable(Environment environment) {
-        return DebbieModuleStarter.super.enable(environment) && environment.getBoolean("debbie.jdbc.enable", true)
+        return DebbieModuleStarter.super.enable(environment) && environment.getBooleanValue("debbie.jdbc.enable", true)
                 && environment.getBooleanValue(ENABLE_KEY, true);
     }
 

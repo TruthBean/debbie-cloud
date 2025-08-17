@@ -62,6 +62,11 @@ public class ServletProperties extends DebbieEnvironmentDepositoryHolder impleme
     }
 
     @Override
+    public boolean containConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return false;
+    }
+
+    @Override
     public ServletConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
         if (DEFAULT_PROFILE.equals(profile) || !StringUtils.hasText(category)) {
             return getConfiguration(applicationContext);

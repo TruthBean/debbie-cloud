@@ -92,6 +92,11 @@ public class MybatisProperties extends DebbieEnvironmentDepositoryHolder impleme
     }
 
     @Override
+    public boolean containConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return map.containsKey(profile) && map.get(profile).containsKey(category);
+    }
+
+    @Override
     public MybatisConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
         return map.getOrDefault(profile, new HashMap<>()).get(category);
     }

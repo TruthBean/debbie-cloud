@@ -65,6 +65,11 @@ public class TomcatProperties extends BaseServerProperties<TomcatConfiguration> 
     }
 
     @Override
+    public boolean containConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return false;
+    }
+
+    @Override
     public TomcatConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
         return getConfiguration(applicationContext);
     }

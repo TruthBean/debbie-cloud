@@ -6,7 +6,8 @@
  *         http://license.coscl.org.cn/MulanPSL2
  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  * See the Mulan PSL v2 for more details.
- */
+ *//*
+
 package com.truthbean.debbie.mybatis.transaction;
 
 import com.truthbean.debbie.core.ApplicationContext;
@@ -22,10 +23,12 @@ import com.truthbean.LoggerFactory;
 
 import java.lang.reflect.Method;
 
+*/
 /**
  * @author truthbean
  * @since 0.0.2
- */
+ *//*
+
 public class MybatisTransactionalHandler implements MethodProxyHandler<JdbcTransactional> {
     private final MybatisTransactionInfo transactionInfo;
 
@@ -155,3 +158,4 @@ public class MybatisTransactionalHandler implements MethodProxyHandler<JdbcTrans
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MybatisTransactionalHandler.class);
 }
+*/

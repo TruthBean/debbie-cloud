@@ -79,10 +79,6 @@ public class SqlSessionFactoryHandler {
 
     private SqlSessionFactory sqlSessionFactory;
 
-    /*public void onApplicationEvent() {
-        configuration.getMappedStatementNames();
-    }*/
-
     private InputStream getMybatisConfigXmlInputStream() {
         if (mybatisConfigXmlInputStream == null) {
             String resource = mybatisConfiguration.getMybatisConfigXmlLocation();
@@ -103,28 +99,9 @@ public class SqlSessionFactoryHandler {
         }
     }
 
-    private DataSourceFactory getDataSourceFactoryOrInitIfNull(ApplicationContext context) {
-        GlobalBeanFactory globalBeanFactory = context.getGlobalBeanFactory();
-        DataSourceFactory dataSourceFactory = globalBeanFactory.factoryIfPresent(DataSourceFactory.class);
-        if (dataSourceFactory == null) {
-            /*var register = new DataSourceFactoryBeanRegister(configurationFactory, context);
-            register.registerDataSourceFactory();
-            context.refreshBeans();
-            dataSourceFactory = beanInitialization.getRegisterBean(DataSourceFactory.class);*/
-        }
-        return dataSourceFactory;
-    }
-
     private void buildConfiguration(ApplicationContext context, MybatisTransactionFactory mybatisTransactionFactory) {
-        DataSourceFactory dataSourceFactory = getDataSourceFactoryOrInitIfNull(context);
-        DataSource dataSource = dataSourceFactory.getDataSource();
-        TransactionFactory transactionFactory;
-        switch (mybatisTransactionFactory) {
-            default -> transactionFactory = new DebbieManagedTransactionFactory(dataSourceFactory.getDriverName());
-            case JDBC -> transactionFactory = new JdbcTransactionFactory();
-            case MANAGED -> transactionFactory = new ManagedTransactionFactory();
-        }
-        Environment environment = new Environment(mybatisConfiguration.getEnvironment(), transactionFactory, dataSource);
+        DataSourceFactory dataSourceFactory = context.getBeanInfoManager().getBeanFactory(null, DataSourceFactory.class, false).factoryBean(context);
+        Environment environment = getEnvironment(mybatisTransactionFactory, dataSourceFactory);
         configuration = new Configuration(environment);
         mybatisConfiguration.getSettings().configTo(configuration);
 
@@ -251,6 +228,17 @@ public class SqlSessionFactoryHandler {
             }
             LOGGER.trace("Parsed mapper file: '" + mapperLocation + "'");
         }
+    }
+
+    private Environment getEnvironment(MybatisTransactionFactory mybatisTransactionFactory, DataSourceFactory dataSourceFactory) {
+        DataSource dataSource = dataSourceFactory.getDataSource();
+        TransactionFactory transactionFactory;
+        switch (mybatisTransactionFactory) {
+            case JDBC -> transactionFactory = new JdbcTransactionFactory();
+            case MANAGED -> transactionFactory = new ManagedTransactionFactory();
+            default -> transactionFactory = new DebbieManagedTransactionFactory(dataSourceFactory.getDriverName());
+        }
+        return new Environment(mybatisConfiguration.getEnvironment(), transactionFactory, dataSource);
     }
 
     private void buildSqlSessionFactoryByJavaConfig() {

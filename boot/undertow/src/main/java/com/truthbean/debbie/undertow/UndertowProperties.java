@@ -55,6 +55,11 @@ public class UndertowProperties extends BaseServerProperties<UndertowConfigurati
     }
 
     @Override
+    public boolean containConfiguration(String profile, String category, ApplicationContext applicationContext) {
+        return false;
+    }
+
+    @Override
     public UndertowConfiguration getConfiguration(String profile, String category, ApplicationContext applicationContext) {
         return getConfiguration(applicationContext);
     }
