@@ -14,7 +14,7 @@ import com.truthbean.debbie.jdbc.transaction.TransactionInfo;
 import com.truthbean.debbie.jdbc.transaction.TransactionManager;
 import com.truthbean.debbie.mybatis.transaction.DebbieManagedTransactionFactory;
 import com.truthbean.debbie.mybatis.transaction.SqlSessionHolder;
-import com.truthbean.debbie.util.Assert;
+import com.truthbean.core.lang.Assert;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;

@@ -20,8 +20,7 @@ import java.util.Map;
 
 import com.truthbean.debbie.bean.BeanClosure;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.mybatis.support.SqlSessionDebbieSupport;
-import com.truthbean.debbie.util.Assert;
+import com.truthbean.core.lang.Assert;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.executor.BatchResult;

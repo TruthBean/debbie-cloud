@@ -21,5 +21,5 @@ module com.truthbean.debbie.metrics {
     requires org.slf4j;
     requires com.codahale.metrics.jvm;
     requires com.codahale.metrics;
-    requires simpleclient;
+    requires io.prometheus.metrics.core;
 }

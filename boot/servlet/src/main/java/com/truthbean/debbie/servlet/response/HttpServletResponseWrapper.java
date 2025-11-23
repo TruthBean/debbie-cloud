@@ -90,8 +90,8 @@ public class HttpServletResponseWrapper implements HttpServletResponse {
     }
 
     @Override
-    public void sendRedirect(String location) throws IOException {
-        response.sendRedirect(location);
+    public void sendRedirect(String location, int sc, boolean clearBuffer) throws IOException {
+        response.sendRedirect(location, sc, clearBuffer);
     }
 
     @Override

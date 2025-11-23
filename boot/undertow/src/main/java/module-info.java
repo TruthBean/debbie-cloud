@@ -26,9 +26,9 @@ module com.truthbean.debbie.undertow {
     requires undertow.core;
     requires xnio.api;
     requires wildfly.client.config;
-    requires jboss.threads;
+    requires org.jboss.threads;
     requires org.jboss.logging;
-    requires jboss.logging.annotations;
+    requires org.jboss.logging.annotations;
 
     provides com.truthbean.debbie.boot.AbstractApplication with
             UndertowServerApplication;

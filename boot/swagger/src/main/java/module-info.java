@@ -16,7 +16,7 @@ module com.truthbean.debbie.swagger {
     exports com.truthbean.debbie.swagger;
     uses com.truthbean.debbie.swagger.OpenAPIExtension;
 
-    opens com.truthbean.debbie.swagger to com.truthbean.common.mini, com.truthbean.debbie.core;
+    opens com.truthbean.debbie.swagger to com.truthbean.core, com.truthbean.debbie.core;
 
     requires transitive com.truthbean.debbie.mvc;
     requires transitive com.fasterxml.jackson.annotation;
@@ -29,7 +29,7 @@ module com.truthbean.debbie.swagger {
     requires static io.swagger.v3.oas.annotations;
     requires org.apache.commons.lang3;
     requires com.fasterxml.jackson.datatype.jsr310;
-    requires transitive io.github.classgraph;
+    // requires transitive io.github.classgraph;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter
             with com.truthbean.debbie.swagger.SwaggerModuleStarter;

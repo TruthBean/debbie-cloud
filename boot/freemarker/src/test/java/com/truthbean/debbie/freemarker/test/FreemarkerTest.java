@@ -15,6 +15,11 @@ import com.truthbean.debbie.core.ApplicationFactory;
 @DebbieBootApplication
 public class FreemarkerTest {
 
+    static {
+        System.setProperty("logging.level.root", "DEBUG");
+        System.setProperty("logging.level.com.truthbean.debbie", "DEBUG");
+    }
+
     public static void main(String[] args) {
         ApplicationFactory.newEmpty()
                 .preInit(args)

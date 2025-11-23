@@ -9,7 +9,7 @@
  */
 package com.truthbean.debbie.mybatis.transaction;
 
-import com.truthbean.debbie.util.Assert;
+import com.truthbean.core.lang.Assert;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 
