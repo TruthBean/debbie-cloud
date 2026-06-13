@@ -41,10 +41,12 @@ public class DebbieLuceneTest {
     void createIndex(@BeanInject("dataSourceFactory") DataSourceFactory factory) throws IOException {
         var transaction = factory.getTransaction();
         List<Feature> list = DynamicRepository.query(transaction)
+                .sqlBuilder()
                 .select("id", "createTime as date", "feature")
                 .from("face")
                 .orderBy("id").desc()
-                .toList(LOGGER, new JdbcTransactionRepository<>(), EntityResolver.getInstance(), Feature.class);
+                .ddlRepository()
+                .toList(LOGGER, EntityResolver.getInstance(), Feature.class);
         for (Feature feature : list) {
             helper.createIndex(feature);
         }

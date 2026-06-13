@@ -19,9 +19,36 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+    <groupId>com.truthbean</groupId>
     <name>debbie-dependencies</name>
+    <version>0.6.0-RELEASE</version>
     <description>debbie dependencies</description>
     <url>https://github.com/TruthBean/debbie-cloud</url>
+
+    <licenses>
+        <license>
+            <name>Mulan PSL v2</name>
+            <url>https://github.com/truthbean/debbie-cloud/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/truthbean/debbie-cloud.git</connection>
+        <url>https://github.com/truthbean/debbie-cloud</url>
+        <developerConnection>scm:git:ssh://github.com/truthbean/debbie-cloud.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>truthbean</id>
+            <name>Rogar·Q (TruthBean)</name>
+            <email>truthbean@outlook.com</email>
+            <url>https://github.com/truthbean</url>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/truthbean/debbie-cloud/issues</url>
+    </issueManagement>
 
     <dependencyManagement>
         <dependencies>

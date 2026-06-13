@@ -21,6 +21,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -154,7 +155,6 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
         return this;
     }
 
-    @Override
     public ApplicationFactory register(BeanFactory<?> beanFactory) {
         this.applicationContext.registerBean(beanFactory.getName(), beanFactory.getBeanClass(), beanFactory.factoryBean(this));
         return this;
@@ -165,6 +165,13 @@ public class SpringApplicationFactory implements ApplicationFactory, Application
         for (BeanInfo<?> beanInfo : beanInfos) {
             this.applicationContext.registerBean(beanInfo.getName(), beanInfo.getBeanClass());
         }
+        return this;
+    }
+
+    @Override
+    public ApplicationFactory register(Function<ApplicationContext, Collection<BeanInfo<?>>> beanInfoFunction) {
+        beanInfoFunction.apply(this)
+                .forEach(beanInfo -> this.applicationContext.registerBean(beanInfo.getName(), beanInfo.getBeanClass(), beanInfo.getBeanClass()));
         return this;
     }
 

@@ -36,7 +36,7 @@ public class HikariDataSourcesTest {
     public void testLargeQuery(@BeanInject HikariConfiguration configuration) {
         DataSourceFactory factory = DataSourceFactory.loadFactory(configuration);
         factory.getTransaction();
-        RepositoryHandler repositoryHandler = new RepositoryHandler();
+        RepositoryHandler repositoryHandler = RepositoryHandler.INSTANCE;
         while (true) {
             TransactionManager.offer(factory.getTransaction());
             var r = RepositoryCallback.actionTransactional(transactionInfo -> {

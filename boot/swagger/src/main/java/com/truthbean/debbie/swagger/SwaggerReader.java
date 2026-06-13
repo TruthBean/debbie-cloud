@@ -67,7 +67,7 @@ public class SwaggerReader implements OpenApiReader {
     private final Paths paths;
     private final Set<Tag> openApiTags;
 
-    private final Set<RouterInfo> routerInfoSet;
+    private final Collection<RouterInfo> routerInfoSet;
     private final ClassLoader classLoader;
 
     public SwaggerReader(ClassLoader classLoader) {
