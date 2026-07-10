@@ -37,7 +37,7 @@ public class ConfigurationTest {
 
     @Test
     public void testFreemarker() throws IOException, TemplateException {
-        Configuration configuration = new Configuration(Configuration.VERSION_2_3_31);
+        Configuration configuration = new Configuration(Configuration.VERSION_2_3_34);
         ClassTemplateLoader templateLoader = new ClassTemplateLoader(ConfigurationTest.class, "/templates/");
 
         configuration.setTemplateLoader(templateLoader);

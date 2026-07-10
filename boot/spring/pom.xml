@@ -5,14 +5,14 @@
     <parent>
         <artifactId>debbie-boot</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.6.0-RELEASE</version>
+        <version>0.6.1-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.truthbean</groupId>
     <artifactId>debbie-spring</artifactId>
     <name>debbie-spring</name>
-    <version>0.6.0-RELEASE</version>
+    <version>0.6.1-RELEASE</version>
     <description>truthbean debbie spring framework</description>
 
     <properties>

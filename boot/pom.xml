@@ -5,13 +5,13 @@
     <parent>
         <artifactId>debbie-cloud</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.6.0-RELEASE</version>
+        <version>0.6.1-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.truthbean</groupId>
     <artifactId>debbie-boot</artifactId>
-    <version>0.6.0-RELEASE</version>
+    <version>0.6.1-RELEASE</version>
     <name>debbie-boot</name>
 
     <packaging>pom</packaging>
