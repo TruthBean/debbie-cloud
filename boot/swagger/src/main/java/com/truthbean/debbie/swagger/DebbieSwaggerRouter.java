@@ -13,31 +13,42 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import com.truthbean.debbie.bean.BeanInject;
+
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
+import com.truthbean.debbie.core.ApplicationContext;
+import com.truthbean.debbie.core.ApplicationContextAware;
 import com.truthbean.debbie.io.MediaType;
+import com.truthbean.debbie.io.MediaTypeInfo;
+import com.truthbean.debbie.mvc.request.RouterRequest;
+import com.truthbean.debbie.mvc.response.HttpStatus;
+import com.truthbean.debbie.mvc.response.RouterResponse;
+import com.truthbean.debbie.mvc.response.provider.AbstractRestResponseHandler;
 import com.truthbean.debbie.mvc.response.view.StaticResourcesView;
-import com.truthbean.debbie.mvc.router.Router;
+import com.truthbean.debbie.mvc.router.CustomizeMvcRouterRegister;
+import com.truthbean.debbie.mvc.router.MvcRouterRegister;
 import com.truthbean.debbie.mvc.router.RouterPathSplicer;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.debbie.watcher.Watcher;
+
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 
-@Watcher
-@Router
-public class DebbieSwaggerRouter {
+public class DebbieSwaggerRouter implements ApplicationContextAware, CustomizeMvcRouterRegister {
 
-    @PropertyInject(value = "debbie.web.dispatcher-mapping", defaultValue = "**")
     private String dispatcherMapping;
 
-    @BeanInject(require = false, name = "openApi")
     private OpenAPI openApi;
 
-    @BeanInject(require = false)
     private SwaggerConfiguration swaggerConfiguration;
 
     private String swagger;
     private final String prefix = "classpath*:/swagger-ui/3.37.0/";
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        dispatcherMapping = applicationContext.getDefaultEnvironment().getStringValue("debbie.web.dispatcher-mapping", "**");
+        openApi = applicationContext.getGlobalBeanFactory().factory("openApi", OpenAPI.class, false);
+        swaggerConfiguration = applicationContext.getGlobalBeanFactory().factory(null, SwaggerConfiguration.class, false);
+    }
 
     public void setDispatcherMapping(String dispatcherMapping) {
         this.dispatcherMapping = dispatcherMapping;
@@ -51,8 +62,22 @@ public class DebbieSwaggerRouter {
         this.swaggerConfiguration = swaggerConfiguration;
     }
 
-    @Router(value = "swagger", responseType = MediaType.TEXT_PLAIN_UTF8)
-    public String swagger() throws JsonProcessingException {
+    @Override
+    public void registerMvcRegister(MvcRouterRegister mvcRouterRegister) {
+        mvcRouterRegister
+                .all("/swagger", this::swagger)
+                .all("/swagger-css", this::swaggerUiCss)
+                .all("/favicon-32x32", this::favicon32)
+                .all("/favicon-16x16", this::favicon16)
+                .all("/swagger-ui-bundle", this::swaggerUiBundle)
+                .all("/swagger-ui-bundle-map", this::swaggerUiBundleMap)
+                .all("/swagger-ui-standalone-preset", this::swaggerUiStandaloneBundle)
+                .all("/swagger-ui-standalone-preset-map", this::swaggerUiStandaloneBundleMap)
+                .all("/swagger-ui", this::swaggerUiHtml)
+                ;
+    }
+
+    public void swagger(RouterRequest request, RouterResponse response) {
         if (swagger == null) {
             SwaggerReader reader;
             var classLoader = DebbieSwaggerRouter.class.getClassLoader();
@@ -68,85 +93,196 @@ public class DebbieSwaggerRouter {
             yamlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             yamlMapper.enable(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS);
             yamlMapper.enable(DeserializationFeature.USE_BIG_INTEGER_FOR_INTS);
-            yamlMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            swagger = yamlMapper.writeValueAsString(newOpenApi);
+            yamlMapper.setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL);
+            try {
+                swagger = yamlMapper.writeValueAsString(newOpenApi);
+            } catch (JsonProcessingException e) {
+                LOG.error("[Swagger] parse OpenAPI error. ", e);
+                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+                response.setContent(e.getMessage());
+            }
         }
-        return swagger;
+        response.setResponseType(MediaType.TEXT_PLAIN_UTF8);
+        response.setContent(swagger);
     }
 
-    @Router(urlPatterns = "/swagger-css", hasTemplate = true, responseType = MediaType.TEXT_CSS_UTF8)
-    public StaticResourcesView swaggerUiCss() {
+    public void swaggerUiCss(RouterRequest request, RouterResponse response) {
         var view = new StaticResourcesView();
         view.setPrefix(prefix);
         view.setTemplate("swagger-ui");
         view.setSuffix(".css");
         view.setText(true);
-        return view;
+        var content = view.render();
+        response.setHandler(new AbstractRestResponseHandler<String>() {
+            @Override
+            public MediaTypeInfo getResponseType() {
+                return MediaType.TEXT_CSS_UTF8.info();
+            }
+
+            @Override
+            public String transform(String s) {
+                return content.toString();
+            }
+        });
+        response.setContent(content);
+        response.setTemplatePrefix(prefix);
+        response.setTemplateSuffix(".css");
+        response.setHasTemplate(true);
+        response.setResponseType(MediaType.TEXT_CSS_UTF8);
     }
 
-    @Router(urlPatterns = "/favicon-32x32", hasTemplate = true, responseType = MediaType.IMAGE_PNG)
-    public StaticResourcesView favicon32() {
+    public void favicon32(RouterRequest request, RouterResponse response) {
         var view = new StaticResourcesView();
         view.setPrefix(prefix);
         view.setTemplate("favicon-32x32");
         view.setSuffix(".png");
         view.setText(false);
-        return view;
+        var content = view.render();
+        response.setHandler(new AbstractRestResponseHandler<String>() {
+            @Override
+            public MediaTypeInfo getResponseType() {
+                return MediaType.IMAGE_PNG.info();
+            }
+
+            @Override
+            public String transform(String s) {
+                return content.toString();
+            }
+        });
+        response.setContent(content);
+        response.setTemplatePrefix(prefix);
+        response.setTemplateSuffix(".png");
+        response.setHasTemplate(true);
+        response.setResponseType(MediaType.IMAGE_PNG);
     }
 
-    @Router(urlPatterns = "/favicon-16x16", hasTemplate = true, responseType = MediaType.IMAGE_PNG)
-    public StaticResourcesView favicon16() {
+    public void favicon16(RouterRequest request, RouterResponse response) {
         var view = new StaticResourcesView();
         view.setPrefix(prefix);
         view.setTemplate("favicon-16x16");
         view.setSuffix(".png");
         view.setText(false);
-        return view;
+        var content = view.render();
+        response.setHandler(new AbstractRestResponseHandler<String>() {
+            @Override
+            public MediaTypeInfo getResponseType() {
+                return MediaType.IMAGE_PNG.info();
+            }
+
+            @Override
+            public String transform(String s) {
+                return content.toString();
+            }
+        });
+        response.setContent(content);
+        response.setTemplatePrefix(prefix);
+        response.setTemplateSuffix(".png");
+        response.setHasTemplate(true);
+        response.setResponseType(MediaType.IMAGE_PNG);
     }
 
-    @Router(urlPatterns = "swagger-ui-bundle", hasTemplate = true, responseType = MediaType.APPLICATION_JAVASCRIPT_UTF8)
-    public StaticResourcesView swaggerUiBundle() {
+    public void swaggerUiBundle(RouterRequest request, RouterResponse response) {
         var view = new StaticResourcesView();
         view.setPrefix(prefix);
         view.setTemplate("swagger-ui-bundle");
         view.setSuffix(".js");
         view.setText(true);
-        return view;
+        var content = view.render();
+        response.setHandler(new AbstractRestResponseHandler<String>() {
+            @Override
+            public MediaTypeInfo getResponseType() {
+                return MediaType.APPLICATION_JAVASCRIPT_UTF8.info();
+            }
+
+            @Override
+            public String transform(String s) {
+                return content.toString();
+            }
+        });
+        response.setContent(content);
+        response.setTemplatePrefix(prefix);
+        response.setTemplateSuffix(".js");
+        response.setHasTemplate(true);
+        response.setResponseType(MediaType.APPLICATION_JAVASCRIPT_UTF8);
     }
 
-    @Router(urlPatterns = "swagger-ui-bundle-map", hasTemplate = true, responseType = MediaType.APPLICATION_JAVASCRIPT_UTF8)
-    public StaticResourcesView swaggerUiBundleMap() {
+    public void swaggerUiBundleMap(RouterRequest request, RouterResponse response) {
         var view = new StaticResourcesView();
         view.setPrefix(prefix);
         view.setTemplate("swagger-ui-bundle");
         view.setSuffix(".js.map");
         view.setText(true);
-        return view;
+        var content = view.render();
+        response.setHandler(new AbstractRestResponseHandler<String>() {
+            @Override
+            public MediaTypeInfo getResponseType() {
+                return MediaType.APPLICATION_JAVASCRIPT_UTF8.info();
+            }
+
+            @Override
+            public String transform(String s) {
+                return content.toString();
+            }
+        });
+        response.setContent(content);
+        response.setTemplatePrefix(prefix);
+        response.setTemplateSuffix(".js.map");
+        response.setHasTemplate(true);
+        response.setResponseType(MediaType.APPLICATION_JAVASCRIPT_UTF8);
     }
 
-    @Router(urlPatterns = "swagger-ui-standalone-preset", hasTemplate = true, responseType = MediaType.APPLICATION_JAVASCRIPT_UTF8)
-    public StaticResourcesView swaggerUiStandaloneBundle() {
+    public void swaggerUiStandaloneBundle(RouterRequest request, RouterResponse response) {
         var view = new StaticResourcesView();
         view.setPrefix("classpath*:/swagger-ui/3.37.0/");
         view.setTemplate("swagger-ui-standalone-preset");
         view.setSuffix(".js");
         view.setText(true);
-        return view;
+        var content = view.render();
+        response.setHandler(new AbstractRestResponseHandler<String>() {
+            @Override
+            public MediaTypeInfo getResponseType() {
+                return MediaType.APPLICATION_JAVASCRIPT_UTF8.info();
+            }
+
+            @Override
+            public String transform(String s) {
+                return content.toString();
+            }
+        });
+        response.setContent(content);
+        response.setTemplatePrefix(prefix);
+        response.setTemplateSuffix(".js");
+        response.setHasTemplate(true);
+        response.setResponseType(MediaType.APPLICATION_JAVASCRIPT_UTF8);
     }
 
-    @Router(urlPatterns = "swagger-ui-standalone-preset-map", hasTemplate = true, responseType = MediaType.APPLICATION_JAVASCRIPT_UTF8)
-    public StaticResourcesView swaggerUiStandaloneBundleMap(){
+    public void swaggerUiStandaloneBundleMap(RouterRequest request, RouterResponse response) {
         var view = new StaticResourcesView();
         view.setPrefix(prefix);
         view.setTemplate("swagger-ui-standalone-preset");
         view.setSuffix(".js.map");
         view.setText(true);
-        return view;
+        var content = view.render();
+        response.setHandler(new AbstractRestResponseHandler<String>() {
+            @Override
+            public MediaTypeInfo getResponseType() {
+                return MediaType.APPLICATION_JAVASCRIPT_UTF8.info();
+            }
+
+            @Override
+            public String transform(String s) {
+                return content.toString();
+            }
+        });
+        response.setContent(content);
+        response.setTemplatePrefix(prefix);
+        response.setTemplateSuffix(".js.map");
+        response.setHasTemplate(true);
+        response.setResponseType(MediaType.APPLICATION_JAVASCRIPT_UTF8);
     }
 
-    @Router(value = "swagger-ui", responseType = MediaType.TEXT_HTML_UTF8)
-    public String swaggerUiHtml() throws JsonProcessingException {
-        return "<!-- HTML for static distribution bundle build -->\n" +
+    public void swaggerUiHtml(RouterRequest request, RouterResponse response) {
+        String content = "<!-- HTML for static distribution bundle build -->\n" +
                 "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "  <head>\n" +
@@ -206,6 +342,10 @@ public class DebbieSwaggerRouter {
                 "    </script>\n" +
                 "  </body>\n" +
                 "</html>\n";
+        response.setContent(content);
+        response.setHasTemplate(false);
+        response.setResponseType(MediaType.TEXT_HTML_UTF8);
     }
 
+    private static final Logger LOG = LoggerFactory.getLogger(DebbieSwaggerRouter.class);
 }

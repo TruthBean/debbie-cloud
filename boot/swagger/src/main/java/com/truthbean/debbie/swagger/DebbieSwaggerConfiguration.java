@@ -35,7 +35,7 @@ public class DebbieSwaggerConfiguration {
         OpenAPI oas = new OpenAPI();
 
         BeanInfoManager beanInitialization = context.getBeanInfoManager();
-        beanInitialization.register(DebbieSwaggerRouter.class);
+        beanInitialization.registerBeanInfo(new SimpleBeanFactory<>(new DebbieSwaggerRouter(), DebbieSwaggerRouter.class).setLazyCreate(false));
 
         GlobalBeanFactory globalBeanFactory = context.getGlobalBeanFactory();
 
