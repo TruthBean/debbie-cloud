@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.check.mybatis;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanComponent;
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.jdbc.annotation.JdbcTransactional;
