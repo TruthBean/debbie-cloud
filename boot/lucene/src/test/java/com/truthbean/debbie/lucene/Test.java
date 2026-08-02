@@ -1,5 +1,7 @@
 package com.truthbean.debbie.lucene;
 
+import com.truthbean.Console;
+
 import java.util.HashMap;
 
 /**
@@ -16,8 +18,8 @@ public class Test {
     private static long add = 8728348608l;
 
     public static void main(String[] args) {
-        System.out.println(b2v("BV1hE411s7bu"));
-        System.out.println(v2b("av98464354"));
+        Console.println(b2v("BV1hE411s7bu"));
+        Console.println(v2b("av98464354"));
     }
 
 

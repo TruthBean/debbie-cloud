@@ -288,9 +288,9 @@ public class DebbieSwaggerRouter implements ApplicationContextAware, CustomizeMv
                 "  <head>\n" +
                 "    <meta charset=\"UTF-8\">\n" +
                 "    <title>Swagger UI</title>\n" +
-                "    <link rel=\"stylesheet\" type=\"text/css\" href=\"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "swagger-css") + "\" >\n" +
-                "    <link rel=\"icon\" type=\"image/png\" href=\"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "favicon-32x32") + "\" sizes=\"32x32\" />\n" +
-                "    <link rel=\"icon\" type=\"image/png\" href=\"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "favicon-16x16") + "\" sizes=\"16x16\" />\n" +
+                "    <link rel=\"stylesheet\" type=\"text/css\" href=\"" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "swagger-css") + "\" >\n" +
+                "    <link rel=\"icon\" type=\"image/png\" href=\"" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "favicon-32x32") + "\" sizes=\"32x32\" />\n" +
+                "    <link rel=\"icon\" type=\"image/png\" href=\"" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "favicon-16x16") + "\" sizes=\"16x16\" />\n" +
                 "    <style>\n" +
                 "      html\n" +
                 "      {\n" +
@@ -317,14 +317,14 @@ public class DebbieSwaggerRouter implements ApplicationContextAware, CustomizeMv
                 "  <body>\n" +
                 "    <div id=\"swagger-ui\"></div>\n" +
                 "\n" +
-                "    <script src=\"./" + dispatcherMapping.replace("**", "swagger-ui-bundle") + "\"> </script>\n" +
-                "    <script src=\"./" + dispatcherMapping.replace("**", "swagger-ui-standalone-preset") + "\"> </script>\n" +
+                "    <script src=\"" + dispatcherMapping.replace("**", "swagger-ui-bundle") + "\"> </script>\n" +
+                "    <script src=\"" + dispatcherMapping.replace("**", "swagger-ui-standalone-preset") + "\"> </script>\n" +
                 "    <script>\n" +
                 "      console.info(\"From Debbie Framework (http://www.truthbean.com/debbie) by TruthBean/Rogar·Q .\"); \n" +
                 "      window.onload = function() {\n" +
                 "      // Begin Swagger UI call region\n" +
                 "      const ui = SwaggerUIBundle({\n" +
-                "        url: \"/" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "swagger") + "\",\n" +
+                "        url: \"" + RouterPathSplicer.replaceDispatcherMapping(dispatcherMapping, "swagger") + "\",\n" +
                 "        dom_id: '#swagger-ui',\n" +
                 "        deepLinking: true,\n" +
                 "        presets: [\n" +
@@ -335,9 +335,9 @@ public class DebbieSwaggerRouter implements ApplicationContextAware, CustomizeMv
                 "          SwaggerUIBundle.plugins.DownloadUrl\n" +
                 "        ],\n" +
                 "        layout: \"StandaloneLayout\"\n" +
-                "        })\n" +
+                "        });\n" +
                 "        // End Swagger UI call region\n" +
-                "        window.ui = ui\n" +
+                "        window.ui = ui;\n" +
                 "      }\n" +
                 "    </script>\n" +
                 "  </body>\n" +

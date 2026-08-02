@@ -1,5 +1,6 @@
 package com.truthbean.debbie.check.hikari;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
@@ -45,7 +46,7 @@ public class HikariTest {
 
         try {
             DataSourceFactory factory = globalBeanFactory.factory("dataSourceFactory");
-            System.out.println(factory);
+            Console.println(factory);
             Connection connection = factory.getConnection();
             Thread.sleep(2000);
             connection.close();
@@ -58,6 +59,6 @@ public class HikariTest {
 
     @Test
     void integer() {
-        System.out.println(Integer.toBinaryString(0));
+        Console.println(Integer.toBinaryString(0));
     }
 }

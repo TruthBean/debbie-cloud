@@ -86,7 +86,7 @@ public class HikariProperties extends DebbieEnvironmentDepositoryHolder implemen
         Map<String, HikariConfiguration> configurationMap = new HashMap<>();
         configurationMap.put(DEFAULT_CATEGORY, configuration);
         map.put(DEFAULT_PROFILE, configurationMap);
-        // configuration.getDriverProperties().put("dataSource.logWriter", new PrintWriter(System.out));
+        // configuration.getDriverProperties().put("dataSource.logWriter", new PrintWriter(Console));
         return configuration;
     }
 

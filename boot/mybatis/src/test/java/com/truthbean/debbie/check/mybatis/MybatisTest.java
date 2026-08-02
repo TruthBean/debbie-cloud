@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.check.mybatis;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.core.ApplicationFactory;
 import com.truthbean.debbie.jdbc.datasource.DataSourceFactory;
@@ -39,7 +40,7 @@ public class MybatisTest {
         SqlSessionFactoryHandler handler = new SqlSessionFactoryHandler(applicationContext, new MybatisProperties(applicationContext).loadConfiguration());
         SqlSessionFactory sqlSessionFactory = handler.buildSqlSessionFactory();
 
-        System.out.println(sqlSessionFactory);
+        Console.println(sqlSessionFactory);
     }
 
     @Test
@@ -50,7 +51,7 @@ public class MybatisTest {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             SurnameMapper mapper = session.getMapper(SurnameMapper.class);
             Surname surname = mapper.selectOne(1L);
-            System.out.println(surname);
+            Console.println(surname);
         }
     }
 
@@ -62,7 +63,7 @@ public class MybatisTest {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             DateTimeMapper mapper = session.getMapper(DateTimeMapper.class);
             LocalDateTime localDateTime = mapper.now();
-            System.out.println(localDateTime);
+            Console.println(localDateTime);
         }
     }
 

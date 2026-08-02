@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.freemarker.test;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.test.annotation.DebbieApplicationTest;
 import freemarker.cache.ClassTemplateLoader;
@@ -32,7 +33,7 @@ public class ConfigurationTest {
 
     @Test
     void test(@BeanInject Configuration configuration) {
-        System.out.println(configuration);
+        Console.println(configuration);
     }
 
     @Test
@@ -48,6 +49,6 @@ public class ConfigurationTest {
 
         StringWriter stringWriter = new StringWriter();
         template.process(data, stringWriter);
-        System.out.println(stringWriter.toString());
+        Console.println(stringWriter.toString());
     }
 }

@@ -1,5 +1,6 @@
 package com.truthbean.debbie.kafka;
 
+import com.truthbean.core.util.ReflectionUtils;
 import com.truthbean.debbie.bean.BeanInfo;
 import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
@@ -7,7 +8,6 @@ import com.truthbean.debbie.bean.GlobalBeanFactory;
 import com.truthbean.debbie.concurrent.Async;
 import com.truthbean.debbie.concurrent.ThreadPooledExecutor;
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.debbie.reflection.ReflectionHelper;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -54,7 +54,7 @@ public class KafkaMessageConsumerResolver {
                     }
                     var param = method.getParameters()[0];
                     methodInfo.setParameterType(param.getType());
-                    methodInfo.setConsumer(o -> ReflectionHelper.invokeMethod(methodInfo.getBean(), method, param));
+                    methodInfo.setConsumer(o -> ReflectionUtils.invokeMethod(methodInfo.getBean(), method, param));
                     list.add(methodInfo);
                 }
             }

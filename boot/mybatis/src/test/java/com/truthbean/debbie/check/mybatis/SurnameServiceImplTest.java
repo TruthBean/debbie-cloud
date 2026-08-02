@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.check.mybatis;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.core.ApplicationFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -51,14 +52,14 @@ class SurnameServiceImplTest {
         q.setWebsite("https://www.zhou.org");
         q.setName("周");
         var b = surnameService.insert(q);
-        System.out.println(b);
-        System.out.println(q);
+        Console.println(b);
+        Console.println(q);
 
         List<Surname> surnames = surnameService.selectAll();
-        System.out.println(surnames);
-        System.out.println("-----------------------------------------------------");
+        Console.println(surnames);
+        Console.println("-----------------------------------------------------");
         surnames = surnameService.selectAll();
-        System.out.println(surnames);
+        Console.println(surnames);
     }
 
     @Test
@@ -70,23 +71,23 @@ class SurnameServiceImplTest {
         q.setWebsite("https://www.zhu.org");
         q.setName("zhu");
         var b = surnameService.save(q);
-        System.out.println(b);
-        System.out.println(q);
+        Console.println(b);
+        Console.println(q);
     }
 
     @Test
     void selectById() {
         Optional<Surname> surname = surnameService.selectById(1L);
-        System.out.println(surname);
+        Console.println(surname);
     }
 
     @Test
     void selectAll() {
         List<Surname> surnames = surnameService.selectAll();
-        System.out.println(surnames);
-        System.out.println("-----------------------------------------------------");
+        Console.println(surnames);
+        Console.println("-----------------------------------------------------");
         surnames = surnameService.selectAll();
-        System.out.println(surnames);
+        Console.println(surnames);
     }
 
     @Test

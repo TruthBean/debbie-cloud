@@ -1,5 +1,6 @@
 package com.truthbean.debbie.check.mybatis;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.test.annotation.DebbieApplicationTest;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,6 @@ public class SystemUserServiceTest {
     @Test
     void selectAll() {
         List<SystemUser> systemUsers = systemUserService.selectAll();
-        System.out.println(systemUsers);
+        Console.println(systemUsers);
     }
 }

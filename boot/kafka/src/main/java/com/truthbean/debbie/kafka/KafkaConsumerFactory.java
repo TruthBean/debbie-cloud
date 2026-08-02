@@ -11,10 +11,10 @@ package com.truthbean.debbie.kafka;
 
 import com.truthbean.Logger;
 import com.truthbean.core.concurrent.NamedThreadFactory;
+import com.truthbean.core.util.ReflectionUtils;
 import com.truthbean.debbie.concurrent.ThreadPooledExecutor;
 import com.truthbean.debbie.event.DebbieEventPublisher;
 import com.truthbean.LoggerFactory;
-import com.truthbean.debbie.reflection.ReflectionHelper;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -49,13 +49,13 @@ public class KafkaConsumerFactory<K, V> implements Closeable {
         Class<?> valueDeserializerClass = consumer.getValueDeserializer();
         Deserializer<K> keyDeserializer;
         if (keyDeserializerClass != null) {
-            keyDeserializer = (Deserializer<K>) ReflectionHelper.newInstance(keyDeserializerClass);
+            keyDeserializer = (Deserializer<K>) ReflectionUtils.newInstance(keyDeserializerClass);
         } else {
             keyDeserializer = (Deserializer<K>) new StringDeserializer();
         }
         Deserializer<V> valueDeserializer;
         if (valueDeserializerClass != null) {
-            valueDeserializer = (Deserializer<V>) ReflectionHelper.newInstance(valueDeserializerClass);
+            valueDeserializer = (Deserializer<V>) ReflectionUtils.newInstance(valueDeserializerClass);
         } else {
             valueDeserializer = (Deserializer<V>) new StringDeserializer();
         }

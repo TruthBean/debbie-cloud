@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.check.mybatis;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.jdbc.datasource.DataSourceFactory;
 import com.truthbean.debbie.jdbc.transaction.TransactionManager;
@@ -36,6 +37,6 @@ public class SystemUserMapperTest {
     @Test
     void selectAll() {
         List<SystemUser> systemUsers = systemUserMapper.selectAll();
-        System.out.println(systemUsers);
+        Console.println(systemUsers);
     }
 }

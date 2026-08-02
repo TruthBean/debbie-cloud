@@ -1,5 +1,6 @@
 package com.truthbean.debbie.check.hikari;
 
+import com.truthbean.Console;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInject;
@@ -21,10 +22,10 @@ public class HikariDataSourcesTest {
 
     @Test
     public void testDataSource(@BeanInject("dataSourceFactory") DataSourceFactory factory) {
-        System.out.println(factory);
+        Console.println(factory);
         try {
             Connection connection = factory.getConnection();
-            System.out.println(connection);
+            Console.println(connection);
             Thread.sleep(1000);
             connection.close();
         } catch (SQLException | InterruptedException e) {
@@ -47,13 +48,13 @@ public class HikariDataSourcesTest {
                 }
                 return null;
             });
-            System.out.println(r);
+            Console.println(r);
         }
     }
 
     @Test
     public void testDataSourceConfiguration(@BeanInject DataSourceConfiguration configuration) {
-        System.out.println(configuration);
+        Console.println(configuration);
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HikariDataSourcesTest.class);

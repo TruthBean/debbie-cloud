@@ -5,7 +5,7 @@
     <parent>
         <artifactId>debbie-cloud</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.6.1-RELEASE</version>
+        <version>0.6.2-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -21,7 +21,7 @@
 
     <groupId>com.truthbean</groupId>
     <name>debbie-dependencies</name>
-    <version>0.6.1-RELEASE</version>
+    <version>0.6.2-RELEASE</version>
     <description>debbie dependencies</description>
     <url>https://github.com/TruthBean/debbie-cloud</url>
 
@@ -95,7 +95,7 @@
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>debbie-cron</artifactId>
+                <artifactId>debbie-quartz</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>

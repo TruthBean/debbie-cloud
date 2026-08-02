@@ -9,7 +9,7 @@
  */
 package com.truthbean.debbie.kafka;
 
-import com.truthbean.debbie.reflection.ReflectionHelper;
+import com.truthbean.core.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 
@@ -81,7 +81,7 @@ public class KafkaConsumerListenerMethodInfo {
     }
 
     public void invokeMethod(Object param) {
-        ReflectionHelper.invokeMethod(this.bean, this.method, param);
+        ReflectionUtils.invokeMethod(this.bean, this.method, param);
     }
 
 }

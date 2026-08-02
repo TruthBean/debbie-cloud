@@ -3,3 +3,5 @@ truthbean debbie cloud framework collections
 
 ## Note
 Need java 17 or above
+
+more information, see truthbean/debbie

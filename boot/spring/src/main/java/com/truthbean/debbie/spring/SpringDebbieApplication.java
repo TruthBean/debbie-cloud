@@ -39,8 +39,21 @@ public class SpringDebbieApplication implements DebbieApplication {
     }
 
     @Override
+    public DebbieExitedApplication exit(Consumer<ApplicationBootContext> applicationBootContextConsumer) {
+        return this;
+    }
+
+    @Override
     public DebbieExitedApplication exit() {
         return this;
+    }
+
+    @Override
+    public void forceExit(Consumer<ApplicationBootContext> applicationBootContextConsumer) {
+    }
+
+    @Override
+    public void forceExit() {
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringDebbieApplication.class);

@@ -5,13 +5,13 @@
     <parent>
         <artifactId>cloud</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.6.1-RELEASE</version>
+        <version>0.6.2-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.truthbean</groupId>
     <artifactId>simple-cloud</artifactId>
-    <version>0.6.1-RELEASE</version>
+    <version>0.6.2-RELEASE</version>
     <name>simple-cloud</name>
     <description>simple truthbean debbie cloud framework</description>
 

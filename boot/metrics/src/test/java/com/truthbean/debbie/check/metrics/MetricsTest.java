@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.check.metrics;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.metrics.HealthChecker;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,6 @@ public class MetricsTest {
     @Test
     void metric() {
         String hello = HealthChecker.check("hello").up().toString();
-        System.out.println(hello);
+        Console.println(hello);
     }
 }

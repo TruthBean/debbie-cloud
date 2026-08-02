@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.swagger.test;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.jackson.util.JacksonUtils;
 import com.truthbean.debbie.swagger.SwaggerReader;
@@ -48,8 +49,8 @@ public class SwaggerConfigurationTest {
                     .read();
             var reader = new SwaggerReader(openAPI, SwaggerConfigurationTest.class.getClassLoader());
             OpenAPI newOpenApi = reader.read();
-            System.out.println(newOpenApi);
-            System.out.println(JacksonUtils.toYaml(newOpenApi));
+            Console.println(newOpenApi);
+            Console.println(JacksonUtils.toYaml(newOpenApi));
 
         } catch (OpenApiConfigurationException e) {
             throw new RuntimeException(e.getMessage(), e);

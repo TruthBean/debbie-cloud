@@ -14,4 +14,5 @@
 open module com.truthbean.debbie.metrics.test {
     requires com.truthbean.debbie.metrics;
     requires org.junit.jupiter.api;
+    requires com.truthbean.logger.core;
 }

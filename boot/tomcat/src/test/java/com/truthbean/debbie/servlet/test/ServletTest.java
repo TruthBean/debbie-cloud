@@ -1,5 +1,6 @@
 package com.truthbean.debbie.servlet.test;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.test.annotation.DebbieApplicationTest;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,6 @@ public class ServletTest {
 
     @Test
     public void content() {
-        System.out.println("nothing");
+        Console.println("nothing");
     }
 }

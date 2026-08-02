@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.check.mybatis;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.test.annotation.DebbieApplicationTest;
 import org.junit.jupiter.api.Test;
@@ -20,12 +21,12 @@ public class MybatisBeanTest {
 
     @Test
     public void content() {
-        System.out.println("nothing");
+        Console.println("nothing");
     }
 
     @Test
     public void testDataTimeMapper(@BeanInject DateTimeMapper mapper) {
         LocalDateTime localDateTime = mapper.now();
-        System.out.println(localDateTime);
+        Console.println(localDateTime);
     }
 }

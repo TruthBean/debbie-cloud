@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.servlet.test;
 
+import com.truthbean.Console;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -22,11 +23,11 @@ import jakarta.servlet.annotation.WebListener;
 public class TestServletContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("servlet context init");
+        Console.println("servlet context init");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("servlet context destroy");
+        Console.println("servlet context destroy");
     }
 }

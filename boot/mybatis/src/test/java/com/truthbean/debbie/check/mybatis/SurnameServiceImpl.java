@@ -43,7 +43,7 @@ public class SurnameServiceImpl implements SurnameService, TransactionService {
         }*/
         long id = surnameMapper.insert(surname);
         var all = surnameMapper.selectAll();
-        System.out.println(all);
+        Console.println(all);
         surname.setId(id);
         return id > 0L;
     }
@@ -53,9 +53,9 @@ public class SurnameServiceImpl implements SurnameService, TransactionService {
         /*SqlSession sqlSession = getSqlSession();
         var surnameMapper = sqlSession.getMapper(SurnameMapper.class);*/
         var all = surnameMapper.selectAll();
-        System.out.println(all);
+        Console.println(all);
         int id = surnameMapper.update(surname);
-        System.out.println(surname.getId() / 0L);
+        Console.println(surname.getId() / 0L);
         return id > 0;
     }
 
@@ -71,7 +71,7 @@ public class SurnameServiceImpl implements SurnameService, TransactionService {
 
     @Override
     public List<Surname> selectAll() {
-        System.out.println("66666666");
+        Console.println("66666666");
         surnameRepository.findAll();
         // SqlSession sqlSession = sqlSessionFactory.openSession(getConnection());
         // var surnameMapper = sqlSession.getMapper(SurnameMapper.class);
@@ -80,6 +80,6 @@ public class SurnameServiceImpl implements SurnameService, TransactionService {
 
     @Override
     public void doNothing() {
-        System.out.println("none ...");
+        Console.println("none ...");
     }
 }

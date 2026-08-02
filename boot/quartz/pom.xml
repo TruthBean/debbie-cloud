@@ -5,15 +5,15 @@
     <parent>
         <artifactId>debbie-boot</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.6.1-RELEASE</version>
+        <version>0.6.2-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.truthbean</groupId>
-    <artifactId>debbie-cron</artifactId>
-    <version>0.6.1-RELEASE</version>
-    <name>debbie-cron</name>
-    <description>truthbean debbie cron framework</description>
+    <artifactId>debbie-quartz</artifactId>
+    <version>0.6.2-RELEASE</version>
+    <name>debbie-quartz</name>
+    <description>quartz support by truthbean debbie framework</description>
 
     <properties>
         <java.version>17</java.version>

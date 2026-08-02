@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.check.mybatis;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanInject;
 import com.truthbean.debbie.test.annotation.DebbieApplicationTest;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,10 +36,10 @@ class SurnameServiceTest {
         q.setWebsite("https://www.qu.org");
         q.setName("屈");
         var b = surnameService.insert(q);
-        System.out.println(b);
-        System.out.println(q);
+        Console.println(b);
+        Console.println(q);
 
-        System.out.println("------------------------------------");
+        Console.println("------------------------------------");
 
         var z = new Surname();
         z.setBegin(new Timestamp(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
@@ -46,14 +47,14 @@ class SurnameServiceTest {
         z.setWebsite("https://www.zhao.org");
         z.setName("赵");
         var bz = surnameService.insert(z);
-        System.out.println(bz);
-        System.out.println(z);
+        Console.println(bz);
+        Console.println(z);
 
         /*List<Surname> surnames = surnameService.selectAll();
-        System.out.println(surnames);
-        System.out.println("-----------------------------------------------------");
+        Console.println(surnames);
+        Console.println("-----------------------------------------------------");
         surnames = surnameService.selectAll();
-        System.out.println(surnames);*/
+        Console.println(surnames);*/
     }
 
     @Test
@@ -65,14 +66,14 @@ class SurnameServiceTest {
         q.setWebsite("https://www.zhu.org");
         q.setName("zhu");
         var b = surnameService.save(q);
-        System.out.println(b);
-        System.out.println(q);
+        Console.println(b);
+        Console.println(q);
     }
 
     @Test
     void selectById(@BeanInject SurnameService surnameService) {
         Optional<Surname> surname = surnameService.selectById(1L);
-        System.out.println(surname);
+        Console.println(surname);
     }
 
     @Test
@@ -84,10 +85,10 @@ class SurnameServiceTest {
         for (int i = 0; i < 1; i++) {
             new Thread(() -> {
                 List<Surname> surnames = surnameService.selectAll();
-                System.out.println(surnames);
-                System.out.println("-----------------------------------------------------");
+                Console.println(surnames);
+                Console.println("-----------------------------------------------------");
                 surnames = surnameService.selectAll();
-                System.out.println(surnames);
+                Console.println(surnames);
             }).start();
         }
         try {

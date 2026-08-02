@@ -1,5 +1,6 @@
 package com.truthbean.debbie.undertow.test;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.DebbieScan;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.core.ApplicationFactory;
@@ -11,7 +12,7 @@ public class UndertowApplicationTest {
 
     @Test
     void content() {
-        System.out.println("nothing");
+        Console.println("nothing");
     }
 
     public static void main(String[] args) {

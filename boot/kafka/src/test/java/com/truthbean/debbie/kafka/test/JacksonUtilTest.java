@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.kafka.test;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.jackson.util.JacksonUtils;
 import com.truthbean.debbie.kafka.KafkaConfiguration;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,6 @@ public class JacksonUtilTest {
     public void yamlToBean() throws IOException {
         URL resource = JacksonUtilTest.class.getClassLoader().getResource("application.yaml");
         KafkaConfiguration configuration = JacksonUtils.yamlStreamToBean(resource.openStream(), KafkaConfiguration.class);
-        System.out.println(configuration);
+        Console.println(configuration);
     }
 }

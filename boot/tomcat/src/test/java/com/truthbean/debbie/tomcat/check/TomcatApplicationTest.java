@@ -8,6 +8,6 @@ public class TomcatApplicationTest {
 
     @Test
     public void content() {
-        System.out.println("nothing");
+        Console.println("nothing");
     }
 }

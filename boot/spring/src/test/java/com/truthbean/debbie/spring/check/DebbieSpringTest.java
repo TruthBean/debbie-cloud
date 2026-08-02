@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.spring.check;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.DebbieScan;
 import com.truthbean.debbie.boot.DebbieApplication;
 import com.truthbean.debbie.spring.EnableDebbieApplication;
@@ -41,12 +42,12 @@ public class DebbieSpringTest {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringApplicationTest.class, args); //new AnnotationConfigApplicationContext(DebbieSpringTest.class);
         String applicationName = applicationContext.getApplicationName();
-        System.out.println(applicationName);
+        Console.println(applicationName);
         TestSpringBean bean = applicationContext.getBean(TestSpringBean.class);
-        System.out.println(bean);
+        Console.println(bean);
         bean.setTest("123");
         bean = applicationContext.getBean(TestSpringBean.class);
-        System.out.println(bean);
+        Console.println(bean);
         applicationContext.close();
     }
 }

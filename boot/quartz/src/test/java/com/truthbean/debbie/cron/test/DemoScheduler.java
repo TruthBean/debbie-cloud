@@ -9,6 +9,7 @@
  */
 package com.truthbean.debbie.cron.test;
 
+import com.truthbean.Console;
 import com.truthbean.debbie.bean.BeanComponent;
 import com.truthbean.debbie.task.DebbieTask;
 
@@ -22,11 +23,11 @@ public class DemoScheduler {
 
     @DebbieTask(cron = "* * * * * ?")
     public void task() {
-        System.out.println("....");
+        Console.println("....");
     }
 
     @DebbieTask(cron = "* * * * * ?")
     public void task1() {
-        System.out.println("....111");
+        Console.println("....111");
     }
 }
