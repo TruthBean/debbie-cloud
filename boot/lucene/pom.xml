@@ -5,13 +5,13 @@
     <parent>
         <artifactId>debbie-boot</artifactId>
         <groupId>com.truthbean</groupId>
-        <version>0.6.2-RELEASE</version>
+        <version>0.6.3-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.truthbean</groupId>
     <artifactId>debbie-lucene</artifactId>
-    <version>0.6.2-RELEASE</version>
+    <version>0.6.3-RELEASE</version>
     <name>debbie-lucene</name>
     <description>truthbean debbie lucene framework</description>
 
