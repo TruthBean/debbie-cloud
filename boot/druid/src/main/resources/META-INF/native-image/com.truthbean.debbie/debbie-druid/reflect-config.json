@@ -1,0 +1,103 @@
+[
+  {
+    "name" : "com.truthbean.debbie.druid.DruidModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.druid.DruidProperties",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.druid.DruidDataSourceFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.druid.DruidConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setDruidUrl", "parameterTypes": ["java.lang.String"] },
+      { "name": "setUsername", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDruidPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDriverClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setInitialSize", "parameterTypes": ["int"] },
+      { "name": "setMinIdle", "parameterTypes": ["int"] },
+      { "name": "setMaxActive", "parameterTypes": ["int"] },
+      { "name": "setMaxWait", "parameterTypes": ["long"] },
+      { "name": "setTimeBetweenEvictionRunsMillis", "parameterTypes": ["long"] },
+      { "name": "setMinEvictableIdleTimeMillis", "parameterTypes": ["long"] },
+      { "name": "setValidationQuery", "parameterTypes": ["java.lang.String"] },
+      { "name": "setTestWhileIdle", "parameterTypes": ["boolean"] },
+      { "name": "setTestOnBorrow", "parameterTypes": ["boolean"] },
+      { "name": "setTestOnReturn", "parameterTypes": ["boolean"] },
+      { "name": "setPoolPreparedStatements", "parameterTypes": ["boolean"] },
+      { "name": "setMaxPoolPreparedStatementPerConnectionSize", "parameterTypes": ["int"] },
+      { "name": "setFilters", "parameterTypes": ["java.lang.String"] },
+      { "name": "setConnectionProperties", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDefaultAutoCommit", "parameterTypes": ["boolean"] },
+      { "name": "setRemoveAbandoned", "parameterTypes": ["boolean"] },
+      { "name": "setRemoveAbandonedTimeoutMillis", "parameterTypes": ["long"] },
+      { "name": "setLogAbandoned", "parameterTypes": ["boolean"] },
+      { "name": "setConnectionInitSqls", "parameterTypes": ["java.util.Collection"] },
+      { "name": "setValidationQueryTimeout", "parameterTypes": ["int"] },
+      { "name": "setKeepAlive", "parameterTypes": ["boolean"] },
+      { "name": "setKeepAliveBetweenTimeMillis", "parameterTypes": ["long"] },
+      { "name": "setMaxEvictableIdleTimeMillis", "parameterTypes": ["long"] },
+      { "name": "setTimeBetweenConnectErrorMillis", "parameterTypes": ["long"] },
+      { "name": "setDefaultTransactionIsolation", "parameterTypes": ["int"] },
+      { "name": "setDefaultReadOnly", "parameterTypes": ["boolean"] },
+      { "name": "setTransactionQueryTimeout", "parameterTypes": ["int"] },
+      { "name": "setTransactionThresholdMillis", "parameterTypes": ["long"] },
+      { "name": "setAsyncInit", "parameterTypes": ["boolean"] },
+      { "name": "setInitVariants", "parameterTypes": ["boolean"] },
+      { "name": "setInitGlobalVariants", "parameterTypes": ["boolean"] },
+      { "name": "setUseUnfairLock", "parameterTypes": ["boolean"] },
+      { "name": "setMaxWaitThreadCount", "parameterTypes": ["int"] },
+      { "name": "setNotFullTimeoutRetryCount", "parameterTypes": ["int"] },
+      { "name": "setMaxCreateTaskCount", "parameterTypes": ["int"] },
+      { "name": "setExceptionSorter", "parameterTypes": ["java.lang.String"] },
+      { "name": "setConnectionErrorRetryAttempts", "parameterTypes": ["int"] },
+      { "name": "setBreakAfterAcquireFailure", "parameterTypes": ["boolean"] },
+      { "name": "setUseGlobalDataSourceStat", "parameterTypes": ["boolean"] },
+      { "name": "setTimeBetweenLogStatsMillis", "parameterTypes": ["long"] },
+      { "name": "setResetStatEnable", "parameterTypes": ["boolean"] },
+      { "name": "setName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPhyTimeoutMillis", "parameterTypes": ["long"] },
+      { "name": "setPhyMaxUseCount", "parameterTypes": ["long"] },
+      { "name": "setDupCloseLogEnable", "parameterTypes": ["boolean"] },
+      { "name": "setAccessToUnderlyingConnectionAllowed", "parameterTypes": ["boolean"] },
+      { "name": "setRemoveAbandonedTimeout", "parameterTypes": ["int"] },
+      { "name": "setSharePreparedStatements", "parameterTypes": ["boolean"] },
+      { "name": "setClearFiltersEnable", "parameterTypes": ["boolean"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]
