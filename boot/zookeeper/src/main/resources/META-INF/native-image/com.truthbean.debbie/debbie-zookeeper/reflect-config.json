@@ -1,0 +1,45 @@
+[
+  {
+    "name" : "com.truthbean.debbie.zookeeper.ZookeeperModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.zookeeper.ZookeeperConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setConnectionString", "parameterTypes": ["java.lang.String"] },
+      { "name": "setSessionTimeout", "parameterTypes": ["int"] },
+      { "name": "setConnectionTimeout", "parameterTypes": ["int"] },
+      { "name": "setBaseSleepTimeMs", "parameterTypes": ["int"] },
+      { "name": "setMaxRetries", "parameterTypes": ["int"] },
+      { "name": "setNamespace", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDigest", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.zookeeper.ZookeeperClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.zookeeper.ZookeeperConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

@@ -1,0 +1,91 @@
+[
+  {
+    "name" : "com.truthbean.debbie.dbcp2.Dbcp2ModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.dbcp2.Dbcp2Properties",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.dbcp2.Dbcp2DataSourceFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.dbcp2.Dbcp2Configuration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setDbcp2Url", "parameterTypes": ["java.lang.String"] },
+      { "name": "setUsername", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbcp2Password", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDriverClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setInitialSize", "parameterTypes": ["int"] },
+      { "name": "setMaxTotal", "parameterTypes": ["int"] },
+      { "name": "setMaxIdle", "parameterTypes": ["int"] },
+      { "name": "setMinIdle", "parameterTypes": ["int"] },
+      { "name": "setMaxWaitMillis", "parameterTypes": ["long"] },
+      { "name": "setMaxConnLifetimeMillis", "parameterTypes": ["long"] },
+      { "name": "setTimeBetweenEvictionRunsMillis", "parameterTypes": ["long"] },
+      { "name": "setMinEvictableIdleTimeMillis", "parameterTypes": ["long"] },
+      { "name": "setSoftMinEvictableIdleTimeMillis", "parameterTypes": ["long"] },
+      { "name": "setNumTestsPerEvictionRun", "parameterTypes": ["int"] },
+      { "name": "setValidationQuery", "parameterTypes": ["java.lang.String"] },
+      { "name": "setValidationQueryTimeout", "parameterTypes": ["int"] },
+      { "name": "setTestOnCreate", "parameterTypes": ["boolean"] },
+      { "name": "setTestOnBorrow", "parameterTypes": ["boolean"] },
+      { "name": "setTestOnReturn", "parameterTypes": ["boolean"] },
+      { "name": "setTestWhileIdle", "parameterTypes": ["boolean"] },
+      { "name": "setPoolPreparedStatements", "parameterTypes": ["boolean"] },
+      { "name": "setMaxOpenPreparedStatements", "parameterTypes": ["int"] },
+      { "name": "setDefaultAutoCommit", "parameterTypes": ["boolean"] },
+      { "name": "setDefaultReadOnly", "parameterTypes": ["boolean"] },
+      { "name": "setDefaultTransactionIsolation", "parameterTypes": ["int"] },
+      { "name": "setDefaultCatalog", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDefaultSchema", "parameterTypes": ["java.lang.String"] },
+      { "name": "setLifo", "parameterTypes": ["boolean"] },
+      { "name": "setCacheState", "parameterTypes": ["boolean"] },
+      { "name": "setFastFailValidation", "parameterTypes": ["boolean"] },
+      { "name": "setAbandonedUsageTracking", "parameterTypes": ["boolean"] },
+      { "name": "setRemoveAbandonedOnBorrow", "parameterTypes": ["boolean"] },
+      { "name": "setRemoveAbandonedOnMaintenance", "parameterTypes": ["boolean"] },
+      { "name": "setRemoveAbandonedTimeout", "parameterTypes": ["int"] },
+      { "name": "setLogAbandoned", "parameterTypes": ["boolean"] },
+      { "name": "setLogExpiredConnections", "parameterTypes": ["boolean"] },
+      { "name": "setEvictionPolicyClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setJmxName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setEnableAutoCommitOnReturn", "parameterTypes": ["boolean"] },
+      { "name": "setRollbackOnReturn", "parameterTypes": ["boolean"] },
+      { "name": "setConnectionInitSqls", "parameterTypes": ["java.util.Collection"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]
