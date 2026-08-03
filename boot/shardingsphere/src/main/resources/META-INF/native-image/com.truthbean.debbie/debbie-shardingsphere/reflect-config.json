@@ -1,0 +1,48 @@
+[
+  {
+    "name" : "com.truthbean.debbie.shardingsphere.ShardingSphereModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.shardingsphere.ShardingSphereConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setYamlConfigLocation", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDatabaseName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setModeType", "parameterTypes": ["java.lang.String"] },
+      { "name": "setModeRepositoryType", "parameterTypes": ["java.lang.String"] },
+      { "name": "setModeRepositoryFilePath", "parameterTypes": ["java.lang.String"] },
+      { "name": "setModeOverwrite", "parameterTypes": ["boolean"] },
+      { "name": "setModeClusterNamespace", "parameterTypes": ["java.lang.String"] },
+      { "name": "setModeClusterServerLists", "parameterTypes": ["java.lang.String"] },
+      { "name": "setSqlShow", "parameterTypes": ["boolean"] },
+      { "name": "setSqlSimple", "parameterTypes": ["boolean"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.shardingsphere.ShardingSphereDataSourceFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.shardingsphere.ShardingSphereConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

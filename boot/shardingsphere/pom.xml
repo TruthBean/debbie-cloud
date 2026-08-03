@@ -3,40 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>debbie-cloud</artifactId>
+        <artifactId>debbie-boot</artifactId>
         <groupId>com.truthbean</groupId>
         <version>0.6.3-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.truthbean</groupId>
-    <artifactId>debbie-boot</artifactId>
+    <artifactId>debbie-shardingsphere</artifactId>
     <version>0.6.3-RELEASE</version>
-    <name>debbie-boot</name>
-
-    <packaging>pom</packaging>
-
-    <description>debbie, a java microservice project</description>
-
-    <modules>
-        <module>quartz</module>
-        <module>hikari</module>
-        <module>druid</module>
-        <module>metrics</module>
-        <module>servlet</module>
-        <module>tomcat</module>
-        <module>undertow</module>
-        <module>freemarker</module>
-        <module>javafx</module>
-        <module>kafka</module>
-        <module>lucene</module>
-        <module>mybatis</module>
-        <module>spring</module>
-        <module>swagger</module>
-        <module>dbcp2</module>
-        <module>zookeeper</module>
-        <module>shardingsphere</module>
-    </modules>
+    <name>debbie-shardingsphere</name>
+    <description>truthbean debbie shardingsphere framework</description>
 
     <properties>
         <java.version>17</java.version>
@@ -68,5 +45,45 @@
         <system>github</system>
         <url>https://github.com/truthbean/debbie-cloud/issues</url>
     </issueManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>debbie-jdbc</artifactId>
+            <version>${truthbean.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>debbie-metrics</artifactId>
+            <version>${truthbean.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>shardingsphere-jdbc-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>debbie-test</artifactId>
+            <version>${truthbean.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>truthbean-slf4j-boot</artifactId>
+            <version>${truthbean.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>${mariadb.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>
