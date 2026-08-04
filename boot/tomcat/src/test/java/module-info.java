@@ -14,6 +14,7 @@
  */
 open module com.truthbean.debbie.tomcat.test {
     exports com.truthbean.debbie.tomcat.check to org.junit.platform.commons;
+    exports com.truthbean.debbie.tomcat.jdbc.check to org.junit.platform.commons;
     exports com.truthbean.debbie.servlet.test to org.junit.platform.commons;
     requires com.truthbean.debbie.tomcat;
 

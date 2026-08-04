@@ -49,6 +49,11 @@
     <dependencies>
         <dependency>
             <groupId>com.truthbean</groupId>
+            <artifactId>debbie-jdbc</artifactId>
+            <version>${truthbean.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.truthbean</groupId>
             <artifactId>debbie-server</artifactId>
             <version>${truthbean.version}</version>
         </dependency>
@@ -61,6 +66,17 @@
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-websocket</artifactId>
             <version>${tomcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-juli</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
@@ -93,6 +109,12 @@
             <groupId>com.truthbean</groupId>
             <artifactId>truthbean-log4j2-boot</artifactId>
             <version>${truthbean.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>${mariadb.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -7,3 +7,4 @@
 # See the Mulan PSL v2 for more details.
 #
 com.truthbean.debbie.tomcat.TomcatModuleStarter
+com.truthbean.debbie.tomcat.jdbc.TomcatJdbcModuleStarter

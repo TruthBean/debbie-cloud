@@ -14,6 +14,7 @@
  */
 module com.truthbean.debbie.tomcat {
     requires transitive com.truthbean.debbie.server;
+    requires transitive com.truthbean.debbie.jdbc;
     requires transitive org.apache.tomcat.embed.core;
     requires transitive org.apache.tomcat.embed.jasper;
     requires transitive org.apache.tomcat.embed.el;
@@ -26,11 +27,14 @@ module com.truthbean.debbie.tomcat {
 
     requires transitive org.apache.commons.io;
 
+    requires transitive tomcat.jdbc;
+
     opens com.truthbean.logger.juli;
     exports com.truthbean.logger.juli;
 
     exports com.truthbean.debbie.servlet;
     exports com.truthbean.debbie.servlet.response.view;
+    exports com.truthbean.debbie.tomcat.jdbc;
 
     exports org.apache.commons.fileupload;
     exports org.apache.commons.fileupload.servlet;
@@ -39,7 +43,8 @@ module com.truthbean.debbie.tomcat {
 
     provides com.truthbean.debbie.boot.AbstractApplication with com.truthbean.debbie.tomcat.TomcatServerApplication;
 
-    provides com.truthbean.debbie.boot.DebbieModuleStarter with com.truthbean.debbie.tomcat.TomcatModuleStarter;
+    provides com.truthbean.debbie.boot.DebbieModuleStarter
+            with com.truthbean.debbie.tomcat.TomcatModuleStarter, com.truthbean.debbie.tomcat.jdbc.TomcatJdbcModuleStarter;
 
     provides com.truthbean.debbie.mvc.response.view.AbstractTemplateViewHandler
             with com.truthbean.debbie.servlet.response.view.JspHandler;

@@ -75,6 +75,21 @@
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
+                <artifactId>debbie-json</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-xml</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-yaml</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
                 <artifactId>debbie-jackson</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
@@ -86,6 +101,16 @@
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-agent</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-console</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-mvc</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
@@ -105,7 +130,22 @@
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
+                <artifactId>debbie-jdbc</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
                 <artifactId>debbie-hikari</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-druid</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-dbcp2</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
@@ -116,11 +156,6 @@
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-javafx</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-jdbc</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
@@ -136,11 +171,6 @@
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-metrics</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-mvc</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
