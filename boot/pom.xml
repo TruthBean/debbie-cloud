@@ -36,6 +36,7 @@
         <module>spring</module>
         <module>swagger</module>
         <module>dbcp2</module>
+        <module>c3p0</module>
         <module>zookeeper</module>
         <module>shardingsphere</module>
     </modules>

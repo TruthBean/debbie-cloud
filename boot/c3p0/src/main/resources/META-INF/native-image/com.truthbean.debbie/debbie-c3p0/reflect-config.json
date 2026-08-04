@@ -1,0 +1,92 @@
+[
+  {
+    "name" : "com.truthbean.debbie.c3p0.C3p0ModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.c3p0.C3p0Properties",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.c3p0.C3p0DataSourceFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.c3p0.C3p0Configuration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.core.ApplicationContext"] },
+      { "name": "setDriverClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setC3p0Url", "parameterTypes": ["java.lang.String"] },
+      { "name": "setUsername", "parameterTypes": ["java.lang.String"] },
+      { "name": "setC3p0Password", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDescription", "parameterTypes": ["java.lang.String"] },
+      { "name": "setForceUseNamedDriverClass", "parameterTypes": ["boolean"] },
+      { "name": "setOverrideDefaultUser", "parameterTypes": ["java.lang.String"] },
+      { "name": "setOverrideDefaultPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setInitialPoolSize", "parameterTypes": ["int"] },
+      { "name": "setMinPoolSize", "parameterTypes": ["int"] },
+      { "name": "setMaxPoolSize", "parameterTypes": ["int"] },
+      { "name": "setAcquireIncrement", "parameterTypes": ["int"] },
+      { "name": "setMaxIdleTime", "parameterTypes": ["int"] },
+      { "name": "setMaxIdleTimeExcessConnections", "parameterTypes": ["int"] },
+      { "name": "setMaxConnectionAge", "parameterTypes": ["int"] },
+      { "name": "setMaxStatements", "parameterTypes": ["int"] },
+      { "name": "setMaxStatementsPerConnection", "parameterTypes": ["int"] },
+      { "name": "setPropertyCycle", "parameterTypes": ["int"] },
+      { "name": "setNumHelperThreads", "parameterTypes": ["int"] },
+      { "name": "setMaxAdministrativeTaskTime", "parameterTypes": ["int"] },
+      { "name": "setCheckoutTimeout", "parameterTypes": ["int"] },
+      { "name": "setAcquireRetryAttempts", "parameterTypes": ["int"] },
+      { "name": "setAcquireRetryDelay", "parameterTypes": ["int"] },
+      { "name": "setBreakAfterAcquireFailure", "parameterTypes": ["boolean"] },
+      { "name": "setPreferredTestQuery", "parameterTypes": ["java.lang.String"] },
+      { "name": "setAutomaticTestTable", "parameterTypes": ["java.lang.String"] },
+      { "name": "setTestConnectionOnCheckout", "parameterTypes": ["boolean"] },
+      { "name": "setTestConnectionOnCheckin", "parameterTypes": ["boolean"] },
+      { "name": "setIdleConnectionTestPeriod", "parameterTypes": ["int"] },
+      { "name": "setConnectionTesterClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setConnectionCustomizerClassName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setAutoCommitOnClose", "parameterTypes": ["boolean"] },
+      { "name": "setForceIgnoreUnresolvedTransactions", "parameterTypes": ["boolean"] },
+      { "name": "setUnreturnedConnectionTimeout", "parameterTypes": ["int"] },
+      { "name": "setDebugUnreturnedConnectionStackTraces", "parameterTypes": ["boolean"] },
+      { "name": "setPrivilegeSpawnedThreads", "parameterTypes": ["boolean"] },
+      { "name": "setForceSynchronousCheckins", "parameterTypes": ["boolean"] },
+      { "name": "setDataSourceName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setContextClassLoaderSource", "parameterTypes": ["java.lang.String"] },
+      { "name": "setFactoryClassLocation", "parameterTypes": ["java.lang.String"] },
+      { "name": "setUserOverridesAsString", "parameterTypes": ["java.lang.String"] },
+      { "name": "setLoginTimeout", "parameterTypes": ["int"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]
