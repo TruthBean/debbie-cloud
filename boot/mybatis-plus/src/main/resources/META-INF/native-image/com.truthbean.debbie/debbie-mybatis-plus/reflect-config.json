@@ -1,0 +1,41 @@
+[
+  {
+    "name" : "com.truthbean.debbie.mybatisplus.MybatisPlusModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.mybatisplus.MybatisPlusConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setBanner", "parameterTypes": ["boolean"] },
+      { "name": "setCheckConfigLocation", "parameterTypes": ["boolean"] },
+      { "name": "setConfigLocation", "parameterTypes": ["java.lang.String"] },
+      { "name": "setMapperLocations", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigMapUnderscoreToCamelCase", "parameterTypes": ["boolean"] },
+      { "name": "setDbConfigTablePrefix", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigIdType", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigLogicDeleteField", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigLogicDeleteValue", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigLogicNotDeleteValue", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigUpdateStrategy", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigInsertStrategy", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDbConfigWhereStrategy", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPaginationMaxLimit", "parameterTypes": ["int"] },
+      { "name": "setPaginationOverflow", "parameterTypes": ["boolean"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

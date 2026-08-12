@@ -1,0 +1,57 @@
+[
+  {
+    "name" : "com.truthbean.debbie.dubbo.DubboModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.dubbo.DubboConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setApplicationName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setApplicationOwner", "parameterTypes": ["java.lang.String"] },
+      { "name": "setApplicationOrganization", "parameterTypes": ["java.lang.String"] },
+      { "name": "setProtocolName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setProtocolPort", "parameterTypes": ["int"] },
+      { "name": "setProtocolHost", "parameterTypes": ["java.lang.String"] },
+      { "name": "setProtocolThreadpool", "parameterTypes": ["java.lang.String"] },
+      { "name": "setProtocolThreads", "parameterTypes": ["int"] },
+      { "name": "setRegistryAddress", "parameterTypes": ["java.lang.String"] },
+      { "name": "setRegistryProtocol", "parameterTypes": ["java.lang.String"] },
+      { "name": "setRegistryGroup", "parameterTypes": ["java.lang.String"] },
+      { "name": "setRegistryCheck", "parameterTypes": ["boolean"] },
+      { "name": "setRegistryRegister", "parameterTypes": ["boolean"] },
+      { "name": "setProviderTimeout", "parameterTypes": ["int"] },
+      { "name": "setProviderRetries", "parameterTypes": ["int"] },
+      { "name": "setProviderDelay", "parameterTypes": ["int"] },
+      { "name": "setConsumerTimeout", "parameterTypes": ["int"] },
+      { "name": "setConsumerRetries", "parameterTypes": ["int"] },
+      { "name": "setConsumerCheck", "parameterTypes": ["boolean"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.dubbo.DubboServiceFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.dubbo.DubboConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

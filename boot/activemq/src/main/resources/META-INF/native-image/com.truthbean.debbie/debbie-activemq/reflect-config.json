@@ -1,0 +1,51 @@
+[
+  {
+    "name" : "com.truthbean.debbie.activemq.ActiveMqModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.activemq.ActiveMqConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setBrokerUrl", "parameterTypes": ["java.lang.String"] },
+      { "name": "setUsername", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setMaxConnections", "parameterTypes": ["int"] },
+      { "name": "setUseAsyncSend", "parameterTypes": ["boolean"] },
+      { "name": "setAlwaysSyncSend", "parameterTypes": ["boolean"] },
+      { "name": "setCloseTimeout", "parameterTypes": ["int"] },
+      { "name": "setProducerWindowSize", "parameterTypes": ["int"] },
+      { "name": "setDispatchAsync", "parameterTypes": ["boolean"] },
+      { "name": "setRedeliveryMaxRedeliveries", "parameterTypes": ["int"] },
+      { "name": "setRedeliveryInitialDelay", "parameterTypes": ["int"] },
+      { "name": "setRedeliveryBackOffMultiplier", "parameterTypes": ["double"] },
+      { "name": "setRedeliveryUseExponentialBackOff", "parameterTypes": ["boolean"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.activemq.ActiveMqConnectionFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.activemq.ActiveMqConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

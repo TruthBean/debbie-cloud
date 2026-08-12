@@ -1,0 +1,52 @@
+[
+  {
+    "name" : "com.truthbean.debbie.redisson.RedissonModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.redisson.RedissonConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setHost", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPort", "parameterTypes": ["int"] },
+      { "name": "setPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDatabase", "parameterTypes": ["int"] },
+      { "name": "setConnectTimeout", "parameterTypes": ["int"] },
+      { "name": "setTimeout", "parameterTypes": ["int"] },
+      { "name": "setRetryAttempts", "parameterTypes": ["int"] },
+      { "name": "setRetryInterval", "parameterTypes": ["int"] },
+      { "name": "setConnectionMinIdleSize", "parameterTypes": ["int"] },
+      { "name": "setConnectionPoolSize", "parameterTypes": ["int"] },
+      { "name": "setIdleConnectionTimeout", "parameterTypes": ["int"] },
+      { "name": "setPingConnectionInterval", "parameterTypes": ["int"] },
+      { "name": "setKeepAlive", "parameterTypes": ["boolean"] },
+      { "name": "setDnsMonitoringInterval", "parameterTypes": ["long"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.redisson.RedissonClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.redisson.RedissonConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

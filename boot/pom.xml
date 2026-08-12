@@ -20,25 +20,37 @@
 
     <modules>
         <module>asm</module>
-        <module>quartz</module>
+        <module>servlet</module>
+        <module>mybatis</module>
+        <module>mybatis-plus</module>
+        <module>dubbo</module>
+        <module>grpc-server</module>
+        <module>grpc-client</module>
+        <module>activemq</module>
+        <!-- json -->
+        <module>gson</module>
+        <module>fastjson2</module>
+        <!-- datasource -->
         <module>hikari</module>
         <module>druid</module>
-        <module>metrics</module>
-        <module>servlet</module>
-        <module>tomcat</module>
-        <module>undertow</module>
-        <module>netty</module>
-        <module>freemarker</module>
-        <module>javafx</module>
-        <module>kafka</module>
-        <module>lucene</module>
-        <module>mybatis</module>
-        <module>spring</module>
-        <module>swagger</module>
         <module>dbcp2</module>
         <module>c3p0</module>
-        <module>zookeeper</module>
         <module>shardingsphere</module>
+        <!-- server -->
+        <module>tomcat</module>
+        <module>netty</module>
+        <module>undertow</module>
+        <module>swagger</module>
+        <module>metrics</module>
+        <module>freemarker</module>
+        <module>quartz</module>
+        <module>spring</module>
+        <module>javafx</module>
+        <module>lucene</module>
+        <module>zookeeper</module>
+        <module>jedis</module>
+        <module>redisson</module>
+        <module>kafka</module>
     </modules>
 
     <properties>

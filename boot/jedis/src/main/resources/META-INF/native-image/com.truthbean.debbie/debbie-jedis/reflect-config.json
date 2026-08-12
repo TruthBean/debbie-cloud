@@ -1,0 +1,54 @@
+[
+  {
+    "name" : "com.truthbean.debbie.jedis.JedisModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.jedis.JedisConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setHost", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPort", "parameterTypes": ["int"] },
+      { "name": "setPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDatabase", "parameterTypes": ["int"] },
+      { "name": "setTimeout", "parameterTypes": ["int"] },
+      { "name": "setMaxTotal", "parameterTypes": ["int"] },
+      { "name": "setMaxIdle", "parameterTypes": ["int"] },
+      { "name": "setMinIdle", "parameterTypes": ["int"] },
+      { "name": "setMaxWaitMillis", "parameterTypes": ["long"] },
+      { "name": "setBlockWhenExhausted", "parameterTypes": ["boolean"] },
+      { "name": "setTestOnBorrow", "parameterTypes": ["boolean"] },
+      { "name": "setTestWhileIdle", "parameterTypes": ["boolean"] },
+      { "name": "setTestOnReturn", "parameterTypes": ["boolean"] },
+      { "name": "setTimeBetweenEvictionRunsMillis", "parameterTypes": ["long"] },
+      { "name": "setMinEvictableIdleTimeMillis", "parameterTypes": ["long"] },
+      { "name": "setNumTestsPerEvictionRun", "parameterTypes": ["int"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.jedis.JedisClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.jedis.JedisConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

@@ -2,49 +2,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
+        <artifactId>debbie-boot</artifactId>
         <groupId>com.truthbean</groupId>
-        <artifactId>truthbean-parent</artifactId>
         <version>0.6.3-RELEASE</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <packaging>pom</packaging>
-
-    <artifactId>debbie-cloud</artifactId>
+    <groupId>com.truthbean</groupId>
+    <artifactId>debbie-dubbo</artifactId>
     <version>0.6.3-RELEASE</version>
-
-    <modules>
-        <module>dependencies</module>
-        <module>boot</module>
-        <module>cloud</module>
-    </modules>
-
-    <name>debbie-cloud</name>
-    <description>debbie cloud</description>
-    <url>https://github.com/TruthBean/debbie-cloud</url>
+    <name>debbie-dubbo</name>
+    <description>truthbean debbie dubbo framework</description>
 
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <class.dir>${project.build.directory}/classes</class.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-snapshots</id>
-            <url>https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-release</id>
-            <url>https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 
     <licenses>
         <license>
@@ -71,5 +46,45 @@
         <system>github</system>
         <url>https://github.com/truthbean/debbie-cloud/issues</url>
     </issueManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>debbie-core</artifactId>
+            <version>${truthbean.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>debbie-test</artifactId>
+            <version>${truthbean.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.truthbean</groupId>
+            <artifactId>truthbean-slf4j-boot</artifactId>
+            <version>${truthbean.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -1,0 +1,45 @@
+[
+  {
+    "name" : "com.truthbean.debbie.grpc.client.GrpcClientModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.grpc.client.GrpcClientConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setHost", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPort", "parameterTypes": ["int"] },
+      { "name": "setUsePlaintext", "parameterTypes": ["boolean"] },
+      { "name": "setMaxInboundMessageSize", "parameterTypes": ["int"] },
+      { "name": "setKeepAliveTime", "parameterTypes": ["int"] },
+      { "name": "setKeepAliveTimeout", "parameterTypes": ["int"] },
+      { "name": "setKeepAliveWithoutCalls", "parameterTypes": ["boolean"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.grpc.client.GrpcClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.grpc.client.GrpcClientConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]
