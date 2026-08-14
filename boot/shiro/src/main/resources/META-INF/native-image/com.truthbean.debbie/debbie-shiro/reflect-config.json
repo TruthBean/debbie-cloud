@@ -1,0 +1,40 @@
+[
+  {
+    "name" : "com.truthbean.debbie.shiro.ShiroModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.shiro.ShiroConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setIniConfigPath", "parameterTypes": ["java.lang.String"] },
+      { "name": "setSessionTimeout", "parameterTypes": ["int"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.shiro.ShiroSecurityManagerFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.shiro.ShiroConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

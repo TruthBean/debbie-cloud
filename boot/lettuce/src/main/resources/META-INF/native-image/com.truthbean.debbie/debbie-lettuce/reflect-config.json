@@ -1,0 +1,46 @@
+[
+  {
+    "name" : "com.truthbean.debbie.lettuce.LettuceModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.lettuce.LettuceConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setHost", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPort", "parameterTypes": ["int"] },
+      { "name": "setPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setDatabase", "parameterTypes": ["int"] },
+      { "name": "setTimeout", "parameterTypes": ["int"] },
+      { "name": "setClientName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setAutoReconnect", "parameterTypes": ["boolean"] },
+      { "name": "setSsl", "parameterTypes": ["boolean"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.lettuce.LettuceClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.lettuce.LettuceConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

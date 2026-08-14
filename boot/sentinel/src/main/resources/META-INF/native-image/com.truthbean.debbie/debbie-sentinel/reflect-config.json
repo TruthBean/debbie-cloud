@@ -1,0 +1,41 @@
+[
+  {
+    "name" : "com.truthbean.debbie.sentinel.SentinelModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.sentinel.SentinelConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setLogDir", "parameterTypes": ["java.lang.String"] },
+      { "name": "setLogNamePrefix", "parameterTypes": ["java.lang.String"] },
+      { "name": "setCharset", "parameterTypes": ["java.lang.String"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.sentinel.SentinelManagerFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.sentinel.SentinelConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

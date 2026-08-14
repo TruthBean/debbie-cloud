@@ -1,0 +1,45 @@
+[
+  {
+    "name" : "com.truthbean.debbie.rocketmq.RocketMqModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.rocketmq.RocketMqConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setNamesrvAddr", "parameterTypes": ["java.lang.String"] },
+      { "name": "setProducerGroup", "parameterTypes": ["java.lang.String"] },
+      { "name": "setConsumerGroup", "parameterTypes": ["java.lang.String"] },
+      { "name": "setSendTimeout", "parameterTypes": ["int"] },
+      { "name": "setMaxMessageSize", "parameterTypes": ["int"] },
+      { "name": "setRetryTimesWhenSendFailed", "parameterTypes": ["int"] },
+      { "name": "setPollTimeout", "parameterTypes": ["int"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.rocketmq.RocketMqClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.rocketmq.RocketMqConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

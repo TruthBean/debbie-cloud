@@ -1,0 +1,44 @@
+[
+  {
+    "name" : "com.truthbean.debbie.rabbitmq.RabbitMqModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.rabbitmq.RabbitMqConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setHost", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPort", "parameterTypes": ["int"] },
+      { "name": "setUsername", "parameterTypes": ["java.lang.String"] },
+      { "name": "setPassword", "parameterTypes": ["java.lang.String"] },
+      { "name": "setVirtualHost", "parameterTypes": ["java.lang.String"] },
+      { "name": "setConnectionTimeout", "parameterTypes": ["int"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.rabbitmq.RabbitMqClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.rabbitmq.RabbitMqConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

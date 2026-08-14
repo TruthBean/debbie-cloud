@@ -1,0 +1,44 @@
+[
+  {
+    "name" : "com.truthbean.debbie.pulsar.PulsarModuleStarter",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.pulsar.PulsarConfiguration",
+    "methods": [
+      { "name": "<init>", "parameterTypes": [] },
+      { "name": "setServiceUrl", "parameterTypes": ["java.lang.String"] },
+      { "name": "setProducerName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setConsumerName", "parameterTypes": ["java.lang.String"] },
+      { "name": "setSendTimeout", "parameterTypes": ["int"] },
+      { "name": "setOperationTimeout", "parameterTypes": ["int"] },
+      { "name": "setConnectionTimeout", "parameterTypes": ["int"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
+    "name": "com.truthbean.debbie.pulsar.PulsarClientFactory",
+    "methods": [
+      { "name": "<init>", "parameterTypes": ["com.truthbean.debbie.pulsar.PulsarConfiguration"] }
+    ],
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  }
+]

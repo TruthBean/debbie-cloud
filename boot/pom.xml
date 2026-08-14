@@ -27,6 +27,14 @@
         <module>grpc-server</module>
         <module>grpc-client</module>
         <module>activemq</module>
+        <module>lettuce</module>
+        <module>rocketmq</module>
+        <module>pulsar</module>
+        <module>rabbitmq</module>
+        <module>shiro</module>
+        <module>nacos</module>
+        <module>sentinel</module>
+        <module>seata</module>
         <!-- json -->
         <module>gson</module>
         <module>fastjson2</module>
@@ -43,6 +51,7 @@
         <module>swagger</module>
         <module>metrics</module>
         <module>freemarker</module>
+        <module>thymeleaf</module>
         <module>quartz</module>
         <module>spring</module>
         <module>javafx</module>

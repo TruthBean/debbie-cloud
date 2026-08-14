@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>simple-cloud</module>
+        <module>gateway</module>
     </modules>
 
     <groupId>com.truthbean</groupId>

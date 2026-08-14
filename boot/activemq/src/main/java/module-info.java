@@ -17,8 +17,8 @@ module com.truthbean.debbie.activemq {
 
     requires transitive com.truthbean.debbie.core;
     requires static activemq.client;
-    requires javax.jms.api;
     requires java.naming;
+    requires jakarta.messaging;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter
             with com.truthbean.debbie.activemq.ActiveMqModuleStarter;
