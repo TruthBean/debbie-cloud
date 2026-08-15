@@ -12,6 +12,16 @@
     <modules>
         <module>simple-cloud</module>
         <module>gateway</module>
+        <module>bus</module>
+        <module>config</module>
+        <module>circuit-breaker</module>
+        <module>consul</module>
+        <module>function</module>
+        <module>kubernetes</module>
+        <module>eureka</module>
+        <module>loadbalancer</module>
+        <module>tracing</module>
+        <module>etcd</module>
     </modules>
 
     <groupId>com.truthbean</groupId>

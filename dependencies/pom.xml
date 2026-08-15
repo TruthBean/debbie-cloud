@@ -22,7 +22,7 @@
     <groupId>com.truthbean</groupId>
     <name>debbie-dependencies</name>
     <version>0.6.3-RELEASE</version>
-    <description>debbie dependencies</description>
+    <description>debbie dependencies BOM (Bill of Materials)</description>
     <url>https://github.com/TruthBean/debbie-cloud</url>
 
     <licenses>
@@ -52,6 +52,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- ======================== truthbean foundation ======================== -->
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>truthbean-core</artifactId>
@@ -62,15 +63,10 @@
                 <artifactId>truthbean-transformer</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
-            <!-- debbie -->
+            <!-- ======================== debbie core modules ======================== -->
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-core</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-asm</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
@@ -88,11 +84,7 @@
                 <artifactId>debbie-yaml</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-jackson</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-test</artifactId>
@@ -120,12 +112,12 @@
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>debbie-quartz</artifactId>
+                <artifactId>debbie-server</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>debbie-freemarker</artifactId>
+                <artifactId>debbie-httpclient</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
@@ -133,6 +125,33 @@
                 <artifactId>debbie-jdbc</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
+
+            <!-- ======================== debbie boot modules ======================== -->
+
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-asm</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- json -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-gson</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-fastjson2</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-jackson</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- datasource -->
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-hikari</artifactId>
@@ -150,29 +169,16 @@
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>debbie-httpclient</artifactId>
+                <artifactId>debbie-c3p0</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>debbie-javafx</artifactId>
+                <artifactId>debbie-shardingsphere</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-kafka</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-lucene</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-metrics</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
+
+            <!-- orm -->
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-mybatis</artifactId>
@@ -180,32 +186,14 @@
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
-                <artifactId>debbie-netty</artifactId>
+                <artifactId>debbie-mybatis-plus</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
-            <!--<dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-rmi</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>-->
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-server</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
+
+            <!-- server -->
             <dependency>
                 <groupId>com.truthbean</groupId>
                 <artifactId>debbie-servlet</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-spring</artifactId>
-                <version>${truthbean.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.truthbean</groupId>
-                <artifactId>debbie-swagger</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
             <dependency>
@@ -215,9 +203,229 @@
             </dependency>
             <dependency>
                 <groupId>com.truthbean</groupId>
+                <artifactId>debbie-netty</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
                 <artifactId>debbie-undertow</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-swagger</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-spring</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- template engine -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-freemarker</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-thymeleaf</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- scheduler -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-quartz</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- messaging -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-kafka</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-activemq</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-rocketmq</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-pulsar</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-rabbitmq</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- redis -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-jedis</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-lettuce</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-redisson</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- nosql -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-mongo</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- search -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-lucene</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- grpc -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-grpc-server</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-grpc-client</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- rpc -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-dubbo</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- security -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-shiro</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- monitoring -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-metrics</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- javafx -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-javafx</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- zookeeper -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-zookeeper</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- ======================== debbie cloud modules ======================== -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>simple-cloud</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-gateway</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-bus</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-config</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-circuit-breaker</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-consul</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-function</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-kubernetes</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-eureka</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-loadbalancer</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-tracing</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-etcd</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
+            <!-- ======================== debbie cloud alibaba modules ======================== -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-nacos</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-sentinel</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-seata</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -15,9 +15,10 @@ import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.jdbc.datasource.DataSourceConfiguration;
 import com.truthbean.debbie.jdbc.datasource.DataSourceDriverName;
 import com.truthbean.debbie.jdbc.datasource.DataSourceFactory;
-import com.truthbean.debbie.properties.ConfigurationTypeNotMatchedException;
+import org.apache.shardingsphere.driver.api.ShardingSphereDataSourceFactory;
 import org.apache.shardingsphere.driver.api.yaml.YamlShardingSphereDataSourceFactory;
 import org.apache.shardingsphere.infra.config.mode.ModeConfiguration;
+import org.apache.shardingsphere.infra.config.rule.RuleConfiguration;
 import org.apache.shardingsphere.mode.repository.standalone.StandalonePersistRepositoryConfiguration;
 
 import javax.sql.DataSource;
@@ -45,7 +46,7 @@ public class ShardingSphereDebbieDataSourceFactory implements DataSourceFactory 
 
     @Override
     public <T extends DataSourceConfiguration> boolean support(T configuration) {
-        return configuration instanceof ShardingSphereConfiguration;
+        return true;
     }
 
     @Override
@@ -57,25 +58,19 @@ public class ShardingSphereDebbieDataSourceFactory implements DataSourceFactory 
 
     @Override
     public DataSourceFactory factory(DataSourceConfiguration configuration) {
-        if (configuration instanceof ShardingSphereConfiguration ssConfiguration) {
-            try {
-                this.dataSource = createDataSource(ssConfiguration);
-                this.name = configuration.getCategory() + "ShardingSphereDebbieDataSourceFactory";
-            } catch (SQLException | IOException e) {
-                throw new RuntimeException("Failed to create ShardingSphere data source", e);
-            }
-        } else {
-            throw new ConfigurationTypeNotMatchedException();
+        try {
+            this.dataSource = createDataSource(this.configuration);
+            this.name = this.configuration.getCategory() + "ShardingSphereDebbieDataSourceFactory";
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException("Failed to create ShardingSphere data source", e);
         }
         return this;
     }
 
     private javax.sql.DataSource createDataSource(ShardingSphereConfiguration config) throws SQLException, IOException {
-        // Prefer YAML configuration if specified
         if (config.getYamlConfigLocation() != null && !config.getYamlConfigLocation().isBlank()) {
             return createFromYaml(config.getYamlConfigLocation());
         }
-        // Fall back to programmatic mode configuration
         return createFromModeConfig(config);
     }
 
@@ -106,11 +101,11 @@ public class ShardingSphereDebbieDataSourceFactory implements DataSourceFactory 
         if (config.isSqlSimple()) {
             props.setProperty("sql-simple", "true");
         }
-        return ShardingSphereDebbieDataSourceFactory.createDataSource(
+        return ShardingSphereDataSourceFactory.createDataSource(
                 config.getDatabaseName(),
                 modeConfig,
-                Collections.emptyMap(),
-                Collections.emptyList(),
+                Collections.<String, DataSource>emptyMap(),
+                Collections.<RuleConfiguration>emptyList(),
                 props
         );
     }
@@ -124,11 +119,14 @@ public class ShardingSphereDebbieDataSourceFactory implements DataSourceFactory 
     }
 
     private ModeConfiguration createStandaloneModeConfiguration(ShardingSphereConfiguration config) {
+        var props = new Properties();
+        String filePath = config.getModeRepositoryFilePath() != null ? config.getModeRepositoryFilePath() : ".shardingSphere";
+        props.setProperty("path", filePath);
         var repositoryConfig = new StandalonePersistRepositoryConfiguration(
-                config.getModeRepositoryType() != null ? config.getModeRepositoryType() : "file",
-                config.getModeRepositoryFilePath() != null ? config.getModeRepositoryFilePath() : ".shardingSphere"
+                config.getModeRepositoryType() != null ? config.getModeRepositoryType() : "File",
+                props
         );
-        return new ModeConfiguration("standalone", repositoryConfig, config.isModeOverwrite());
+        return new ModeConfiguration("standalone", repositoryConfig);
     }
 
     private ModeConfiguration createClusterModeConfiguration(ShardingSphereConfiguration config) {
@@ -140,7 +138,7 @@ public class ShardingSphereDebbieDataSourceFactory implements DataSourceFactory 
             props.setProperty("server-lists", config.getModeClusterServerLists());
         }
         var repositoryConfig = new StandalonePersistRepositoryConfiguration("ZooKeeper", props);
-        return new ModeConfiguration("cluster", repositoryConfig, config.isModeOverwrite());
+        return new ModeConfiguration("cluster", repositoryConfig);
     }
 
     @Override

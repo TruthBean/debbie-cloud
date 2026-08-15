@@ -23,8 +23,8 @@ import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 
 /**
- * Handles MyBatis SqlSession life cycle. It can register and get SqlSessions from Spring
- * {@code TransactionSynchronizationManager}. Also works if no transaction is active.
+ * Handles MyBatis SqlSession life cycle. It can register and get SqlSessions from truthbean debbie.
+ * Also works if no transaction is active.
  *
  * @author Hunter Presnall
  * @author Eduardo Macarron
@@ -76,7 +76,7 @@ public final class SqlSessionUtils {
     }
 
     /**
-     * Register session holder if synchronization is active (i.e. a Spring TX is active).
+     * Register session holder if synchronization is active.
      * <p>
      * Note: The DataSource used by the Environment should be synchronized with the transaction either through
      * DataSourceTxMgr or another tx synchronization. Further assume that if an exception is thrown, whatever started the
@@ -116,8 +116,8 @@ public final class SqlSessionUtils {
     }
 
     /**
-     * Checks if {@code SqlSession} passed as an argument is managed by Spring {@code TransactionSynchronizationManager}
-     * If it is not, it closes it, otherwise it just updates the reference counter and lets Spring call the close callback
+     * Checks if {@code SqlSession} passed as an argument is managed by truthbean debbie
+     * If it is not, it closes it, otherwise it just updates the reference counter and lets truthbean debbie call the close callback
      * when the managed transaction ends
      *
      * @param session        a target SqlSession
@@ -140,7 +140,7 @@ public final class SqlSessionUtils {
     }
 
     /**
-     * Returns if the {@code SqlSession} passed as an argument is being managed by Spring
+     * Returns if the {@code SqlSession} passed as an argument is being managed by truthbean debbie
      *
      * @param session        a MyBatis SqlSession to check
      * @param sessionFactory the SqlSessionFactory which the SqlSession was built with

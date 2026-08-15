@@ -50,19 +50,41 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         if (configuration instanceof DruidConfiguration druidConfiguration) {
             DruidDataSource datasource = druidConfiguration.getDruidDataSource();
             DataSourceDriverName driverName = configuration.getDriverName();
-            if (druidConfiguration.getDriverClassName() == null && driverName != null) {
-                this.driverName = driverName;
+            this.driverName = driverName;
+
+            String driverClassName = druidConfiguration.getDriverClassName();
+            if (driverClassName != null && !driverClassName.isBlank()) {
+                datasource.setDriverClassName(driverClassName);
+            } else if (driverName != null) {
                 datasource.setDriverClassName(driverName.getDriverName());
             }
-            if (druidConfiguration.getDruidUrl() == null || druidConfiguration.getDruidUrl().isBlank()) {
+
+            String url = druidConfiguration.getDruidUrl();
+            if (url != null && !url.isBlank()) {
+                datasource.setUrl(url);
+            } else {
                 datasource.setUrl(configuration.getUrl());
             }
-            if (druidConfiguration.getUsername() == null || druidConfiguration.getUsername().isBlank()) {
+
+            String username = druidConfiguration.getUsername();
+            if (username != null && !username.isBlank()) {
+                datasource.setUsername(username);
+            } else {
                 datasource.setUsername(configuration.getUser());
             }
-            if (druidConfiguration.getDruidPassword() == null || druidConfiguration.getDruidPassword().isBlank()) {
+
+            String password = druidConfiguration.getDruidPassword();
+            if (password != null && !password.isBlank()) {
+                datasource.setPassword(password);
+            } else {
                 datasource.setPassword(configuration.getPassword());
             }
+
+            int defaultTransactionIsolation = druidConfiguration.getDefaultTransactionIsolation();
+            if (defaultTransactionIsolation == -1) {
+                datasource.setDefaultTransactionIsolation(druidConfiguration.getDefaultTransactionIsolationLevel().getLevel());
+            }
+
             druidDataSource = datasource;
             this.name = configuration.getCategory() + "DruidDataSourceFactory";
         } else {

@@ -9,6 +9,8 @@
  */
 package com.truthbean.debbie.activemq;
 
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
@@ -21,6 +23,8 @@ import com.truthbean.debbie.environment.Environment;
  * @since 0.6.3
  */
 public class ActiveMqModuleStarter implements DebbieModuleStarter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMqModuleStarter.class);
 
     private static final String ENABLE_KEY = "debbie.activemq.enable";
 
@@ -51,6 +55,7 @@ public class ActiveMqModuleStarter implements DebbieModuleStarter {
         ActiveMqConnectionFactory connectionFactory = new ActiveMqConnectionFactory(configuration);
         var beanFactory = new SimpleBeanFactory<>(connectionFactory, ActiveMqConnectionFactory.class);
         beanInfoManager.registerBeanInfo(beanFactory);
+        LOGGER.info("ActiveMQ module started");
     }
 
     @Override
@@ -64,5 +69,11 @@ public class ActiveMqModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void release(ApplicationContext applicationContext) {
+        var factory = applicationContext.getGlobalBeanFactory();
+        ActiveMqConnectionFactory connectionFactory = factory.factory(ActiveMqConnectionFactory.class);
+        if (connectionFactory != null) {
+            connectionFactory.close();
+        }
+        LOGGER.info("ActiveMQ module released");
     }
 }

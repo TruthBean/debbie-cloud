@@ -17,6 +17,10 @@ import com.truthbean.transformer.text.BooleanTransformer;
 import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
+ * Configuration of debbie-activemq.
+ * <p>
+ * properties prefix: {@code debbie.activemq}
+ *
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
@@ -30,7 +34,7 @@ public class ActiveMqConfiguration implements DebbieConfiguration {
      * Default: tcp://localhost:61616
      */
     @PropertyInject(value = "broker-url", defaultValue = "tcp://localhost:61616")
-    private String brokerUrl;
+    private String brokerUrl = "tcp://localhost:61616";
 
     /**
      * Username.
@@ -49,42 +53,42 @@ public class ActiveMqConfiguration implements DebbieConfiguration {
      * Default: 1
      */
     @PropertyInject(value = "max-connections", transformer = IntegerTransformer.class, defaultValue = "1")
-    private int maxConnections;
+    private int maxConnections = 1;
 
     /**
      * Whether to use async send.
      * Default: true
      */
     @PropertyInject(value = "use-async-send", transformer = BooleanTransformer.class, defaultValue = "true")
-    private boolean useAsyncSend;
+    private boolean useAsyncSend = true;
 
     /**
      * Whether to always sync send.
      * Default: false
      */
     @PropertyInject(value = "always-sync-send", transformer = BooleanTransformer.class, defaultValue = "false")
-    private boolean alwaysSyncSend;
+    private boolean alwaysSyncSend = false;
 
     /**
      * Close timeout in milliseconds.
      * Default: 15000
      */
     @PropertyInject(value = "close-timeout", transformer = IntegerTransformer.class, defaultValue = "15000")
-    private int closeTimeout;
+    private int closeTimeout = 15000;
 
     /**
      * Producer window size in bytes.
      * Default: 0 (disabled)
      */
     @PropertyInject(value = "producer-window-size", transformer = IntegerTransformer.class, defaultValue = "0")
-    private int producerWindowSize;
+    private int producerWindowSize = 0;
 
     /**
      * Whether to dispatch async.
      * Default: true
      */
     @PropertyInject(value = "dispatch-async", transformer = BooleanTransformer.class, defaultValue = "true")
-    private boolean dispatchAsync;
+    private boolean dispatchAsync = true;
 
     // ======================== Redelivery Policy ========================
 
@@ -93,28 +97,28 @@ public class ActiveMqConfiguration implements DebbieConfiguration {
      * Default: 6
      */
     @PropertyInject(value = "redelivery.max-redeliveries", transformer = IntegerTransformer.class, defaultValue = "6")
-    private int redeliveryMaxRedeliveries;
+    private int redeliveryMaxRedeliveries = 6;
 
     /**
      * Initial redelivery delay in milliseconds.
      * Default: 1000
      */
     @PropertyInject(value = "redelivery.initial-redelivery-delay", transformer = IntegerTransformer.class, defaultValue = "1000")
-    private int redeliveryInitialDelay;
+    private int redeliveryInitialDelay = 1000;
 
     /**
      * Redelivery backoff multiplier.
      * Default: 2.0
      */
     @PropertyInject(value = "redelivery.back-off-multiplier", defaultValue = "2.0")
-    private double redeliveryBackOffMultiplier;
+    private double redeliveryBackOffMultiplier = 2.0;
 
     /**
      * Whether to use exponential backoff.
      * Default: true
      */
     @PropertyInject(value = "redelivery.use-exponential-back-off", transformer = BooleanTransformer.class, defaultValue = "true")
-    private boolean redeliveryUseExponentialBackOff;
+    private boolean redeliveryUseExponentialBackOff = true;
 
     // ======================== Getter/Setter ========================
 
@@ -157,6 +161,12 @@ public class ActiveMqConfiguration implements DebbieConfiguration {
     public boolean isRedeliveryUseExponentialBackOff() { return redeliveryUseExponentialBackOff; }
     public void setRedeliveryUseExponentialBackOff(boolean redeliveryUseExponentialBackOff) { this.redeliveryUseExponentialBackOff = redeliveryUseExponentialBackOff; }
 
+    // ======================== Helpers ========================
+
+    public boolean hasCredentials() {
+        return username != null && !username.isBlank() && password != null;
+    }
+
     // ======================== DebbieConfiguration ========================
 
     @Override
@@ -171,8 +181,34 @@ public class ActiveMqConfiguration implements DebbieConfiguration {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends DebbieConfiguration> T copy() { return (T) this; }
+    public <T extends DebbieConfiguration> T copy() {
+        var c = new ActiveMqConfiguration();
+        c.enable = this.enable;
+        c.brokerUrl = this.brokerUrl;
+        c.username = this.username;
+        c.password = this.password;
+        c.maxConnections = this.maxConnections;
+        c.useAsyncSend = this.useAsyncSend;
+        c.alwaysSyncSend = this.alwaysSyncSend;
+        c.closeTimeout = this.closeTimeout;
+        c.producerWindowSize = this.producerWindowSize;
+        c.dispatchAsync = this.dispatchAsync;
+        c.redeliveryMaxRedeliveries = this.redeliveryMaxRedeliveries;
+        c.redeliveryInitialDelay = this.redeliveryInitialDelay;
+        c.redeliveryBackOffMultiplier = this.redeliveryBackOffMultiplier;
+        c.redeliveryUseExponentialBackOff = this.redeliveryUseExponentialBackOff;
+        return (T) c;
+    }
 
     @Override
     public void close() {}
+
+    @Override
+    public String toString() {
+        return "ActiveMqConfiguration{brokerUrl=" + brokerUrl
+                + ", maxConnections=" + maxConnections
+                + ", useAsyncSend=" + useAsyncSend
+                + ", closeTimeout=" + closeTimeout
+                + ", redeliveryMaxRedeliveries=" + redeliveryMaxRedeliveries + "}";
+    }
 }

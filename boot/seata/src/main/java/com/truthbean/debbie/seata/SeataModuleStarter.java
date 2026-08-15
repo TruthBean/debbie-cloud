@@ -9,6 +9,8 @@
  */
 package com.truthbean.debbie.seata;
 
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
@@ -21,6 +23,8 @@ import com.truthbean.debbie.environment.Environment;
  * @since 0.6.3
  */
 public class SeataModuleStarter implements DebbieModuleStarter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SeataModuleStarter.class);
 
     private static final String ENABLE_KEY = "debbie.seata.enable";
 
@@ -49,8 +53,12 @@ public class SeataModuleStarter implements DebbieModuleStarter {
 
         SeataConfiguration configuration = factory.factory(SeataConfiguration.class);
         SeataTransactionFactory transactionFactory = new SeataTransactionFactory(configuration);
+
+        transactionFactory.init();
+
         var beanFactory = new SimpleBeanFactory<>(transactionFactory, SeataTransactionFactory.class);
         beanInfoManager.registerBeanInfo(beanFactory);
+        LOGGER.info("Seata module started");
     }
 
     @Override
@@ -69,5 +77,6 @@ public class SeataModuleStarter implements DebbieModuleStarter {
         if (transactionFactory != null) {
             transactionFactory.close();
         }
+        LOGGER.info("Seata module released");
     }
 }

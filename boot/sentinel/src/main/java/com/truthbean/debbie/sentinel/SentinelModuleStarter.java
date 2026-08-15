@@ -9,6 +9,8 @@
  */
 package com.truthbean.debbie.sentinel;
 
+import com.truthbean.Logger;
+import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
 import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
@@ -21,6 +23,8 @@ import com.truthbean.debbie.environment.Environment;
  * @since 0.6.3
  */
 public class SentinelModuleStarter implements DebbieModuleStarter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SentinelModuleStarter.class);
 
     private static final String ENABLE_KEY = "debbie.sentinel.enable";
 
@@ -49,8 +53,12 @@ public class SentinelModuleStarter implements DebbieModuleStarter {
 
         SentinelConfiguration configuration = factory.factory(SentinelConfiguration.class);
         SentinelManagerFactory managerFactory = new SentinelManagerFactory(configuration);
+
+        managerFactory.init();
+
         var beanFactory = new SimpleBeanFactory<>(managerFactory, SentinelManagerFactory.class);
         beanInfoManager.registerBeanInfo(beanFactory);
+        LOGGER.info("Sentinel module started");
     }
 
     @Override
@@ -69,5 +77,6 @@ public class SentinelModuleStarter implements DebbieModuleStarter {
         if (managerFactory != null) {
             managerFactory.close();
         }
+        LOGGER.info("Sentinel module released");
     }
 }

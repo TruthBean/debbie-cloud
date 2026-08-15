@@ -1,6 +1,6 @@
 # debbie
 This project is target for a microservice project, including IOC, MVC, JDBC, httpclient, test, server and other modules.
-It also supports running jdk, graalvm, etc., and supports third-party frameworks, such as spring(https://github. com/truthbean/debbie-spring), mybatis (https://github.com/truthbean/debbie-mybatis), etc., 
+It also supports running jdk, graalvm, etc., and supports third-party frameworks, such as spring(https://github.com/truthbean/debbie-spring), mybatis (https://github.com/truthbean/debbie-mybatis), etc., 
 which will be gradually added to make it grow into a complete microservice project.
 
 该项目是从零开始的微服务项目，包含IOC、MVC、JDBC、httpclient、test、server等模块组成，同时支持再jdk、graalvm等运行，

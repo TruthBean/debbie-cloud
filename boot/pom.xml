@@ -60,6 +60,7 @@
         <module>jedis</module>
         <module>redisson</module>
         <module>kafka</module>
+        <module>mongo</module>
     </modules>
 
     <properties>

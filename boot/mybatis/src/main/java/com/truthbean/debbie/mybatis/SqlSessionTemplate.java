@@ -47,14 +47,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
  * Because SqlSessionTemplate is thread safe, a single instance can be shared by all DAOs; there should also be a small
  * memory savings by doing this. This pattern can be used in Spring configuration files as follows:
  *
- * <pre class="code">
- * {@code
- * <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
- *   <constructor-arg ref="sqlSessionFactory" />
- * </bean>
- * }
- * </pre>
- *
  * @author Putthiphong Boonphong
  * @author Hunter Presnall
  * @author Eduardo Macarron
@@ -69,7 +61,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
     private final SqlSession sqlSessionProxy;
 
     /**
-     * Constructs a Spring managed SqlSession with the {@code SqlSessionFactory} provided as an argument.
+     * Constructs a TruthBean Debbie managed SqlSession with the {@code SqlSessionFactory} provided as an argument.
      *
      * @param sqlSessionFactory a factory of SqlSession
      */
@@ -78,7 +70,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
     }
 
     /**
-     * Constructs a Spring managed SqlSession with the {@code SqlSessionFactory} provided as an argument and the given
+     * Constructs a TruthBean Debbie managed SqlSession with the {@code SqlSessionFactory} provided as an argument and the given
      * {@code ExecutorType} {@code ExecutorType} cannot be changed once the {@code SqlSessionTemplate} is constructed.
      *
      * @param sqlSessionFactory a factory of SqlSession
@@ -276,7 +268,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
      */
     @Override
     public void commit() {
-        throw new UnsupportedOperationException("Manual commit is not allowed over a Spring managed SqlSession");
+        throw new UnsupportedOperationException("Manual commit is not allowed over a TruthBean Debbie managed SqlSession");
     }
 
     /**
@@ -284,7 +276,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
      */
     @Override
     public void commit(boolean force) {
-        throw new UnsupportedOperationException("Manual commit is not allowed over a Spring managed SqlSession");
+        throw new UnsupportedOperationException("Manual commit is not allowed over a TruthBean Debbie managed SqlSession");
     }
 
     /**
@@ -292,7 +284,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
      */
     @Override
     public void rollback() {
-        throw new UnsupportedOperationException("Manual rollback is not allowed over a Spring managed SqlSession");
+        throw new UnsupportedOperationException("Manual rollback is not allowed over a TruthBean Debbie managed SqlSession");
     }
 
     /**
@@ -300,7 +292,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
      */
     @Override
     public void rollback(boolean force) {
-        throw new UnsupportedOperationException("Manual rollback is not allowed over a Spring managed SqlSession");
+        throw new UnsupportedOperationException("Manual rollback is not allowed over a TruthBean Debbie managed SqlSession");
     }
 
     /**
@@ -308,7 +300,7 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
      */
     @Override
     public void close() {
-        throw new UnsupportedOperationException("Manual close is not allowed over a Spring managed SqlSession");
+        throw new UnsupportedOperationException("Manual close is not allowed over a TruthBean Debbie managed SqlSession");
     }
 
     /**
@@ -348,25 +340,15 @@ public class SqlSessionTemplate implements SqlSession, BeanClosure {
     /**
      * Allow gently dispose bean:
      *
-     * <pre>
-     * {@code
-     *
-     * <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-     *  <constructor-arg index="0" ref="sqlSessionFactory" />
-     * </bean>
-     * }
-     * </pre>
      * <p>
      * The implementation of {@link BeanClosure} forces bean context to use {@link BeanClosure#destruct(ApplicationContext)} ()} method
      * instead of {@link SqlSessionTemplate#close()} to shutdown gently.
      *
      * @see SqlSessionTemplate#close()
-     * @see "org.springframework.beans.factory.support.DisposableBeanAdapter#inferDestroyMethodIfNecessary(Object, RootBeanDefinition)"
-     * @see "org.springframework.beans.factory.support.DisposableBeanAdapter#CLOSE_METHOD_NAME"
      */
     @Override
     public void destruct(ApplicationContext applicationContext) {
-        // This method forces spring disposer to avoid call of SqlSessionTemplate.close() which gives
+        // This method forces truthbean debbie disposer to avoid call of SqlSessionTemplate.close() which gives
         // UnsupportedOperationException
     }
 

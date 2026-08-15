@@ -57,7 +57,6 @@
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
-            <version>${dubbo.version}</version>
         </dependency>
 
         <dependency>
@@ -69,22 +68,10 @@
 
         <dependency>
             <groupId>com.truthbean</groupId>
-            <artifactId>truthbean-slf4j-boot</artifactId>
+            <artifactId>truthbean-stdout-boot</artifactId>
             <version>${truthbean.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <useModulePath>false</useModulePath>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

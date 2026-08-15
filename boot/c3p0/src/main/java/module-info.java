@@ -17,7 +17,7 @@ module com.truthbean.debbie.c3p0 {
 
     requires transitive com.truthbean.debbie.jdbc;
     requires transitive com.truthbean.debbie.metrics;
-    requires transitive com.mchange.v2.c3p0;
+    requires static com.mchange.v2.c3p0;
     requires java.desktop;
 
     provides com.truthbean.debbie.boot.DebbieModuleStarter
