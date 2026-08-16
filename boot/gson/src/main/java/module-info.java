@@ -9,4 +9,5 @@ module com.truthbean.debbie.gson {
 
     requires transitive com.truthbean.debbie.core;
     requires transitive com.google.gson;
+    provides com.truthbean.debbie.data.JsonHelper with com.truthbean.debbie.gson.data.GsonJsonHelper;
 }

@@ -9,4 +9,6 @@ module com.truthbean.debbie.fastjson2 {
 
     requires transitive com.truthbean.debbie.core;
     requires transitive com.alibaba.fastjson2;
+
+    provides com.truthbean.debbie.data.JsonHelper with com.truthbean.debbie.fastjson2.data.Fastjson2JsonHelper;
 }

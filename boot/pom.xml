@@ -36,6 +36,7 @@
         <module>sentinel</module>
         <module>seata</module>
         <!-- json -->
+        <module>jackson</module>
         <module>gson</module>
         <module>fastjson2</module>
         <!-- datasource -->
