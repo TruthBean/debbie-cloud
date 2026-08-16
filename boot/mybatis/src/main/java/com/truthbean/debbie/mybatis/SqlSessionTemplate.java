@@ -32,7 +32,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 /**
- * Thread safe, Spring managed, {@code SqlSession} that works with Spring transaction management to ensure that that the
+ * Thread safe, Debbie managed, {@code SqlSession} that works with Spring transaction management to ensure that that the
  * actual SqlSession used is the one associated with the current Spring transaction. In addition, it manages the session
  * life-cycle, including closing, committing or rolling back the session as necessary based on the Spring transaction
  * configuration.

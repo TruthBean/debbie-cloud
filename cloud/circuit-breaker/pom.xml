@@ -13,7 +13,7 @@
     <artifactId>debbie-circuit-breaker</artifactId>
     <version>0.6.3-RELEASE</version>
     <name>debbie-circuit-breaker</name>
-    <description>truthbean debbie circuit breaker framework, a spring-cloud-circuit-breaker / resilience4j like module without spring</description>
+    <description>truthbean debbie circuit breaker framework</description>
 
     <properties>
         <java.version>17</java.version>

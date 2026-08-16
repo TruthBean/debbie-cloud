@@ -13,7 +13,7 @@
     <artifactId>debbie-tracing</artifactId>
     <version>0.6.3-RELEASE</version>
     <name>debbie-tracing</name>
-    <description>truthbean debbie tracing framework, a spring-cloud-sleuth like distributed tracing module without spring</description>
+    <description>truthbean debbie tracing framework, a distributed tracing module</description>
 
     <properties>
         <java.version>17</java.version>

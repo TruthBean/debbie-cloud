@@ -13,7 +13,7 @@
     <artifactId>debbie-etcd</artifactId>
     <version>0.6.3-RELEASE</version>
     <name>debbie-etcd</name>
-    <description>truthbean debbie etcd framework, a spring-cloud-etcd like module without spring</description>
+    <description>truthbean debbie etcd framework，module without spring</description>
 
     <properties>
         <java.version>17</java.version>

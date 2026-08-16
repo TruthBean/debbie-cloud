@@ -13,7 +13,7 @@
     <artifactId>debbie-consul</artifactId>
     <version>0.6.3-RELEASE</version>
     <name>debbie-consul</name>
-    <description>truthbean debbie consul framework, a spring-cloud-consul like module without spring</description>
+    <description>truthbean debbie consul framework</description>
 
     <properties>
         <java.version>17</java.version>

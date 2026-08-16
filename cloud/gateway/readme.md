@@ -29,7 +29,7 @@
 
 ## 特性
 
-- **零 Spring 依赖**：仅依赖 `debbie-core` 与 `debbie-mvc`，使用 debbie 自有的 `RouterFilter`、`@PropertiesConfiguration`、`DebbieModuleStarter` 等机制。
+- **零 额外 依赖**：仅依赖 `debbie-core` 与 `debbie-mvc`，使用 debbie 自有的 `RouterFilter`、`@PropertiesConfiguration`、`DebbieModuleStarter` 等机制。
 - **JDK 原生 HTTP 客户端**：代理转发使用 `java.net.http.HttpClient`（JDK 11+ 内置），无需额外依赖。
 - **路由谓词匹配**：内置 `PathPredicate`（Ant 风格路径）、`MethodPredicate`（HTTP 方法）、`HeaderPredicate`（请求头正则），支持自定义扩展。
 - **过滤器链**：`GatewayFilter` 支持 `preFilter`（转发前）与 `postFilter`（转发后），按 `order` 排序，pre 正序、post 逆序执行。
@@ -59,7 +59,7 @@ debbie-gateway
     └── debbie-mvc   (transitive)
 ```
 
-不引入任何 `spring-*`、`spring-boot-*` 或 `spring-cloud-*` 依赖。代理转发使用 JDK 内置的 `java.net.http.HttpClient`。
+代理转发使用 JDK 内置的 `java.net.http.HttpClient`。
 
 ---
 

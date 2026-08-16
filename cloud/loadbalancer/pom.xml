@@ -13,7 +13,7 @@
     <artifactId>debbie-loadbalancer</artifactId>
     <version>0.6.3-RELEASE</version>
     <name>debbie-loadbalancer</name>
-    <description>truthbean debbie loadbalancer framework, a spring-cloud-loadbalancer like module without spring</description>
+    <description>truthbean debbie loadbalancer framework</description>
 
     <properties>
         <java.version>17</java.version>

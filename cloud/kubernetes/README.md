@@ -1,6 +1,6 @@
 # debbie-kubernetes
 
-> truthbean debbie kubernetes framework — a [Spring Cloud Kubernetes](https://spring.io/projects/spring-cloud-kubernetes) like module for service discovery, ConfigMap/Secret configuration and health checking **without any Spring dependency**.
+> truthbean debbie kubernetes framework — a module for service discovery, ConfigMap/Secret configuration and health checking.
 
 ## 概述
 

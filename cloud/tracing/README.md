@@ -4,7 +4,7 @@
 
 ## 概述
 
-`debbie-tracing` 是基于 debbie 框架的分布式链路追踪模块，提供类似 Spring Cloud Sleuth / Micrometer Tracing 的功能，但完全不依赖任何 Spring 相关框架。它仅使用 `debbie-core`、`debbie-mvc` 和 JDK 内置功能（`java.net.http.HttpClient`）。
+`debbie-tracing` 是基于 debbie 框架的分布式链路追踪模块。它仅使用 `debbie-core`、`debbie-mvc` 和 JDK 内置功能（`java.net.http.HttpClient`）。
 
 ### 核心特性
 

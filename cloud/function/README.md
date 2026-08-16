@@ -1,6 +1,6 @@
 # debbie-function
 
-> truthbean debbie function framework — a [Spring Cloud Function](https://spring.io/projects/spring-cloud-function) like module for functional programming, function registry, composition, routing and HTTP binding **without any Spring dependency**.
+> truthbean debbie function framework — a module for functional programming, function registry, composition, routing and HTTP binding.
 
 ## 概述
 
@@ -14,7 +14,7 @@
 | **HTTP 绑定** | 将注册的函数暴露为 HTTP 端点（GET 调用 Supplier，POST 调用 Function） |
 | **消息信封** | `FunctionMessage<T>` 携带 payload 和 headers |
 
-仅依赖 `debbie-core` 和 `debbie-mvc`，**不引入任何 Spring 框架**。
+仅依赖 `debbie-core` 和 `debbie-mvc`。
 
 ## 快速开始
 

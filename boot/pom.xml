@@ -35,6 +35,7 @@
         <module>nacos</module>
         <module>sentinel</module>
         <module>seata</module>
+        <module>mail</module>
         <!-- json -->
         <module>jackson</module>
         <module>gson</module>

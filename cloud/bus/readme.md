@@ -1,7 +1,6 @@
 # debbie-bus
 
-一个不依赖 Spring 框架的轻量级事件总线模块，灵感来自 [Spring Cloud Bus](https://docs.spring.io/spring-cloud-bus/docs/current/reference/)，
-基于 [debbie](https://github.com/TruthBean/debbie-cloud) 框架自身的事件机制与模块体系实现。
+一个轻量级事件总线模块，基于 [debbie](https://github.com/TruthBean/debbie-cloud) 框架自身的事件机制与模块体系实现。
 
 通过消息中间件（默认内存实现，可扩展 Kafka / RabbitMQ / Redis Pub-Sub 等）在微服务节点之间广播事件，
 最典型的用途是**广播配置变更**，让所有目标节点刷新本地配置。

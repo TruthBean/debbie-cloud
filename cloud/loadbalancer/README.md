@@ -1,10 +1,10 @@
 # debbie-loadbalancer
 
-> Spring Cloud LoadBalancer like client-side load balancing module — **without Spring**.
+> client-side load balancing module.
 
 ## 概述
 
-`debbie-loadbalancer` 是基于 debbie 框架的客户端负载均衡模块，提供类似 Spring Cloud LoadBalancer 的功能，但完全不依赖任何 Spring 相关框架。它仅使用 `debbie-core`、`debbie-mvc` 和 JDK 内置功能。
+`debbie-loadbalancer` 是基于 debbie 框架的客户端负载均衡模块。它仅使用 `debbie-core`、`debbie-mvc` 和 JDK 内置功能。
 
 ### 核心特性
 

@@ -1,6 +1,6 @@
 # debbie-circuit-breaker
 
-> truthbean debbie circuit breaker framework — a [Spring Cloud Circuit Breaker](https://spring.io/projects/spring-cloud-circuitbreaker) / [Resilience4j](https://resilience4j.readme.io/) like module **without any Spring dependency**.
+> truthbean debbie circuit breaker framework.
 
 ## 概述
 

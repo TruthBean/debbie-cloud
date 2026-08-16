@@ -1,6 +1,6 @@
 # debbie-consul
 
-> truthbean debbie consul framework — a [Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul) like module for service discovery, distributed configuration and health checking **without any Spring dependency**.
+> truthbean debbie consul framework — a module for service discovery, distributed configuration and health checking.
 
 ## 概述
 
@@ -12,7 +12,7 @@
 | **分布式配置** | spring-cloud-consul-config | 从 Consul KV Store 读取配置并注入环境 |
 | **健康检查** | spring-cloud-consul-discovery (health) | Consul Agent 可达性检查 |
 
-仅依赖 `debbie-core` 和 `debbie-mvc`，使用 JDK 内置 `java.net.http.HttpClient` 与 Consul Agent HTTP API 通信，**不引入任何 Spring 框架**。
+仅依赖 `debbie-core` 和 `debbie-mvc`，使用 JDK 内置 `java.net.http.HttpClient` 与 Consul Agent HTTP API 通信。
 
 ## 快速开始
 
@@ -393,7 +393,7 @@ mvn -f cloud/consul/pom.xml test
 | `debbie-test` | `${truthbean.version}` | test | 测试支持 |
 | `truthbean-stdout-boot` | `${truthbean.version}` | test | 测试启动器 |
 
-**无任何 Spring 依赖。** HTTP 通信使用 JDK 内置 `java.net.http.HttpClient`，JSON 解析使用内置 `SimpleJson`。
+** HTTP 通信使用 JDK 内置 `java.net.http.HttpClient`，JSON 解析使用内置 `SimpleJson`。
 
 ## License
 

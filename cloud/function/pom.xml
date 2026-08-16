@@ -13,7 +13,7 @@
     <artifactId>debbie-function</artifactId>
     <version>0.6.3-RELEASE</version>
     <name>debbie-function</name>
-    <description>truthbean debbie function framework, a spring-cloud-function like module without spring</description>
+    <description>truthbean debbie function framework</description>
 
     <properties>
         <java.version>17</java.version>
