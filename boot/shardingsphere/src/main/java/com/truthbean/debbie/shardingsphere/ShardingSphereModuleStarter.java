@@ -60,7 +60,7 @@ public class ShardingSphereModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 22;
+        return 20002;
     }
 
     @Override

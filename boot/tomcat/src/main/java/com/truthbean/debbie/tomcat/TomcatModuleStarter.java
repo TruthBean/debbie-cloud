@@ -40,7 +40,7 @@ public class TomcatModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 30;
+        return 30004;
     }
 
 }

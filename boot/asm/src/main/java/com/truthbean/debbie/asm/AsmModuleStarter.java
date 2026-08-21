@@ -20,7 +20,7 @@ public class AsmModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 5;
+        return 1000;
     }
 
     @Override

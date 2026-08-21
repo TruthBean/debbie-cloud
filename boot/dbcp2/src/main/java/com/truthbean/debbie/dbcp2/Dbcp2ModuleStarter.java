@@ -40,7 +40,7 @@ public class Dbcp2ModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 21;
+        return 20004;
     }
 
 }

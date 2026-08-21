@@ -27,7 +27,7 @@ public class JacksonModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 9;
+        return 40001;
     }
 
     @Override

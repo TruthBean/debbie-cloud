@@ -40,7 +40,7 @@ public class DruidModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 22;
+        return 20003;
     }
 
 }

@@ -71,7 +71,7 @@ public class MongoModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 151;
+        return 23001;
     }
 
     @Override

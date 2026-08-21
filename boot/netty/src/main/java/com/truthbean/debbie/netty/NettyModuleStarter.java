@@ -34,6 +34,6 @@ public class NettyModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 33;
+        return 30001;
     }
 }

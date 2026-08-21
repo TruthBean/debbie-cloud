@@ -31,7 +31,7 @@ public class DebbieLuceneModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 109;
+        return 29000;
     }
 
     @Override

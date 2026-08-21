@@ -59,7 +59,7 @@ public class GrpcClientModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 190;
+        return 31121;
     }
 
     @Override

@@ -40,6 +40,6 @@ public class FreemarkerModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 53;
+        return 90000;
     }
 }

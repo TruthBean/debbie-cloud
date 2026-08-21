@@ -67,7 +67,7 @@ public class SeataModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 280;
+        return 1320006;
     }
 
     @Override

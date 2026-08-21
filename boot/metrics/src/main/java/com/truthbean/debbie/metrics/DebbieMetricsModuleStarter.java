@@ -28,6 +28,6 @@ public class DebbieMetricsModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 19;
+        return 8000;
     }
 }

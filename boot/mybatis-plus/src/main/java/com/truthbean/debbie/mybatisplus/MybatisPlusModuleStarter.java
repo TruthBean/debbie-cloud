@@ -52,7 +52,7 @@ public class MybatisPlusModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 55;
+        return 21101;
     }
 
     @Override

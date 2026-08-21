@@ -40,7 +40,7 @@ public class TomcatJdbcModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 22;
+        return 20006;
     }
 
 }

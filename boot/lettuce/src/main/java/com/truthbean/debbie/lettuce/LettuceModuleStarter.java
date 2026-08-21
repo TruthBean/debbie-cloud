@@ -59,7 +59,7 @@ public class LettuceModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 210;
+        return 22003;
     }
 
     @Override

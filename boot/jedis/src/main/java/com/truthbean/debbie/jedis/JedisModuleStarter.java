@@ -59,7 +59,7 @@ public class JedisModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 150;
+        return 22001;
     }
 
     @Override

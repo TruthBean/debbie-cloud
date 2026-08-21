@@ -141,7 +141,7 @@ public class EtcdModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 59;
+        return 1320002;
     }
 
     @Override

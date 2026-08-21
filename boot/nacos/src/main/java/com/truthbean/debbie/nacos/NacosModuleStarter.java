@@ -59,7 +59,7 @@ public class NacosModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 260;
+        return 1320001;
     }
 
     @Override

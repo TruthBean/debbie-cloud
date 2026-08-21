@@ -66,7 +66,7 @@ public class MailModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 210;
+        return 131110;
     }
 
     @Override

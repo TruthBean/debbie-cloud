@@ -110,7 +110,7 @@ public class FunctionModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 150;
+        return 1010012;
     }
 
     @Override

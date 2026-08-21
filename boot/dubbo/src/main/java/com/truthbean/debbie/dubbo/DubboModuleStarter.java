@@ -59,7 +59,7 @@ public class DubboModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 170;
+        return 31100;
     }
 
     @Override

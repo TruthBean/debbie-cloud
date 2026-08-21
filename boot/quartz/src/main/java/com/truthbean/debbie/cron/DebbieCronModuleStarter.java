@@ -28,7 +28,7 @@ public class DebbieCronModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 29;
+        return 100000;
     }
 
     @Override

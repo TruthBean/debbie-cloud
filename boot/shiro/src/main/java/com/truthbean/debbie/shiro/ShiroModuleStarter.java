@@ -59,7 +59,7 @@ public class ShiroModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 250;
+        return 300000;
     }
 
     @Override

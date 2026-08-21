@@ -112,6 +112,6 @@ public class SpringModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 100;
+        return 200000;
     }
 }

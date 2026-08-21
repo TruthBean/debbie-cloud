@@ -28,6 +28,6 @@ public class JavaFxModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 120;
+        return 7000;
     }
 }

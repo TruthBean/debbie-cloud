@@ -196,7 +196,7 @@ public class ConsulModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 60;
+        return 1320004;
     }
 
     @Override

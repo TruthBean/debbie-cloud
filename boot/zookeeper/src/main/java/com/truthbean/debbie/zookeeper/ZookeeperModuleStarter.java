@@ -59,7 +59,7 @@ public class ZookeeperModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 140;
+        return 131100;
     }
 
     @Override

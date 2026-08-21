@@ -79,7 +79,7 @@ public class CircuitBreakerModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 100;
+        return 1010011;
     }
 
     @Override

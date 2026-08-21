@@ -59,7 +59,7 @@ public class RocketMqModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 220;
+        return 31132;
     }
 
     @Override

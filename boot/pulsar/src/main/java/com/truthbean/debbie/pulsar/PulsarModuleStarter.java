@@ -59,7 +59,7 @@ public class PulsarModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 230;
+        return 31131;
     }
 
     @Override

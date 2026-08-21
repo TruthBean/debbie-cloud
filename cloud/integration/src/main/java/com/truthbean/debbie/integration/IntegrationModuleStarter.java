@@ -80,7 +80,7 @@ public class IntegrationModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 59;
+        return 1010009;
     }
 
     @Override

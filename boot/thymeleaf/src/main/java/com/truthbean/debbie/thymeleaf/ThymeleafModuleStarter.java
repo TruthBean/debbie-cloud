@@ -41,6 +41,6 @@ public class ThymeleafModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 54;
+        return 90001;
     }
 }

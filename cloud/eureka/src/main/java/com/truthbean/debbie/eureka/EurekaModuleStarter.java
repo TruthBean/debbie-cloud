@@ -169,7 +169,7 @@ public class EurekaModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 56;
+        return 1320005;
     }
 
     @Override

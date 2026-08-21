@@ -64,7 +64,7 @@ public class ActiveMqModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 200;
+        return 31134;
     }
 
     @Override

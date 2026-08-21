@@ -40,7 +40,7 @@ public class HikariModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 22;
+        return 20001;
     }
 
 }

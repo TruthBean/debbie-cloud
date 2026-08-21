@@ -75,7 +75,7 @@ public class LoadBalancerModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 57;
+        return 1010001;
     }
 
     @Override

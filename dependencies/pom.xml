@@ -408,6 +408,11 @@
                 <artifactId>debbie-etcd</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-integration</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
 
             <!-- ======================== debbie cloud alibaba modules ======================== -->
             <dependency>

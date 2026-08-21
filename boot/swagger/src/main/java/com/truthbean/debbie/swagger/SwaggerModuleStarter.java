@@ -36,7 +36,7 @@ public class SwaggerModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 52;
+        return 93000;
     }
 
     @Override

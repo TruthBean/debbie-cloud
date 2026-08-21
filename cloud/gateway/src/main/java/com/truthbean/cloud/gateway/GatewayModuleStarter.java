@@ -77,7 +77,7 @@ public class GatewayModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 300;
+        return 1010003;
     }
 
     @Override

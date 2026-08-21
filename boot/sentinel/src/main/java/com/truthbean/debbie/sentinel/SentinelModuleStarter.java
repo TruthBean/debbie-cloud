@@ -67,7 +67,7 @@ public class SentinelModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 270;
+        return 1310010;
     }
 
     @Override

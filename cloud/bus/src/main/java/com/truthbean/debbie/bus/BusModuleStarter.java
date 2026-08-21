@@ -123,7 +123,7 @@ public class BusModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 200;
+        return 1010000;
     }
 
     @Override

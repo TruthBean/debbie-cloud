@@ -33,7 +33,7 @@ public class UndertowModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 32;
+        return 30002;
     }
 
 }

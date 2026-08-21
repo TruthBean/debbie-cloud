@@ -78,7 +78,7 @@ public class KafkaModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 130;
+        return 31130;
     }
 
     @Override

@@ -59,7 +59,7 @@ public class RabbitMqModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 240;
+        return 31133;
     }
 
     @Override

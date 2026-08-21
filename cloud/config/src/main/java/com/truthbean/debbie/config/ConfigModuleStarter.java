@@ -138,7 +138,7 @@ public class ConfigModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 50;
+        return 1010002;
     }
 
     @Override

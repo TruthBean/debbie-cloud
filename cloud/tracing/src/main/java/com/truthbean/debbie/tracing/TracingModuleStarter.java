@@ -114,7 +114,7 @@ public class TracingModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 58;
+        return 1010008;
     }
 
     @Override

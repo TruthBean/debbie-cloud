@@ -169,7 +169,7 @@ public class KubernetesModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 55;
+        return 2000001;
     }
 
     @Override

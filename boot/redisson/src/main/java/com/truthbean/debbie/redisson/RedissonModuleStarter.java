@@ -59,7 +59,7 @@ public class RedissonModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 160;
+        return 22002;
     }
 
     @Override

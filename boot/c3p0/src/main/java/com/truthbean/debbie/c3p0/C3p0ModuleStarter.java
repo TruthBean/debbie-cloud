@@ -40,7 +40,7 @@ public class C3p0ModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 21;
+        return 20005;
     }
 
 }

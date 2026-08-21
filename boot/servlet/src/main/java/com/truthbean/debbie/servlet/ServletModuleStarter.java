@@ -35,6 +35,6 @@ public class ServletModuleStarter implements DebbieModuleStarter {
 
     @Override
     public int getOrder() {
-        return 20;
+        return 31000;
     }
 }
