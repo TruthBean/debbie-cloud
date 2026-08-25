@@ -16,7 +16,6 @@ import com.truthbean.transformer.DataTransformer;
  * Generic Fastjson2-based transformer that converts between Java objects and JSON strings.
  * <p>
  * Mirror of {@code com.truthbean.debbie.data.transformer.text.jackson.JsonTransformer},
- * using Fastjson2 instead of Jackson.
  *
  * @param <T> the Java type to transform
  * @author TruthBean/Rogar·Q

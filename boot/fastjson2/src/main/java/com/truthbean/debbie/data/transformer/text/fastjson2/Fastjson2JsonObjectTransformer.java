@@ -13,9 +13,6 @@ import com.alibaba.fastjson2.JSONObject;
 
 /**
  * Fastjson2 {@link JSONObject} transformer.
- * <p>
- * Mirror of {@code com.truthbean.debbie.data.transformer.text.jackson.JsonNodeTransformer},
- * using Fastjson2's {@link JSONObject} instead of Jackson's {@link com.fasterxml.jackson.databind.JsonNode}.
  *
  * @author TruthBean/Rogar·Q
  * @since 0.6.3

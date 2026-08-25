@@ -40,6 +40,7 @@
         <module>jackson</module>
         <module>gson</module>
         <module>fastjson2</module>
+        <module>fory-json</module>
         <!-- datasource -->
         <module>hikari</module>
         <module>druid</module>

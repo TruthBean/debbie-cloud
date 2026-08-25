@@ -53,8 +53,12 @@
             <version>${swagger.version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>swagger-core</artifactId>
                     <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-models</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

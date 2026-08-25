@@ -150,6 +150,11 @@
                 <artifactId>debbie-jackson</artifactId>
                 <version>${truthbean.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-fory-json</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
 
             <!-- datasource -->
             <dependency>

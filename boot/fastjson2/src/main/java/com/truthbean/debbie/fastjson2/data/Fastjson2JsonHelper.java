@@ -21,7 +21,6 @@ import java.util.Set;
  * Fastjson2-based implementation of {@link JsonHelper}.
  * <p>
  * Mirror of {@code com.truthbean.debbie.jackson.data.JacksonJsonHelper},
- * using Fastjson2 instead of Jackson.
  *
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
