@@ -19,7 +19,6 @@
         <module>dependencies</module>
         <module>boot</module>
         <module>cloud</module>
-        <module>all</module>
     </modules>
 
     <name>debbie-cloud</name>
