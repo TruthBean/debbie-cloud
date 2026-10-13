@@ -96,7 +96,7 @@ public class LuceneHelper {
             LOGGER.debug("score: " + scoreDoc.score);
             LOGGER.debug("shardIndex: " + scoreDoc.shardIndex);
             LOGGER.debug("scoreDoc: " + scoreDoc.toString());
-            Document doc = indexSearcher.doc(scoreDoc.doc);
+            /*Document doc = indexSearcher.doc(scoreDoc.doc);
             String id = doc.get("id");
             LOGGER.debug("id: " + id);
             BytesRef featureBytesRef = doc.getBinaryValue("feature");
@@ -104,7 +104,7 @@ public class LuceneHelper {
                 LOGGER.debug("featureBytesRef: " + Arrays.toString(FeatureUtils.bytes2doubleArray(featureBytesRef.bytes, 512)));
             }
             IndexableField dateStr = doc.getField("date");
-            LOGGER.debug("date: " + dateStr.stringValue());
+            LOGGER.debug("date: " + dateStr.stringValue());*/
         }
 
         indexReader.close();
@@ -123,13 +123,13 @@ public class LuceneHelper {
             LOGGER.debug("score: " + scoreDoc.score);
             LOGGER.debug("shardIndex: " + scoreDoc.shardIndex);
             LOGGER.debug("scoreDoc: " + scoreDoc.toString());
-            Document doc = indexSearcher.doc(scoreDoc.doc);
+            /*Document doc = indexSearcher.doc(scoreDoc.doc);
             String id = doc.get("id");
             LOGGER.debug("id: " + id);
             BytesRef featureBytesRef = doc.getBinaryValue("feature");
             LOGGER.debug("featureBytesRef: " + Arrays.toString(FeatureUtils.bytes2doubleArray(featureBytesRef.bytes, 512)));
             IndexableField date = doc.getField("date");
-            LOGGER.debug("date: " + date.stringValue());
+            LOGGER.debug("date: " + date.stringValue());*/
         }
 
         indexReader.close();
@@ -148,7 +148,7 @@ public class LuceneHelper {
         for (int i = 0; i < docs; i++) {
             // if (!(indexReader.hasDeletions() && !liveDocs.get(i))) {
             if (!indexReader.hasDeletions()) {
-                document = indexReader.document(i);
+                /*document = indexReader.document(i);
                 if (document.getField("id") != null) {
                     var id = Long.parseLong(document.getField("id").stringValue());
                     var date = LocalDate.parse(document.getField("date").stringValue(), DateTimeFormatter.ofPattern("yyyyMMdd"));
@@ -160,7 +160,7 @@ public class LuceneHelper {
                     distanceFeature.setDate(date);
                     distanceFeature.setFeature(featureValue);
                     features.add(distanceFeature);
-                }
+                }*/
             }
         }
 

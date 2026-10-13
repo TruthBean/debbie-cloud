@@ -154,7 +154,7 @@ public class TomcatServerApplication extends AbstractWebServerApplication {
         // jarScanner.setScanManifest(false);
 
         // disables Tomcat's reflective reference clearing to avoid reflective access warnings on Java 9 and later JVMs.
-        ctx.setClearReferencesObjectStreamClassCaches(false);
+        // ctx.setClearReferencesObjectStreamClassCaches(false);
         ctx.setClearReferencesRmiTargets(false);
         ctx.setClearReferencesThreadLocals(false);
 

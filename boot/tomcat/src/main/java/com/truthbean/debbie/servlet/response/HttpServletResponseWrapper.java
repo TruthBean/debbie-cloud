@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
@@ -90,8 +91,8 @@ public class HttpServletResponseWrapper implements HttpServletResponse {
     }
 
     @Override
-    public void sendRedirect(String location) throws IOException {
-        response.sendRedirect(location);
+    public void sendRedirect(String location, int sc, boolean clearBuffer) throws IOException {
+
     }
 
     @Override
@@ -186,6 +187,11 @@ public class HttpServletResponseWrapper implements HttpServletResponse {
     @Override
     public void setCharacterEncoding(String charset) {
         response.setCharacterEncoding(charset);
+    }
+
+    @Override
+    public void setCharacterEncoding(Charset encoding) {
+        HttpServletResponse.super.setCharacterEncoding(encoding);
     }
 
     @Override
