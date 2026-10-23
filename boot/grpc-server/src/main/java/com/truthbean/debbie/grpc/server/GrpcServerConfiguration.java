@@ -11,15 +11,11 @@ package com.truthbean.debbie.grpc.server;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.grpc.server")
 public class GrpcServerConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -28,21 +24,18 @@ public class GrpcServerConfiguration implements DebbieConfiguration {
      * Server port.
      * Default: 9090
      */
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "9090")
     private int port;
 
     /**
      * Maximum message size in bytes.
      * Default: 4194304 (4MB)
      */
-    @PropertyInject(value = "max-inbound-message-size", transformer = IntegerTransformer.class, defaultValue = "4194304")
     private int maxInboundMessageSize;
 
     /**
      * Maximum inbound metadata size in bytes.
      * Default: 8192 (8KB)
      */
-    @PropertyInject(value = "max-inbound-metadata-size", transformer = IntegerTransformer.class, defaultValue = "8192")
     private int maxInboundMetadataSize;
 
     // ======================== Getter/Setter ========================

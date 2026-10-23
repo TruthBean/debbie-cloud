@@ -352,6 +352,13 @@
                 <version>${truthbean.version}</version>
             </dependency>
 
+            <!-- mail -->
+            <dependency>
+                <groupId>com.truthbean</groupId>
+                <artifactId>debbie-mail</artifactId>
+                <version>${truthbean.version}</version>
+            </dependency>
+
             <!-- ======================== debbie cloud modules ======================== -->
             <dependency>
                 <groupId>com.truthbean</groupId>

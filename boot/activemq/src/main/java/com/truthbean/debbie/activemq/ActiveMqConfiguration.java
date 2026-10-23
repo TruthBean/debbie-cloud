@@ -11,10 +11,6 @@ package com.truthbean.debbie.activemq;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * Configuration of debbie-activemq.
@@ -24,7 +20,6 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.activemq")
 public class ActiveMqConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -33,61 +28,52 @@ public class ActiveMqConfiguration implements DebbieConfiguration {
      * Broker URL.
      * Default: tcp://localhost:61616
      */
-    @PropertyInject(value = "broker-url", defaultValue = "tcp://localhost:61616")
     private String brokerUrl = "tcp://localhost:61616";
 
     /**
      * Username.
      */
-    @PropertyInject("username")
     private String username;
 
     /**
      * Password.
      */
-    @PropertyInject("password")
     private String password;
 
     /**
      * Maximum number of connections.
      * Default: 1
      */
-    @PropertyInject(value = "max-connections", transformer = IntegerTransformer.class, defaultValue = "1")
     private int maxConnections = 1;
 
     /**
      * Whether to use async send.
      * Default: true
      */
-    @PropertyInject(value = "use-async-send", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean useAsyncSend = true;
 
     /**
      * Whether to always sync send.
      * Default: false
      */
-    @PropertyInject(value = "always-sync-send", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean alwaysSyncSend = false;
 
     /**
      * Close timeout in milliseconds.
      * Default: 15000
      */
-    @PropertyInject(value = "close-timeout", transformer = IntegerTransformer.class, defaultValue = "15000")
     private int closeTimeout = 15000;
 
     /**
      * Producer window size in bytes.
      * Default: 0 (disabled)
      */
-    @PropertyInject(value = "producer-window-size", transformer = IntegerTransformer.class, defaultValue = "0")
     private int producerWindowSize = 0;
 
     /**
      * Whether to dispatch async.
      * Default: true
      */
-    @PropertyInject(value = "dispatch-async", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean dispatchAsync = true;
 
     // ======================== Redelivery Policy ========================
@@ -96,28 +82,24 @@ public class ActiveMqConfiguration implements DebbieConfiguration {
      * Maximum redeliveries.
      * Default: 6
      */
-    @PropertyInject(value = "redelivery.max-redeliveries", transformer = IntegerTransformer.class, defaultValue = "6")
     private int redeliveryMaxRedeliveries = 6;
 
     /**
      * Initial redelivery delay in milliseconds.
      * Default: 1000
      */
-    @PropertyInject(value = "redelivery.initial-redelivery-delay", transformer = IntegerTransformer.class, defaultValue = "1000")
     private int redeliveryInitialDelay = 1000;
 
     /**
      * Redelivery backoff multiplier.
      * Default: 2.0
      */
-    @PropertyInject(value = "redelivery.back-off-multiplier", defaultValue = "2.0")
     private double redeliveryBackOffMultiplier = 2.0;
 
     /**
      * Whether to use exponential backoff.
      * Default: true
      */
-    @PropertyInject(value = "redelivery.use-exponential-back-off", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean redeliveryUseExponentialBackOff = true;
 
     // ======================== Getter/Setter ========================

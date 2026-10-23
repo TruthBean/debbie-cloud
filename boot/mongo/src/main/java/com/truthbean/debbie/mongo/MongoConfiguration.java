@@ -11,11 +11,6 @@ package com.truthbean.debbie.mongo;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 
 /**
  * Configuration of debbie-mongo.
@@ -25,63 +20,44 @@ import com.truthbean.transformer.text.LongTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.mongo")
 public class MongoConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject("uri")
     private String uri;
 
-    @PropertyInject("host")
     private String host = "localhost";
 
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "27017")
     private int port = 27017;
 
-    @PropertyInject("database")
     private String database;
 
-    @PropertyInject("username")
     private String username;
 
-    @PropertyInject("password")
     private String password;
 
-    @PropertyInject("auth-source")
     private String authSource;
 
-    @PropertyInject(value = "connect-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int connectTimeout = 10000;
 
-    @PropertyInject(value = "socket-timeout", transformer = IntegerTransformer.class, defaultValue = "0")
     private int socketTimeout = 0;
 
-    @PropertyInject(value = "server-selection-timeout", transformer = IntegerTransformer.class, defaultValue = "30000")
     private int serverSelectionTimeout = 30000;
 
-    @PropertyInject(value = "max-pool-size", transformer = IntegerTransformer.class, defaultValue = "100")
     private int maxPoolSize = 100;
 
-    @PropertyInject(value = "min-pool-size", transformer = IntegerTransformer.class, defaultValue = "0")
     private int minPoolSize = 0;
 
-    @PropertyInject(value = "max-idle-time", transformer = LongTransformer.class, defaultValue = "60000")
     private long maxIdleTime = 60000;
 
-    @PropertyInject(value = "max-wait-time", transformer = LongTransformer.class, defaultValue = "120000")
     private long maxWaitTime = 120000;
 
-    @PropertyInject(value = "ssl", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean ssl = false;
 
-    @PropertyInject(value = "ssl-invalid-host-allowed", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean sslInvalidHostAllowed = false;
 
-    @PropertyInject(value = "retry-writes", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean retryWrites = true;
 
-    @PropertyInject(value = "retry-reads", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean retryReads = true;
 
     public boolean isEnable() { return enable; }

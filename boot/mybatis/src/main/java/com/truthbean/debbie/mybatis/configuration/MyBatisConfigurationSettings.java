@@ -9,14 +9,6 @@
  */
 package com.truthbean.debbie.mybatis.configuration;
 
-import com.truthbean.transformer.ClassInstanceTransformer;
-import com.truthbean.transformer.ClassTransformer;
-import com.truthbean.transformer.collection.SetStringTransformer;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.debbie.mybatis.configuration.transformer.*;
 import org.apache.ibatis.executor.loader.ProxyFactory;
 import org.apache.ibatis.executor.loader.javassist.JavassistProxyFactory;
 import org.apache.ibatis.io.VFS;
@@ -38,88 +30,60 @@ import java.util.Set;
  * @author truthbean
  * @since 0.0.2
  */
-@PropertiesConfiguration(keyPrefix = "debbie.mybatis.settings.")
 public class MyBatisConfigurationSettings {
 
-    @PropertyInject(value = "cache-enabled", transformer = BooleanTransformer.class)
     private boolean cacheEnabled = true;
 
-    @PropertyInject(value = "lazy-loading-enabled", transformer = BooleanTransformer.class)
     private boolean lazyLoadingEnabled = false;
 
-    @PropertyInject(value = "aggressive-lazy-loading", transformer = BooleanTransformer.class)
     private boolean aggressiveLazyLoading = false;
 
-    @PropertyInject(value = "multiple-result-sets-enabled", transformer = BooleanTransformer.class)
     private boolean multipleResultSetsEnabled = true;
 
-    @PropertyInject(value = "use-column-label", transformer = BooleanTransformer.class)
     private boolean useColumnLabel = true;
 
-    @PropertyInject(value = "use-generated-keys", transformer = BooleanTransformer.class)
     private boolean useGeneratedKeys = false;
 
-    @PropertyInject(value = "auto-mapping-behavior", transformer = AutoMappingBehaviorTransformer.class)
     private AutoMappingBehavior autoMappingBehavior = AutoMappingBehavior.PARTIAL;
 
-    @PropertyInject(value = "auto-mapping-unknown-column-behavior", transformer = AutoMappingUnknownColumnBehaviorTransformer.class)
     private AutoMappingUnknownColumnBehavior autoMappingUnknownColumnBehavior = AutoMappingUnknownColumnBehavior.NONE;
 
-    @PropertyInject(value = "default-executor-type", transformer = ExecutorTypeTransformer.class)
     private ExecutorType defaultExecutorType = ExecutorType.SIMPLE;
 
-    @PropertyInject(value = "default-statement-timeout", transformer = IntegerTransformer.class)
     private Integer defaultStatementTimeout = null;
 
-    @PropertyInject(value = "default-fetch-size", transformer = IntegerTransformer.class)
     private Integer defaultFetchSize = null;
 
-    @PropertyInject(value = "safe-row-bounds-enabled", transformer = BooleanTransformer.class)
     private boolean safeRowBoundsEnabled = false;
 
-    @PropertyInject(value = "safe-result-handler-enabled", transformer = BooleanTransformer.class)
     private boolean safeResultHandlerEnabled = true;
 
-    @PropertyInject(value = "map-underscore-to-camel-case", transformer = BooleanTransformer.class)
     private boolean mapUnderscoreToCamelCase = false;
 
-    @PropertyInject(value = "local-cache-scope", transformer = LocalCacheScopeTransformer.class)
     private LocalCacheScope localCacheScope = LocalCacheScope.SESSION;
 
-    @PropertyInject(transformer = JdbcTypeTransformer.class, value = "jdbc-type-for-null")
     private JdbcType jdbcTypeForNull = JdbcType.OTHER;
 
-    @PropertyInject(transformer = SetStringTransformer.class, value = "lazy-load-trigger-methods")
     private Set<String> lazyLoadTriggerMethods = new HashSet<>(Arrays.asList("equals", "clone", "hashCode", "toString"));
 
-    @PropertyInject(transformer = ClassTransformer.class, value = "default-scripting-language")
     private Class<? extends LanguageDriver> defaultScriptingLanguage = XMLLanguageDriver.class;
 
-    @PropertyInject(transformer = ClassTransformer.class, value = "default-enum-type-handler")
     private Class<? extends TypeHandler> defaultEnumTypeHandler = EnumTypeHandler.class;
 
-    @PropertyInject(value = "call-setters-on-nulls", transformer = BooleanTransformer.class)
     private boolean callSettersOnNulls;
 
-    @PropertyInject(value = "return-instance-for-empty-row", transformer = BooleanTransformer.class)
     private boolean returnInstanceForEmptyRow;
 
-    @PropertyInject(value = "log-prefix")
     private String logPrefix;
 
-    @PropertyInject(transformer = ClassTransformer.class, value = "log-impl")
     private Class<? extends Log> logImpl = null;
 
-    @PropertyInject(transformer = ClassInstanceTransformer.class, value = "proxy-factory")
     private ProxyFactory proxyFactory = new JavassistProxyFactory(); // #224 Using internal Javassist instead of OGNL
 
-    @PropertyInject(transformer = ClassTransformer.class, value = "vfs-impl")
     private Class<? extends VFS> vfsImpl = null;
 
-    @PropertyInject(value = "use-actual-param-name", transformer = BooleanTransformer.class)
     private boolean useActualParamName = true;
 
-    @PropertyInject(transformer = ClassTransformer.class, value = "configuration-factory")
     private Class<?> configurationFactory = null;
 
     public boolean isCacheEnabled() {

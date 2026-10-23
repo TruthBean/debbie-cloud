@@ -12,12 +12,6 @@ package com.truthbean.debbie.dbcp2;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.jdbc.datasource.DataSourceConfiguration;
 import com.truthbean.debbie.jdbc.datasource.DataSourceProperties;
-import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.util.Collection;
@@ -26,23 +20,18 @@ import java.util.Collection;
  * @author truthbean
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.datasource.dbcp2.")
-public class Dbcp2Configuration extends DataSourceConfiguration implements DebbieConfiguration {
+public class Dbcp2Configuration extends DataSourceConfiguration {
 
     private final BasicDataSource basicDataSource;
 
     // ======================== 基础连接配置 ========================
 
-    @PropertyInject(value = "url")
     private String dbcp2Url;
 
-    @PropertyInject(value = "username")
     private String username;
 
-    @PropertyInject(value = "password")
     private String dbcp2Password;
 
-    @PropertyInject(value = "driver-class-name")
     private String driverClassName;
 
     // ======================== 连接池容量 ========================
@@ -51,35 +40,30 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
      * The initial number of connections created when the pool is started.
      * Default: 0
      */
-    @PropertyInject(value = "initial-size", transformer = IntegerTransformer.class, defaultValue = "0")
     private int initialSize;
 
     /**
      * The maximum number of active connections in the pool.
      * Default: 8
      */
-    @PropertyInject(value = "max-total", transformer = IntegerTransformer.class, defaultValue = "8")
     private int maxTotal;
 
     /**
      * The maximum number of idle connections in the pool.
      * Default: 8
      */
-    @PropertyInject(value = "max-idle", transformer = IntegerTransformer.class, defaultValue = "8")
     private int maxIdle;
 
     /**
      * The minimum number of idle connections in the pool.
      * Default: 0
      */
-    @PropertyInject(value = "min-idle", transformer = IntegerTransformer.class, defaultValue = "0")
     private int minIdle;
 
     /**
      * The maximum time to wait for a connection from the pool, in milliseconds.
      * Default: -1 (indefinitely)
      */
-    @PropertyInject(value = "max-wait-millis", transformer = LongTransformer.class, defaultValue = "-1")
     private long maxWaitMillis;
 
     // ======================== 连接生命周期 ========================
@@ -88,35 +72,30 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
      * The maximum lifetime of a connection, in milliseconds.
      * Default: -1 (no limit)
      */
-    @PropertyInject(value = "max-conn-lifetime-millis", transformer = LongTransformer.class, defaultValue = "-1")
     private long maxConnLifetimeMillis;
 
     /**
      * The time between eviction runs, in milliseconds.
      * Default: -1 (no eviction)
      */
-    @PropertyInject(value = "time-between-eviction-runs-millis", transformer = LongTransformer.class, defaultValue = "-1")
     private long timeBetweenEvictionRunsMillis;
 
     /**
      * The minimum time an idle connection can stay in the pool before being evicted, in milliseconds.
      * Default: 1800000 (30 minutes)
      */
-    @PropertyInject(value = "min-evictable-idle-time-millis", transformer = LongTransformer.class, defaultValue = "1800000")
     private long minEvictableIdleTimeMillis;
 
     /**
      * The soft minimum evictable idle time, in milliseconds.
      * Default: -1 (no limit)
      */
-    @PropertyInject(value = "soft-min-evictable-idle-time-millis", transformer = LongTransformer.class, defaultValue = "-1")
     private long softMinEvictableIdleTimeMillis;
 
     /**
      * The number of connections to test per eviction run.
      * Default: 3
      */
-    @PropertyInject(value = "num-tests-per-eviction-run", transformer = IntegerTransformer.class, defaultValue = "3")
     private int numTestsPerEvictionRun;
 
     // ======================== 验证 ========================
@@ -124,42 +103,36 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
     /**
      * The SQL query to validate connections.
      */
-    @PropertyInject(value = "validation-query")
     private String validationQuery;
 
     /**
      * The validation query timeout, in seconds.
      * Default: -1 (no timeout)
      */
-    @PropertyInject(value = "validation-query-timeout", transformer = IntegerTransformer.class, defaultValue = "-1")
     private int validationQueryTimeout;
 
     /**
      * Whether to test connections when created.
      * Default: false
      */
-    @PropertyInject(value = "test-on-create", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testOnCreate;
 
     /**
      * Whether to test connections when borrowing from the pool.
      * Default: true
      */
-    @PropertyInject(value = "test-on-borrow", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean testOnBorrow;
 
     /**
      * Whether to test connections when returning to the pool.
      * Default: false
      */
-    @PropertyInject(value = "test-on-return", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testOnReturn;
 
     /**
      * Whether to test connections while idle.
      * Default: false
      */
-    @PropertyInject(value = "test-while-idle", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testWhileIdle;
 
     // ======================== Prepared Statement 缓存 ========================
@@ -168,14 +141,12 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
      * Whether to pool prepared statements.
      * Default: false
      */
-    @PropertyInject(value = "pool-prepared-statements", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean poolPreparedStatements;
 
     /**
      * The maximum number of open prepared statements.
      * Default: -1 (no limit)
      */
-    @PropertyInject(value = "max-open-prepared-statements", transformer = IntegerTransformer.class, defaultValue = "-1")
     private int maxOpenPreparedStatements;
 
     // ======================== 事务配置 ========================
@@ -183,32 +154,27 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
     /**
      * Whether to enable auto-commit by default.
      */
-    @PropertyInject(value = "default-auto-commit", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean defaultAutoCommit;
 
     /**
      * Whether the connection is read-only by default.
      */
-    @PropertyInject(value = "default-read-only", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean defaultReadOnly;
 
     /**
      * The default transaction isolation level.
      * Default: -1 (driver default)
      */
-    @PropertyInject(value = "default-transaction-isolation", transformer = IntegerTransformer.class, defaultValue = "-1")
     private int defaultTransactionIsolation;
 
     /**
      * The default catalog.
      */
-    @PropertyInject(value = "default-catalog")
     private String defaultCatalog;
 
     /**
      * The default schema.
      */
-    @PropertyInject(value = "default-schema")
     private String defaultSchema;
 
     // ======================== 连接行为 ========================
@@ -217,21 +183,18 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
      * Whether to use LIFO (last-in-first-out) for the pool.
      * Default: true
      */
-    @PropertyInject(value = "lifo", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean lifo;
 
     /**
      * Whether to cache state.
      * Default: true
      */
-    @PropertyInject(value = "cache-state", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean cacheState;
 
     /**
      * Whether to fast-fail validation.
      * Default: false
      */
-    @PropertyInject(value = "fast-fail-validation", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean fastFailValidation;
 
     // ======================== 废弃连接处理 ========================
@@ -240,35 +203,30 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
      * Whether to track abandoned usage.
      * Default: false
      */
-    @PropertyInject(value = "abandoned-usage-tracking", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean abandonedUsageTracking;
 
     /**
      * Whether to remove abandoned connections when borrowing.
      * Default: false
      */
-    @PropertyInject(value = "remove-abandoned-on-borrow", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean removeAbandonedOnBorrow;
 
     /**
      * Whether to remove abandoned connections during maintenance.
      * Default: false
      */
-    @PropertyInject(value = "remove-abandoned-on-maintenance", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean removeAbandonedOnMaintenance;
 
     /**
      * The timeout for removing abandoned connections, in seconds.
      * Default: 300 (5 minutes)
      */
-    @PropertyInject(value = "remove-abandoned-timeout", transformer = IntegerTransformer.class, defaultValue = "300")
     private int removeAbandonedTimeout;
 
     /**
      * Whether to log abandoned connections.
      * Default: false
      */
-    @PropertyInject(value = "log-abandoned", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean logAbandoned;
 
     // ======================== 日志和监控 ========================
@@ -277,7 +235,6 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
      * Whether to log expired connections.
      * Default: true
      */
-    @PropertyInject(value = "log-expired-connections", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean logExpiredConnections;
 
     // ======================== 其他 ========================
@@ -285,33 +242,28 @@ public class Dbcp2Configuration extends DataSourceConfiguration implements Debbi
     /**
      * The eviction policy class name.
      */
-    @PropertyInject(value = "eviction-policy-class-name")
     private String evictionPolicyClassName;
 
     /**
      * The JMX name.
      */
-    @PropertyInject(value = "jmx-name")
     private String jmxName;
 
     /**
      * Whether to enable auto-commit on return.
      * Default: true
      */
-    @PropertyInject(value = "enable-auto-commit-on-return", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean enableAutoCommitOnReturn;
 
     /**
      * Whether to rollback on return.
      * Default: false
      */
-    @PropertyInject(value = "rollback-on-return", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean rollbackOnReturn;
 
     /**
      * The SQL statements to execute after creating a new connection.
      */
-    @PropertyInject(value = "connection-init-sqls")
     private Collection<String> connectionInitSqls;
 
     // ================================================================

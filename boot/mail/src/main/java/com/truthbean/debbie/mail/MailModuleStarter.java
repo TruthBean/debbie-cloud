@@ -12,11 +12,11 @@ package com.truthbean.debbie.mail;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -36,10 +36,8 @@ public class MailModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<MailConfiguration> debbieBeanInfo =
-                new DebbieReflectionBeanFactory<>(MailConfiguration.class);
-        debbieBeanInfo.addBeanName("mailConfiguration", MailConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(debbieBeanInfo);
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new MailProperties(), MailConfiguration.class);
+        beanInfoManager.registerBeanInfo(beanFactory);
     }
 
     @Override

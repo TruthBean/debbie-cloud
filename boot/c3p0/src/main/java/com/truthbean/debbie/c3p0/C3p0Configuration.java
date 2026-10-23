@@ -13,11 +13,6 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.jdbc.datasource.DataSourceConfiguration;
 import com.truthbean.debbie.jdbc.datasource.DataSourceProperties;
-import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 import java.beans.PropertyVetoException;
 
@@ -29,8 +24,7 @@ import java.beans.PropertyVetoException;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.datasource.c3p0.")
-public class C3p0Configuration extends DataSourceConfiguration implements DebbieConfiguration {
+public class C3p0Configuration extends DataSourceConfiguration {
 
     private final ComboPooledDataSource comboPooledDataSource;
 
@@ -39,52 +33,44 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
     /**
      * The fully qualified Java class name of the JDBC driver to be used.
      */
-    @PropertyInject(value = "driver-class-name")
     private String driverClassName;
 
     /**
      * The JDBC url of the database.
      */
-    @PropertyInject(value = "jdbc-url")
     private String c3p0Url;
 
     /**
      * The username of the database.
      */
-    @PropertyInject(value = "username")
     private String username;
 
     /**
      * The password of the database.
      */
-    @PropertyInject(value = "password")
     private String c3p0Password;
 
     /**
      * The description of the data source.
      */
-    @PropertyInject(value = "description")
     private String description;
 
     /**
      * Whether to force the use of the named driver class.
      * Default: false
      */
-    @PropertyInject(value = "force-use-named-driver-class", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean forceUseNamedDriverClass;
 
     /**
      * The default user to be used when creating new connections,
      * which overrides the user obtained from the DataSource.
      */
-    @PropertyInject(value = "override-default-user")
     private String overrideDefaultUser;
 
     /**
      * The default password to be used when creating new connections,
      * which overrides the password obtained from the DataSource.
      */
-    @PropertyInject(value = "override-default-password")
     private String overrideDefaultPassword;
 
     // ======================== 连接池容量 ========================
@@ -93,63 +79,54 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * The initial number of connections created when the pool is started.
      * Default: 3
      */
-    @PropertyInject(value = "initial-pool-size", transformer = IntegerTransformer.class, defaultValue = "3")
     private int initialPoolSize;
 
     /**
      * The minimum number of connections kept in the pool at all times.
      * Default: 3
      */
-    @PropertyInject(value = "min-pool-size", transformer = IntegerTransformer.class, defaultValue = "3")
     private int minPoolSize;
 
     /**
      * The maximum number of connections kept in the pool.
      * Default: 15
      */
-    @PropertyInject(value = "max-pool-size", transformer = IntegerTransformer.class, defaultValue = "15")
     private int maxPoolSize;
 
     /**
      * The number of connections created at a time when the pool runs out.
      * Default: 3
      */
-    @PropertyInject(value = "acquire-increment", transformer = IntegerTransformer.class, defaultValue = "3")
     private int acquireIncrement;
 
     /**
      * The maximum idle time of a connection, in seconds. 0 means no limit.
      * Default: 0
      */
-    @PropertyInject(value = "max-idle-time", transformer = IntegerTransformer.class, defaultValue = "0")
     private int maxIdleTime;
 
     /**
      * The maximum idle time for connections over the minimum pool size, in seconds.
      * Default: 0
      */
-    @PropertyInject(value = "max-idle-time-excess-connections", transformer = IntegerTransformer.class, defaultValue = "0")
     private int maxIdleTimeExcessConnections;
 
     /**
      * The maximum age of a connection, in seconds. 0 means no limit.
      * Default: 0
      */
-    @PropertyInject(value = "max-connection-age", transformer = IntegerTransformer.class, defaultValue = "0")
     private int maxConnectionAge;
 
     /**
      * The total number of PreparedStatements cached for the pool. 0 means no statement caching.
      * Default: 0
      */
-    @PropertyInject(value = "max-statements", transformer = IntegerTransformer.class, defaultValue = "0")
     private int maxStatements;
 
     /**
      * The number of PreparedStatements cached per connection. 0 means no statement caching.
      * Default: 0
      */
-    @PropertyInject(value = "max-statements-per-connection", transformer = IntegerTransformer.class, defaultValue = "0")
     private int maxStatementsPerConnection;
 
     /**
@@ -157,14 +134,12 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * when the configuration properties change. 0 means no recycle.
      * Default: 0
      */
-    @PropertyInject(value = "property-cycle", transformer = IntegerTransformer.class, defaultValue = "0")
     private int propertyCycle;
 
     /**
      * The number of helper threads the pool should maintain for handling asynchronous tasks.
      * Default: 3
      */
-    @PropertyInject(value = "num-helper-threads", transformer = IntegerTransformer.class, defaultValue = "3")
     private int numHelperThreads;
 
     /**
@@ -172,7 +147,6 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * before giving up. 0 means no timeout.
      * Default: 0
      */
-    @PropertyInject(value = "max-administrative-task-time", transformer = IntegerTransformer.class, defaultValue = "0")
     private int maxAdministrativeTaskTime;
 
     // ======================== 获取连接 ========================
@@ -182,7 +156,6 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * from the pool. 0 means no timeout.
      * Default: 0
      */
-    @PropertyInject(value = "checkout-timeout", transformer = IntegerTransformer.class, defaultValue = "0")
     private int checkoutTimeout;
 
     /**
@@ -190,21 +163,18 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * before giving up.
      * Default: 30
      */
-    @PropertyInject(value = "acquire-retry-attempts", transformer = IntegerTransformer.class, defaultValue = "30")
     private int acquireRetryAttempts;
 
     /**
      * The delay in milliseconds between successive acquisition attempts.
      * Default: 1000
      */
-    @PropertyInject(value = "acquire-retry-delay", transformer = IntegerTransformer.class, defaultValue = "1000")
     private int acquireRetryDelay;
 
     /**
      * Whether the pool should break after a failed acquisition attempt.
      * Default: false
      */
-    @PropertyInject(value = "break-after-acquire-failure", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean breakAfterAcquireFailure;
 
     // ======================== 连接测试 ========================
@@ -213,47 +183,40 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * The query used to test connections. If not set, a driver-specific
      * test will be used if possible.
      */
-    @PropertyInject(value = "preferred-test-query")
     private String preferredTestQuery;
 
     /**
      * The name of a table the pool can create and use to test connections.
      */
-    @PropertyInject(value = "automatic-test-table")
     private String automaticTestTable;
 
     /**
      * Whether to test each connection when it is checked out of the pool.
      * Default: false
      */
-    @PropertyInject(value = "test-connection-on-checkout", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testConnectionOnCheckout;
 
     /**
      * Whether to test each connection when it is checked back into the pool.
      * Default: false
      */
-    @PropertyInject(value = "test-connection-on-checkin", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testConnectionOnCheckin;
 
     /**
      * The time interval in seconds between idle connection tests. 0 means no testing.
      * Default: 0
      */
-    @PropertyInject(value = "idle-connection-test-period", transformer = IntegerTransformer.class, defaultValue = "0")
     private int idleConnectionTestPeriod;
 
     /**
      * The fully qualified class name of the ConnectionTester used to test connections.
      */
-    @PropertyInject(value = "connection-tester-class-name")
     private String connectionTesterClassName;
 
     /**
      * The fully qualified class name of the ConnectionCustomizer used
      * to customize connections as they are created and checked in/out.
      */
-    @PropertyInject(value = "connection-customizer-class-name")
     private String connectionCustomizerClassName;
 
     // ======================== 生命周期与事务 ========================
@@ -262,14 +225,12 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * Whether to commit or rollback pending transactions when a connection is closed.
      * Default: false (rollback)
      */
-    @PropertyInject(value = "auto-commit-on-close", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean autoCommitOnClose;
 
     /**
      * Whether to force ignoring unresolved transactions when a connection is closed.
      * Default: false
      */
-    @PropertyInject(value = "force-ignore-unresolved-transactions", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean forceIgnoreUnresolvedTransactions;
 
     /**
@@ -277,14 +238,12 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * 0 means no limit.
      * Default: 0
      */
-    @PropertyInject(value = "unreturned-connection-timeout", transformer = IntegerTransformer.class, defaultValue = "0")
     private int unreturnedConnectionTimeout;
 
     /**
      * Whether to log the stack traces of unreturned connections when they are forcibly closed.
      * Default: false
      */
-    @PropertyInject(value = "debug-unreturned-connection-stack-traces", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean debugUnreturnedConnectionStackTraces;
 
     // ======================== 其他 ========================
@@ -293,45 +252,38 @@ public class C3p0Configuration extends DataSourceConfiguration implements Debbie
      * Whether to spawn threads with the privileges of the pool's owner.
      * Default: false
      */
-    @PropertyInject(value = "privilege-spawned-threads", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean privilegeSpawnedThreads;
 
     /**
      * Whether to force synchronous checkins.
      * Default: false
      */
-    @PropertyInject(value = "force-synchronous-checkins", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean forceSynchronousCheckins;
 
     /**
      * The name of the data source.
      */
-    @PropertyInject(value = "data-source-name")
     private String dataSourceName;
 
     /**
      * The class loader source used to load classes. "library", "thread" or "none".
      */
-    @PropertyInject(value = "context-class-loader-source")
     private String contextClassLoaderSource;
 
     /**
      * The location of the c3p0 class files, used to load c3p0 classes from a custom location.
      */
-    @PropertyInject(value = "factory-class-location")
     private String factoryClassLocation;
 
     /**
      * A comma-separated list of per-user overrides.
      */
-    @PropertyInject(value = "user-overrides-as-string")
     private String userOverridesAsString;
 
     /**
      * The login timeout in seconds for the underlying driver.
      * Default: 0
      */
-    @PropertyInject(value = "login-timeout", transformer = IntegerTransformer.class, defaultValue = "0")
     private int loginTimeout;
 
     // ================================================================

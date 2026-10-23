@@ -14,6 +14,7 @@ import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.event.DebbieEventPublisher;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 import java.util.*;
 
@@ -34,9 +35,7 @@ public class KafkaModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<KafkaConfiguration> debbieBeanInfo = new DebbieReflectionBeanFactory<>(KafkaConfiguration.class);
-        debbieBeanInfo.addBeanName("kafkaConfiguration", KafkaConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(debbieBeanInfo);
+        beanInfoManager.registerBeanInfo(new PropertiesConfigurationBeanFactory<>(new KafkaProperties(), KafkaConfiguration.class));
 
         var beanFactory = new ConsumerRecordsEventListenerFactory<>("consumerRecordsEventListener");
         beanInfoManager.registerBeanInfo(beanFactory);

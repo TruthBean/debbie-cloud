@@ -14,12 +14,6 @@ import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.jdbc.datasource.DataSourceConfiguration;
 import com.truthbean.debbie.jdbc.datasource.DataSourceProperties;
 import com.truthbean.debbie.jdbc.transaction.TransactionIsolationLevel;
-import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -30,162 +24,138 @@ import java.util.Collection;
  * @author truthbean
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.datasource.druid.")
-public class DruidConfiguration extends DataSourceConfiguration implements DebbieConfiguration {
+public class DruidConfiguration extends DataSourceConfiguration {
 
     private final DruidDataSource druidDataSource;
 
     /**
      * The JDBC URL for the database connection.
      */
-    @PropertyInject(value = "url")
     private String druidUrl;
 
     /**
      * The username for the database connection.
      */
-    @PropertyInject(value = "username")
     private String username;
 
     /**
      * The password for the database connection.
      */
-    @PropertyInject(value = "password")
     private String druidPassword;
 
     /**
      * The fully qualified class name of the JDBC driver.
      */
-    @PropertyInject(value = "driver-class-name")
     private String driverClassName;
 
     /**
      * The initial size of the connection pool.
      * Default: 0
      */
-    @PropertyInject(value = "initial-size", transformer = IntegerTransformer.class, defaultValue = "0")
     private int initialSize;
 
     /**
      * The minimum number of idle connections in the pool.
      * Default: 0
      */
-    @PropertyInject(value = "min-idle", transformer = IntegerTransformer.class, defaultValue = "0")
     private int minIdle;
 
     /**
      * The maximum number of active connections in the pool.
      * Default: 8
      */
-    @PropertyInject(value = "max-active", transformer = IntegerTransformer.class, defaultValue = "8")
     private int maxActive;
 
     /**
      * The maximum time to wait for a connection from the pool, in milliseconds.
      * Default: -1 (no wait)
      */
-    @PropertyInject(value = "max-wait", transformer = LongTransformer.class, defaultValue = "-1")
     private long maxWait;
 
     /**
      * The time between eviction runs, in milliseconds.
      * Default: 60000 (60 seconds)
      */
-    @PropertyInject(value = "time-between-eviction-runs-millis", transformer = LongTransformer.class, defaultValue = "60000")
     private long timeBetweenEvictionRunsMillis;
 
     /**
      * The minimum time an idle connection can stay in the pool before being evicted, in milliseconds.
      * Default: 1800000 (30 minutes)
      */
-    @PropertyInject(value = "min-evictable-idle-time-millis", transformer = LongTransformer.class, defaultValue = "1800000")
     private long minEvictableIdleTimeMillis;
 
     /**
      * The SQL query to validate connections.
      */
-    @PropertyInject(value = "validation-query")
     private String validationQuery;
 
     /**
      * Whether to test connections while idle.
      * Default: true
      */
-    @PropertyInject(value = "test-while-idle", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean testWhileIdle;
 
     /**
      * Whether to test connections when borrowing from the pool.
      * Default: true
      */
-    @PropertyInject(value = "test-on-borrow", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean testOnBorrow;
 
     /**
      * Whether to test connections when returning to the pool.
      * Default: false
      */
-    @PropertyInject(value = "test-on-return", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testOnReturn;
 
     /**
      * Whether to cache prepared statements.
      * Default: false
      */
-    @PropertyInject(value = "pool-prepared-statements", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean poolPreparedStatements;
 
     /**
      * The maximum number of prepared statements per connection.
      * Default: 10
      */
-    @PropertyInject(value = "max-pool-prepared-statement-per-connection-size", transformer = IntegerTransformer.class, defaultValue = "10")
     private int maxPoolPreparedStatementPerConnectionSize;
 
     /**
      * The filters to use (e.g., "stat,wall,log4j").
      */
-    @PropertyInject(value = "filters")
     private String filters;
 
     /**
      * The connection properties.
      */
-    @PropertyInject(value = "connection-properties")
     private String connectionProperties;
 
     /**
      * Whether to enable auto-commit.
      * Default: true
      */
-    @PropertyInject(value = "default-auto-commit", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean defaultAutoCommit = true;
 
     /**
      * Whether to remove abandoned connections.
      * Default: false
      */
-    @PropertyInject(value = "remove-abandoned", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean removeAbandoned;
 
     /**
      * The timeout for removing abandoned connections, in milliseconds.
      * Default: 300000 (5 minutes)
      */
-    @PropertyInject(value = "remove-abandoned-timeout-millis", transformer = LongTransformer.class, defaultValue = "300000")
     private long removeAbandonedTimeoutMillis;
 
     /**
      * Whether to log abandoned connections.
      * Default: false
      */
-    @PropertyInject(value = "log-abandoned", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean logAbandoned;
 
     /**
      * The SQL statements to execute after creating a new connection.
      */
-    @PropertyInject(value = "connection-init-sqls")
     private Collection<String> connectionInitSqls;
 
     // ======================== 新增缺失配置属性 ========================
@@ -194,208 +164,178 @@ public class DruidConfiguration extends DataSourceConfiguration implements Debbi
      * The validation query timeout, in seconds.
      * Default: -1 (no timeout)
      */
-    @PropertyInject(value = "validation-query-timeout", transformer = IntegerTransformer.class, defaultValue = "-1")
     private int validationQueryTimeout;
 
     /**
      * Whether to keep connections alive.
      * Default: false
      */
-    @PropertyInject(value = "keep-alive", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean keepAlive;
 
     /**
      * The time between keep-alive checks, in milliseconds.
      * Default: 120000 (2 minutes)
      */
-    @PropertyInject(value = "keep-alive-between-time-millis", transformer = LongTransformer.class, defaultValue = "120000")
     private long keepAliveBetweenTimeMillis;
 
     /**
      * The maximum time an idle connection can stay in the pool before being evicted, in milliseconds.
      * Default: 25200000 (7 hours)
      */
-    @PropertyInject(value = "max-evictable-idle-time-millis", transformer = LongTransformer.class, defaultValue = "25200000")
     private long maxEvictableIdleTimeMillis;
 
     /**
      * The time between connect error retry attempts, in milliseconds.
      * Default: 500
      */
-    @PropertyInject(value = "time-between-connect-error-millis", transformer = LongTransformer.class, defaultValue = "500")
     private long timeBetweenConnectErrorMillis;
 
     /**
      * The default transaction isolation level.
      * Default: -1 (driver default)
      */
-    @PropertyInject(value = "default-transaction-isolation", transformer = IntegerTransformer.class, defaultValue = "-1")
     private int defaultTransactionIsolation;
 
     /**
      * Whether the connection is read-only by default.
      * Default: false
      */
-    @PropertyInject(value = "default-read-only", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean defaultReadOnly;
 
     /**
      * The transaction query timeout, in seconds.
      * Default: 0 (no timeout)
      */
-    @PropertyInject(value = "transaction-query-timeout", transformer = IntegerTransformer.class, defaultValue = "0")
     private int transactionQueryTimeout;
 
     /**
      * The transaction threshold, in milliseconds.
      * Default: 0
      */
-    @PropertyInject(value = "transaction-threshold-millis", transformer = LongTransformer.class, defaultValue = "0")
     private long transactionThresholdMillis;
 
     /**
      * Whether to initialize the data source asynchronously.
      * Default: false
      */
-    @PropertyInject(value = "async-init", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean asyncInit;
 
     /**
      * Whether to initialize variants.
      * Default: false
      */
-    @PropertyInject(value = "init-variants", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean initVariants;
 
     /**
      * Whether to initialize global variants.
      * Default: false
      */
-    @PropertyInject(value = "init-global-variants", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean initGlobalVariants;
 
     /**
      * Whether to use unfair lock for maxWait.
      * Default: false
      */
-    @PropertyInject(value = "use-unfair-lock", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean useUnfairLock;
 
     /**
      * The maximum number of threads waiting for a connection.
      * Default: -1 (no limit)
      */
-    @PropertyInject(value = "max-wait-thread-count", transformer = IntegerTransformer.class, defaultValue = "-1")
     private int maxWaitThreadCount;
 
     /**
      * The number of retry attempts when the pool is not full.
      * Default: 0
      */
-    @PropertyInject(value = "not-full-timeout-retry-count", transformer = IntegerTransformer.class, defaultValue = "0")
     private int notFullTimeoutRetryCount;
 
     /**
      * The maximum number of create task.
      * Default: 3
      */
-    @PropertyInject(value = "max-create-task-count", transformer = IntegerTransformer.class, defaultValue = "3")
     private int maxCreateTaskCount;
 
     /**
      * The exception sorter class name.
      */
-    @PropertyInject(value = "exception-sorter")
     private String exceptionSorter;
 
     /**
      * The number of connection error retry attempts.
      * Default: 1
      */
-    @PropertyInject(value = "connection-error-retry-attempts", transformer = IntegerTransformer.class, defaultValue = "1")
     private int connectionErrorRetryAttempts;
 
     /**
      * Whether to break after acquire failure.
      * Default: false
      */
-    @PropertyInject(value = "break-after-acquire-failure", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean breakAfterAcquireFailure;
 
     /**
      * Whether to use global data source statistics.
      * Default: false
      */
-    @PropertyInject(value = "use-global-data-source-stat", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean useGlobalDataSourceStat;
 
     /**
      * The time between logging stats, in milliseconds.
      * Default: 0 (disabled)
      */
-    @PropertyInject(value = "time-between-log-stats-millis", transformer = LongTransformer.class, defaultValue = "0")
     private long timeBetweenLogStatsMillis;
 
     /**
      * Whether to reset statistics.
      * Default: true
      */
-    @PropertyInject(value = "reset-stat-enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean resetStatEnable;
 
     /**
      * The connection pool name.
      */
-    @PropertyInject(value = "name")
     private String name;
 
     /**
      * The physical connection timeout, in milliseconds.
      * Default: -1 (no timeout)
      */
-    @PropertyInject(value = "phy-timeout-millis", transformer = LongTransformer.class, defaultValue = "-1")
     private long phyTimeoutMillis;
 
     /**
      * The maximum number of physical connection uses.
      * Default: -1 (no limit)
      */
-    @PropertyInject(value = "phy-max-use-count", transformer = LongTransformer.class, defaultValue = "-1")
     private long phyMaxUseCount;
 
     /**
      * Whether to enable duplicate close logging.
      * Default: false
      */
-    @PropertyInject(value = "dup-close-log-enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean dupCloseLogEnable;
 
     /**
      * Whether to allow access to the underlying connection.
      * Default: false
      */
-    @PropertyInject(value = "access-to-underlying-connection-allowed", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean accessToUnderlyingConnectionAllowed;
 
     /**
      * The remove abandoned timeout, in seconds.
      * Default: 300 (5 minutes)
      */
-    @PropertyInject(value = "remove-abandoned-timeout", transformer = IntegerTransformer.class, defaultValue = "300")
     private int removeAbandonedTimeout;
 
     /**
      * Whether to share prepared statements.
      * Default: false
      */
-    @PropertyInject(value = "share-prepared-statements", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean sharePreparedStatements;
 
     /**
      * Whether to enable clearing filters.
      * Default: true
      */
-    @PropertyInject(value = "clear-filters-enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean clearFiltersEnable;
 
     public DruidConfiguration(ApplicationContext applicationContext) {

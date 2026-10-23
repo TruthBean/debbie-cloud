@@ -10,10 +10,10 @@
 package com.truthbean.debbie.mybatisplus;
 
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -32,10 +32,8 @@ public class MybatisPlusModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<MybatisPlusConfiguration> debbieBeanInfo =
-                new DebbieReflectionBeanFactory<>(MybatisPlusConfiguration.class);
-        debbieBeanInfo.addBeanName("mybatisPlusConfiguration", MybatisPlusConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(debbieBeanInfo);
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new MybatisPlusProperties(), MybatisPlusConfiguration.class);
+        beanInfoManager.registerBeanInfo(beanFactory);
     }
 
     @Override

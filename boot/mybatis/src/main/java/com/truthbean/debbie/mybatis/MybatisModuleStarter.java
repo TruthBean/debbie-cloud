@@ -15,19 +15,11 @@ import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.mybatis.annotation.*;
-import com.truthbean.debbie.mybatis.configuration.MyBatisConfigurationSettings;
 import com.truthbean.debbie.mybatis.configuration.MybatisConfiguration;
 import com.truthbean.debbie.mybatis.configuration.MybatisProperties;
-import com.truthbean.debbie.mybatis.configuration.transformer.*;
 import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
-import com.truthbean.transformer.DataTransformerCenter;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.session.AutoMappingBehavior;
-import org.apache.ibatis.session.AutoMappingUnknownColumnBehavior;
-import org.apache.ibatis.session.ExecutorType;
-import org.apache.ibatis.session.LocalCacheScope;
 import org.apache.ibatis.type.Alias;
-import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;
 
@@ -60,22 +52,12 @@ public class MybatisModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext context, BeanInfoManager beanInfoManager) {
-        beanInfoManager.register(MyBatisConfigurationSettings.class);
         MybatisProperties mybatisProperties = new MybatisProperties(context);
         var configurationBeanFactory = new PropertiesConfigurationBeanFactory<>(mybatisProperties, MybatisConfiguration.class);
         beanInfoManager.registerBeanInfo(configurationBeanFactory);
         beanInfoManager.registerBeanRegister(new MappedBeanRegister(context, configurationBeanFactory.factoryBean(context)));
         beanInfoManager.registerBeanRegister(new MybatisBeanRegister(context));
 
-        registerTransformer();
-    }
-
-    private void registerTransformer() {
-        DataTransformerCenter.register(new AutoMappingBehaviorTransformer(), AutoMappingBehavior.class, String.class);
-        DataTransformerCenter.register(new AutoMappingUnknownColumnBehaviorTransformer(), AutoMappingUnknownColumnBehavior.class, String.class);
-        DataTransformerCenter.register(new ExecutorTypeTransformer(), ExecutorType.class, String.class);
-        DataTransformerCenter.register(new JdbcTypeTransformer(), JdbcType.class, String.class);
-        DataTransformerCenter.register(new LocalCacheScopeTransformer(), LocalCacheScope.class, String.class);
     }
 
     @Override

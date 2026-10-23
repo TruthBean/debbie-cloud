@@ -11,10 +11,6 @@ package com.truthbean.debbie.mail;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * Configuration of debbie-mail.
@@ -24,51 +20,36 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.mail")
 public class MailConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "host", defaultValue = "localhost")
     private String host = "localhost";
 
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "25")
     private int port = 25;
 
-    @PropertyInject("username")
     private String username;
 
-    @PropertyInject("password")
     private String password;
 
-    @PropertyInject(value = "protocol", defaultValue = "smtp")
     private String protocol = "smtp";
 
-    @PropertyInject(value = "default-encoding", defaultValue = "UTF-8")
     private String defaultEncoding = "UTF-8";
 
-    @PropertyInject(value = "ssl", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean ssl = false;
 
-    @PropertyInject(value = "starttls", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean starttls = false;
 
-    @PropertyInject(value = "auth", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean auth = true;
 
-    @PropertyInject(value = "connection-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int connectionTimeout = 5000;
 
-    @PropertyInject(value = "timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int timeout = 5000;
 
-    @PropertyInject(value = "write-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int writeTimeout = 5000;
 
-    @PropertyInject("default-from")
     private String defaultFrom;
 
-    @PropertyInject("default-from-personal")
     private String defaultFromPersonal;
 
     public String getHost() { return host; }

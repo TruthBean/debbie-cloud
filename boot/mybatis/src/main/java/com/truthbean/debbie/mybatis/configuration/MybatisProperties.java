@@ -13,6 +13,17 @@ import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.DebbieEnvironmentDepositoryHolder;
 import com.truthbean.debbie.io.ResourceResolver;
 import com.truthbean.debbie.properties.DebbieProperties;
+import com.truthbean.debbie.properties.PropertiesException;
+import org.apache.ibatis.executor.loader.ProxyFactory;
+import org.apache.ibatis.io.VFS;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.scripting.LanguageDriver;
+import org.apache.ibatis.session.AutoMappingBehavior;
+import org.apache.ibatis.session.AutoMappingUnknownColumnBehavior;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.LocalCacheScope;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeHandler;
 
 import java.util.*;
 
@@ -29,6 +40,7 @@ public class MybatisProperties extends DebbieEnvironmentDepositoryHolder impleme
     private static final String MYBATIS_PROPERTIES = "debbie.mybatis.properties.";
     private static final String MYBATIS_MAPPER_LOCATIONS = "debbie.mybatis.mapper-locations";
     //===========================================================================
+    private static final String SETTINGS_KEY_PREFIX = "debbie.mybatis.settings.";
 
     private final Map<String, Map<String, MybatisConfiguration>> map = new HashMap<>();
     private final MybatisConfiguration configuration;
@@ -40,7 +52,8 @@ public class MybatisProperties extends DebbieEnvironmentDepositoryHolder impleme
         configuration.setMybatisConfigXmlLocation(getValue(MYBATIS_CONFIG_XML_LOCATION));
         configuration.setEnvironment(getStringValue(MYBATIS_ENVIRONMENT, "default"));
 
-        MyBatisConfigurationSettings settings = context.getGlobalBeanFactory().factory(MyBatisConfigurationSettings.class);
+        MyBatisConfigurationSettings settings = new MyBatisConfigurationSettings();
+        loadSettings(settings);
         configuration.setSettings(settings);
 
         configuration.setConfigurationProperties(getMatchedKey(MYBATIS_PROPERTIES));
@@ -59,6 +72,99 @@ public class MybatisProperties extends DebbieEnvironmentDepositoryHolder impleme
             }
         }
         configuration.setMapperLocations(list);
+    }
+
+    /**
+     * Read every mybatis setting from the environment using the prefix
+     * {@code debbie.mybatis.settings.} and fill the settings object.
+     *
+     * @param settings the settings to fill
+     */
+    private void loadSettings(MyBatisConfigurationSettings settings) {
+        settings.setCacheEnabled(getBooleanValue(SETTINGS_KEY_PREFIX + "cache-enabled", true));
+        settings.setLazyLoadingEnabled(getBooleanValue(SETTINGS_KEY_PREFIX + "lazy-loading-enabled", false));
+        settings.setAggressiveLazyLoading(getBooleanValue(SETTINGS_KEY_PREFIX + "aggressive-lazy-loading", false));
+        settings.setMultipleResultSetsEnabled(getBooleanValue(SETTINGS_KEY_PREFIX + "multiple-result-sets-enabled", true));
+        settings.setUseColumnLabel(getBooleanValue(SETTINGS_KEY_PREFIX + "use-column-label", true));
+        settings.setUseGeneratedKeys(getBooleanValue(SETTINGS_KEY_PREFIX + "use-generated-keys", false));
+        settings.setAutoMappingBehavior(getEnumValue(SETTINGS_KEY_PREFIX + "auto-mapping-behavior", AutoMappingBehavior.PARTIAL));
+        settings.setAutoMappingUnknownColumnBehavior(getEnumValue(SETTINGS_KEY_PREFIX + "auto-mapping-unknown-column-behavior", AutoMappingUnknownColumnBehavior.NONE));
+        settings.setDefaultExecutorType(getEnumValue(SETTINGS_KEY_PREFIX + "default-executor-type", ExecutorType.SIMPLE));
+        settings.setDefaultStatementTimeout(getNullableInteger(SETTINGS_KEY_PREFIX + "default-statement-timeout"));
+        settings.setDefaultFetchSize(getNullableInteger(SETTINGS_KEY_PREFIX + "default-fetch-size"));
+        settings.setSafeRowBoundsEnabled(getBooleanValue(SETTINGS_KEY_PREFIX + "safe-row-bounds-enabled", false));
+        settings.setSafeResultHandlerEnabled(getBooleanValue(SETTINGS_KEY_PREFIX + "safe-result-handler-enabled", true));
+        settings.setMapUnderscoreToCamelCase(getBooleanValue(SETTINGS_KEY_PREFIX + "map-underscore-to-camel-case", false));
+        settings.setLocalCacheScope(getEnumValue(SETTINGS_KEY_PREFIX + "local-cache-scope", LocalCacheScope.SESSION));
+        settings.setJdbcTypeForNull(getEnumValue(SETTINGS_KEY_PREFIX + "jdbc-type-for-null", JdbcType.OTHER));
+        settings.setLazyLoadTriggerMethods(getSetValue(SETTINGS_KEY_PREFIX + "lazy-load-trigger-methods", new HashSet<>(Arrays.asList("equals", "clone", "hashCode", "toString"))));
+
+        Class<?> defaultScriptingLanguage = getClassValue(SETTINGS_KEY_PREFIX + "default-scripting-language", null);
+        if (defaultScriptingLanguage != null) {
+            settings.setDefaultScriptingLanguage(defaultScriptingLanguage.asSubclass(LanguageDriver.class));
+        }
+        Class<?> defaultEnumTypeHandler = getClassValue(SETTINGS_KEY_PREFIX + "default-enum-type-handler", null);
+        if (defaultEnumTypeHandler != null) {
+            settings.setDefaultEnumTypeHandler(defaultEnumTypeHandler.asSubclass(TypeHandler.class));
+        }
+
+        settings.setCallSettersOnNulls(getBooleanValue(SETTINGS_KEY_PREFIX + "call-setters-on-nulls", false));
+        settings.setReturnInstanceForEmptyRow(getBooleanValue(SETTINGS_KEY_PREFIX + "return-instance-for-empty-row", false));
+        settings.setLogPrefix(getValue(SETTINGS_KEY_PREFIX + "log-prefix"));
+
+        Class<?> logImpl = getClassValue(SETTINGS_KEY_PREFIX + "log-impl", null);
+        if (logImpl != null) {
+            settings.setLogImpl(logImpl.asSubclass(Log.class));
+        }
+        String proxyFactory = getValue(SETTINGS_KEY_PREFIX + "proxy-factory");
+        if (proxyFactory != null && !proxyFactory.isBlank()) {
+            settings.setProxyFactory((ProxyFactory) newInstance(proxyFactory.trim()));
+        }
+        Class<?> vfsImpl = getClassValue(SETTINGS_KEY_PREFIX + "vfs-impl", null);
+        if (vfsImpl != null) {
+            settings.setVfsImpl(vfsImpl.asSubclass(VFS.class));
+        }
+
+        settings.setUseActualParamName(getBooleanValue(SETTINGS_KEY_PREFIX + "use-actual-param-name", true));
+        settings.setConfigurationFactory(getClassValue(SETTINGS_KEY_PREFIX + "configuration-factory", null));
+    }
+
+    private <E extends Enum<E>> E getEnumValue(String key, E defaultValue) {
+        String value = getValue(key);
+        if (value == null || value.isBlank()) {
+            return defaultValue;
+        }
+        return Enum.valueOf(defaultValue.getDeclaringClass(), value.trim().toUpperCase());
+    }
+
+    private Integer getNullableInteger(String key) {
+        String value = getValue(key);
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        return Integer.valueOf(value.trim());
+    }
+
+    private Set<String> getSetValue(String key, Set<String> defaultValue) {
+        String value = getValue(key);
+        if (value == null || value.isBlank()) {
+            return defaultValue;
+        }
+        Set<String> result = new HashSet<>();
+        for (String s : value.split(",")) {
+            if (!s.isBlank()) {
+                result.add(s.trim());
+            }
+        }
+        return result;
+    }
+
+    private Object newInstance(String className) {
+        try {
+            return Class.forName(className).getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new PropertiesException("cannot create instance of " + className, e);
+        }
     }
 
     public static MybatisConfiguration toConfiguration(ApplicationContext context) {

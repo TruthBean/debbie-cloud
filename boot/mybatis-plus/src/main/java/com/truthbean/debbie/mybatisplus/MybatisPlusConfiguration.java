@@ -11,16 +11,11 @@ package com.truthbean.debbie.mybatisplus;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.mybatis-plus")
 public class MybatisPlusConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -29,26 +24,22 @@ public class MybatisPlusConfiguration implements DebbieConfiguration {
      * Whether to enable banner on startup.
      * Default: true
      */
-    @PropertyInject(value = "banner", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean banner;
 
     /**
      * Whether to check config location exists.
      * Default: false
      */
-    @PropertyInject(value = "check-config-location", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean checkConfigLocation;
 
     /**
      * Mybatis config xml location.
      */
-    @PropertyInject("config-location")
     private String configLocation;
 
     /**
      * Mapper locations (semicolon-separated).
      */
-    @PropertyInject("mapper-locations")
     private String mapperLocations;
 
     // ======================== GlobalConfig.DbConfig ========================
@@ -57,59 +48,50 @@ public class MybatisPlusConfiguration implements DebbieConfiguration {
      * Table underline to camel case.
      * Default: true
      */
-    @PropertyInject(value = "db-config.map-underscore-to-camel-case", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean dbConfigMapUnderscoreToCamelCase;
 
     /**
      * Global table prefix.
      */
-    @PropertyInject("db-config.table-prefix")
     private String dbConfigTablePrefix;
 
     /**
      * ID type (AUTO/NONE/INPUT/ASSIGN_ID/ASSIGN_UUID).
      * Default: ASSIGN_ID
      */
-    @PropertyInject(value = "db-config.id-type", defaultValue = "ASSIGN_ID")
     private String dbConfigIdType;
 
     /**
      * Logic delete field name.
      */
-    @PropertyInject("db-config.logic-delete-field")
     private String dbConfigLogicDeleteField;
 
     /**
      * Logic delete value.
      */
-    @PropertyInject("db-config.logic-delete-value")
     private String dbConfigLogicDeleteValue;
 
     /**
      * Logic not delete value.
      */
-    @PropertyInject("db-config.logic-not-delete-value")
     private String dbConfigLogicNotDeleteValue;
 
     /**
      * Whether to auto fill update time on insert.
      * Default: true
      */
-    @PropertyInject(value = "db-config.update-strategy", defaultValue = "NOT_NULL")
     private String dbConfigUpdateStrategy;
 
     /**
      * Insert strategy.
      * Default: NOT_NULL
      */
-    @PropertyInject(value = "db-config.insert-strategy", defaultValue = "NOT_NULL")
     private String dbConfigInsertStrategy;
 
     /**
      * Where strategy.
      * Default: NOT_NULL
      */
-    @PropertyInject(value = "db-config.where-strategy", defaultValue = "NOT_NULL")
     private String dbConfigWhereStrategy;
 
     // ======================== Pagination ========================
@@ -118,14 +100,12 @@ public class MybatisPlusConfiguration implements DebbieConfiguration {
      * Max limit for pagination.
      * Default: -1 (no limit)
      */
-    @PropertyInject(value = "pagination.max-limit", transformer = IntegerTransformer.class, defaultValue = "-1")
     private int paginationMaxLimit;
 
     /**
      * Overflow page.
      * Default: false
      */
-    @PropertyInject(value = "pagination.overflow", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean paginationOverflow;
 
     // ======================== Getter/Setter ========================

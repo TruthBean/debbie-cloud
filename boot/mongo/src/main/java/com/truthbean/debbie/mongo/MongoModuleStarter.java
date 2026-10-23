@@ -12,11 +12,11 @@ package com.truthbean.debbie.mongo;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * debbie-mongo module starter.
@@ -39,9 +39,8 @@ public class MongoModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(MongoConfiguration.class);
-        configBeanInfo.addBeanName("mongoConfiguration", MongoConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(configBeanInfo);
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new MongoProperties(), MongoConfiguration.class);
+        beanInfoManager.registerBeanInfo(beanFactory);
     }
 
     @Override

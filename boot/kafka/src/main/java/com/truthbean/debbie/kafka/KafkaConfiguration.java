@@ -11,11 +11,7 @@ package com.truthbean.debbie.kafka;
 
 import com.truthbean.core.util.StringUtils;
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
-import com.truthbean.transformer.collection.ListStringTransformer;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.NestedPropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 
 import java.util.ArrayList;
@@ -28,15 +24,12 @@ import java.util.Properties;
  * @since 0.1.0
  * Created on 2020-09-27 14:51
  */
-@PropertiesConfiguration(keyPrefix = "debbie.kafka")
 public class KafkaConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "bootstrap-servers", transformer = ListStringTransformer.class)
     private List<String> bootstrapServers = new ArrayList<>(Collections.singletonList("localhost:9092"));
 
-    @NestedPropertiesConfiguration
     private Consumer consumer = new Consumer();
 
     public List<String> getBootstrapServers() {
@@ -59,34 +52,24 @@ public class KafkaConfiguration implements DebbieConfiguration {
     }
 
     public static class Consumer {
-        @PropertyInject(value = "bootstrap-servers", transformer = ListStringTransformer.class)
         private List<String> bootstrapServers = new ArrayList<>();
 
-        @PropertyInject("key-deserializer")
         private Class<?> keyDeserializer;
 
-        @PropertyInject("value-deserializer")
         private Class<?> valueDeserializer;
 
-        @PropertyInject("group-id")
         private String groupId;
 
-        @PropertyInject("client-id")
         private String clientId;
 
-        @PropertyInject("enable-auto-commit")
         private Boolean enableAutocommit;
 
-        @PropertyInject("auto-commit-interval")
         private Integer autoCommitInterval;
 
-        @PropertyInject("auto-offset-reset")
         private String autoOffsetReset = "latest";
 
-        @PropertyInject("session-timeout")
         private Integer sessionTimeout;
 
-        @PropertyInject("pull-timeout")
         private Long pullTimeout = 10000L;
 
         public List<String> getBootstrapServers() {

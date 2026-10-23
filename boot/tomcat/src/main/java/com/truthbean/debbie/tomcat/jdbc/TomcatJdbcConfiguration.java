@@ -13,12 +13,6 @@ import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.jdbc.datasource.DataSourceConfiguration;
 import com.truthbean.debbie.jdbc.datasource.DataSourceProperties;
 import com.truthbean.debbie.jdbc.transaction.TransactionIsolationLevel;
-import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.apache.tomcat.jdbc.pool.Validator;
 
@@ -30,8 +24,7 @@ import org.apache.tomcat.jdbc.pool.Validator;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.datasource.tomcat-jdbc.")
-public class TomcatJdbcConfiguration extends DataSourceConfiguration implements DebbieConfiguration {
+public class TomcatJdbcConfiguration extends DataSourceConfiguration {
 
     private final PoolProperties poolProperties;
 
@@ -39,259 +32,222 @@ public class TomcatJdbcConfiguration extends DataSourceConfiguration implements 
      * The fully qualified Java class name of the JDBC driver to be used.
      * Default: none
      */
-    @PropertyInject("driver-class-name")
     private String driverClassName;
 
     /**
      * The connection URL to be passed to our JDBC driver.
      * Default: none
      */
-    @PropertyInject("jdbc-url")
     private String url;
 
     /**
      * The connection username to be passed to our JDBC driver.
      * Default: none
      */
-    @PropertyInject("username")
     private String username;
 
     /**
      * The connection password to be passed to our JDBC driver.
      * Default: none
      */
-    @PropertyInject("password")
     private String password;
 
     /**
      * The initial number of connections that are created when the pool is started.
      * Default: 10
      */
-    @PropertyInject(value = "initial-size", transformer = IntegerTransformer.class, defaultValue = "10")
     private int initialSize;
 
     /**
      * The maximum number of active connections that can be allocated from this pool at the same time.
      * Default: 100
      */
-    @PropertyInject(value = "max-active", transformer = IntegerTransformer.class, defaultValue = "100")
     private int maxActive;
 
     /**
      * The maximum number of connections that should be kept in the pool at all times.
      * Default: 100
      */
-    @PropertyInject(value = "max-idle", transformer = IntegerTransformer.class, defaultValue = "100")
     private int maxIdle;
 
     /**
      * The minimum number of established connections that should be kept in the pool at all times.
      * Default: 10
      */
-    @PropertyInject(value = "min-idle", transformer = IntegerTransformer.class, defaultValue = "10")
     private int minIdle;
 
     /**
      * The maximum number of milliseconds that the pool will wait for a connection to be returned.
      * Default: 30000
      */
-    @PropertyInject(value = "max-wait", transformer = IntegerTransformer.class, defaultValue = "30000")
     private int maxWait;
 
     /**
      * The validation query used to validate a connection.
      * Default: null
      */
-    @PropertyInject("validation-query")
     private String validationQuery;
 
     /**
      * The timeout in seconds before a connection validation queries fail.
      * Default: 3000
      */
-    @PropertyInject(value = "validation-query-timeout", transformer = IntegerTransformer.class, defaultValue = "3000")
     private int validationQueryTimeout;
 
     /**
      * The amount of time in milliseconds between validation runs.
      * Default: 30000
      */
-    @PropertyInject(value = "validation-interval", transformer = LongTransformer.class, defaultValue = "30000")
     private long validationInterval;
 
     /**
      * Indicator whether connections should be validated before being borrowed from the pool.
      * Default: false
      */
-    @PropertyInject(value = "test-on-borrow", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testOnBorrow;
 
     /**
      * Indicator whether connections should be validated after being returned to the pool.
      * Default: false
      */
-    @PropertyInject(value = "test-on-return", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testOnReturn;
 
     /**
      * Indicator whether connections should be validated by the idle object evictor.
      * Default: false
      */
-    @PropertyInject(value = "test-while-idle", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testWhileIdle;
 
     /**
      * Indicator whether connections should be validated when the pool is initialized.
      * Default: false
      */
-    @PropertyInject(value = "test-on-connect", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean testOnConnect;
 
     /**
      * The number of milliseconds to sleep between runs of the idle connection validation/cleaner thread.
      * Default: 5000
      */
-    @PropertyInject(value = "time-between-eviction-runs-millis", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int timeBetweenEvictionRunsMillis;
 
     /**
      * The minimum amount of time an object may sit idle in the pool before it is eligible for eviction.
      * Default: 60000
      */
-    @PropertyInject(value = "min-evictable-idle-time-millis", transformer = IntegerTransformer.class, defaultValue = "60000")
     private int minEvictableIdleTimeMillis;
 
     /**
      * The number of connections to examine during each run of the idle object evictor thread.
      * Default: 3
      */
-    @PropertyInject(value = "num-tests-per-eviction-run", transformer = IntegerTransformer.class, defaultValue = "3")
     private int numTestsPerEvictionRun;
 
     /**
      * The default auto-commit state of connections created by this pool.
      * Default: driver default
      */
-    @PropertyInject(value = "default-auto-commit", transformer = BooleanTransformer.class)
     private Boolean defaultAutoCommit;
 
     /**
      * The default read-only state of connections created by this pool.
      * Default: driver default
      */
-    @PropertyInject(value = "default-read-only", transformer = BooleanTransformer.class)
     private Boolean defaultReadOnly;
 
     /**
      * The default transaction isolation level of connections created by this pool.
      * Default: driver default
      */
-    @PropertyInject(value = "default-transaction-isolation")
     private TransactionIsolationLevel defaultTransactionIsolation;
 
     /**
      * The default catalog of connections created by this pool.
      * Default: driver default
      */
-    @PropertyInject("default-catalog")
     private String defaultCatalog;
 
     /**
      * Flag to remove abandoned connections if they exceed the removeAbandonedTimeout.
      * Default: false
      */
-    @PropertyInject(value = "remove-abandoned", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean removeAbandoned;
 
     /**
      * The timeout in seconds before an abandoned connection can be removed.
      * Default: 60
      */
-    @PropertyInject(value = "remove-abandoned-timeout", transformer = IntegerTransformer.class, defaultValue = "60")
     private int removeAbandonedTimeout;
 
     /**
      * Flag to log stack traces for application code which abandoned a Connection.
      * Default: false
      */
-    @PropertyInject(value = "log-abandoned", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean logAbandoned;
 
     /**
      * Connections that have been abandoned (timed out) won't get closed and reported up to abandonWhenPercentageFull.
      * Default: 0
      */
-    @PropertyInject(value = "abandon-when-percentage-full", transformer = IntegerTransformer.class, defaultValue = "0")
     private int abandonWhenPercentageFull;
 
     /**
      * A semicolon separated list of classnames extending JdbcInterceptor.
      * Default: null
      */
-    @PropertyInject("jdbc-interceptors")
     private String jdbcInterceptors;
 
     /**
      * The connection properties that will be sent to our JDBC driver.
      * Default: null
      */
-    @PropertyInject("connection-properties")
     private String connectionProperties;
 
     /**
      * A custom query to be run when a connection is first created.
      * Default: null
      */
-    @PropertyInject("init-sql")
     private String initSQL;
 
     /**
      * The name of the connection pool.
      * Default: auto-generated
      */
-    @PropertyInject("name")
     private String name;
 
     /**
      * Flag to enable JMX.
      * Default: true
      */
-    @PropertyInject(value = "jmx-enabled", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean jmxEnabled;
 
     /**
      * Flag to enable fair queueing.
      * Default: true
      */
-    @PropertyInject(value = "fair-queue", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean fairQueue;
 
     /**
      * Flag to allow access to the underlying connection.
      * Default: false
      */
-    @PropertyInject(value = "access-to-underlying-connection-allowed", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean accessToUnderlyingConnectionAllowed;
 
     /**
      * Timeout in seconds for suspect connections.
      * Default: 300
      */
-    @PropertyInject(value = "suspect-timeout", transformer = IntegerTransformer.class, defaultValue = "300")
     private int suspectTimeout;
 
     /**
      * Whether connections should be committed when returned to the pool.
      * Default: false
      */
-    @PropertyInject(value = "commit-on-return", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean commitOnReturn;
 
     /**
      * Whether connections should be rolled back when returned to the pool.
      * Default: false
      */
-    @PropertyInject(value = "rollback-on-return", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean rollbackOnReturn;
 
     /**
@@ -299,7 +255,6 @@ public class TomcatJdbcConfiguration extends DataSourceConfiguration implements 
      * used to validate connections.
      * Default: none
      */
-    @PropertyInject("validator-class-name")
     private String validatorClassName;
 
     /**
@@ -307,14 +262,12 @@ public class TomcatJdbcConfiguration extends DataSourceConfiguration implements 
      * Only available via programmatic configuration.
      * Default: none
      */
-    @PropertyInject("validator")
     private Validator validator;
 
     /**
      * Whether the pool should use {@code equals()} instead of {@code ==} to compare connections.
      * Default: true
      */
-    @PropertyInject(value = "use-equals", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean useEquals;
 
     /**
@@ -322,14 +275,12 @@ public class TomcatJdbcConfiguration extends DataSourceConfiguration implements 
      * A value of 0 means no maximum age.
      * Default: 0
      */
-    @PropertyInject(value = "max-age", transformer = LongTransformer.class, defaultValue = "0")
     private long maxAge;
 
     /**
      * Whether the pool should use a {@code ReentrantLock} instead of a synchronized block.
      * Default: true
      */
-    @PropertyInject(value = "use-lock", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean useLock;
 
     /**
@@ -337,56 +288,48 @@ public class TomcatJdbcConfiguration extends DataSourceConfiguration implements 
      * Only available via programmatic configuration.
      * Default: none
      */
-    @PropertyInject("data-source")
     private Object dataSource;
 
     /**
      * The JNDI name of the underlying data source.
      * Default: none
      */
-    @PropertyInject("data-source-jndi")
     private String dataSourceJNDI;
 
     /**
      * Whether the username can be overridden on a per-connection basis.
      * Default: false
      */
-    @PropertyInject(value = "alternate-username-allowed", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean alternateUsernameAllowed;
 
     /**
      * Whether connections should be wrapped in a disposable connection facade.
      * Default: true
      */
-    @PropertyInject(value = "use-disposable-connection-facade", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean useDisposableConnectionFacade;
 
     /**
      * Whether validation errors should be logged.
      * Default: false
      */
-    @PropertyInject(value = "log-validation-errors", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean logValidationErrors;
 
     /**
      * Whether the interrupt state of a thread should be propagated when a connection is released.
      * Default: false
      */
-    @PropertyInject(value = "propagate-interrupt-state", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean propagateInterruptState;
 
     /**
      * Whether exceptions thrown while pre-loading the pool should be ignored.
      * Default: false
      */
-    @PropertyInject(value = "ignore-exception-on-pre-load", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean ignoreExceptionOnPreLoad;
 
     /**
      * Whether a statement facade should be used to wrap statements.
      * Default: true
      */
-    @PropertyInject(value = "use-statement-facade", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean useStatementFacade;
 
     public TomcatJdbcConfiguration(ApplicationContext applicationContext) {

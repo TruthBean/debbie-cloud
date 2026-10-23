@@ -11,16 +11,11 @@ package com.truthbean.debbie.lettuce;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.lettuce")
 public class LettuceConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -29,54 +24,46 @@ public class LettuceConfiguration implements DebbieConfiguration {
      * Redis host.
      * Default: localhost
      */
-    @PropertyInject(value = "host", defaultValue = "localhost")
     private String host;
 
     /**
      * Redis port.
      * Default: 6379
      */
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "6379")
     private int port;
 
     /**
      * Redis password.
      */
-    @PropertyInject("password")
     private String password;
 
     /**
      * Redis database index.
      * Default: 0
      */
-    @PropertyInject(value = "database", transformer = IntegerTransformer.class, defaultValue = "0")
     private int database;
 
     /**
      * Connection timeout in milliseconds.
      * Default: 5000
      */
-    @PropertyInject(value = "timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int timeout;
 
     /**
      * Client name.
      */
-    @PropertyInject(value = "client-name", defaultValue = "debbie-lettuce")
     private String clientName;
 
     /**
      * Whether to auto-reconnect.
      * Default: true
      */
-    @PropertyInject(value = "auto-reconnect", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean autoReconnect;
 
     /**
      * Whether to use SSL.
      * Default: false
      */
-    @PropertyInject(value = "ssl", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean ssl;
 
     // ======================== Getter/Setter ========================

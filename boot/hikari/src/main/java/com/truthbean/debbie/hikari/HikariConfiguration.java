@@ -10,14 +10,9 @@
 package com.truthbean.debbie.hikari;
 
 import com.truthbean.debbie.core.ApplicationContext;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 import com.truthbean.debbie.jdbc.datasource.DataSourceConfiguration;
 import com.truthbean.debbie.jdbc.datasource.DataSourceProperties;
 import com.truthbean.debbie.jdbc.transaction.TransactionIsolationLevel;
-import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.SQLExceptionOverride;
 
@@ -32,8 +27,7 @@ import java.util.concurrent.ThreadFactory;
  * @since 0.0.1
  * Created on 2019/05/17 22:28.
  */
-@PropertiesConfiguration(keyPrefix = "debbie.datasource.hikari.")
-public class HikariConfiguration extends DataSourceConfiguration implements DebbieConfiguration {
+public class HikariConfiguration extends DataSourceConfiguration {
 
     private final HikariConfig hikariConfig;
 
@@ -45,7 +39,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Note that you do not need this property if you are using jdbcUrl for "old-school" DriverManager-based JDBC driver configuration.
      * Default: none
      */
-    @PropertyInject(value = "datasource-class-name")
     private String dataSourceClassName;
 
     /**
@@ -55,7 +48,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Note that if this property is used, you may still use DataSource properties to configure your driver and is in fact recommended over driver parameters specified in the URL itself.
      * Default: none
      */
-    @PropertyInject(value = "jdbc-url")
     private String jdbcUrl;
 
     /**
@@ -66,7 +58,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * If this is not what you need, skip this method entirely and call addDataSourceProperty("username", ...), for example.
      * Default: none
      */
-    @PropertyInject(value = "username")
     private String username;
 
     /**
@@ -77,7 +68,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * If this is not what you need, skip this method entirely and call addDataSourceProperty("pass", ...), for example.
      * Default: none
      */
-    @PropertyInject(value = "password")
     private String hikariPassword;
 
     /**
@@ -85,7 +75,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * It is a boolean value.
      * Default: true
      */
-    @PropertyInject(value = "auto-commit", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean hikariAutoCommit = true;
 
     /**
@@ -94,7 +83,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      *  Lowest acceptable connection timeout is 250 ms.
      *  Default: 30000 (30 seconds)
      */
-    @PropertyInject(value = "connection-timeout", transformer = LongTransformer.class, defaultValue = "30000")
     private long connectionTimeout = 30000;
 
     /**
@@ -107,7 +95,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      *  The minimum allowed value is 10000ms (10 seconds).
      *  Default: 600000 (10 minutes)
      */
-    @PropertyInject(value = "idle-timeout", defaultValue = "600000")
     private long idleTimeout = 600000;
 
     /**
@@ -120,7 +107,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      *  The minimum allowed value is 30000ms (30 seconds), but a value in the range of minutes is most desirable.
      *  Default: 120000 (2 minutes)
      */
-    @PropertyInject(value = "keepalive-time", defaultValue = "600000")
     private long keepaliveTime = 600000;
 
     /**
@@ -132,7 +118,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      *  The minimum allowed value is 30000ms (30 seconds).
      *  Default: 1800000 (30 minutes)
      */
-    @PropertyInject(value = "max-lifetime", defaultValue = "1800000")
     private long maxLifetime = 1800000;
 
     /**
@@ -142,7 +127,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Again, try running the pool without this property, HikariCP will log an error if your driver is not JDBC4 compliant to let you know.
      * Default: none
      */
-    @PropertyInject(value = "connection-test-query")
     private String connectionTestQuery;
 
     /**
@@ -153,7 +137,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Please read about pool sizing.
      * Default: 10
      */
-    @PropertyInject(value = "max-pool-size", defaultValue = "10")
     private int maximumPoolSize = 10;
 
     /**
@@ -162,7 +145,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * However, for maximum performance and responsiveness to spike demands, we recommend not setting this value and instead allowing HikariCP to act as a fixed size connection pool.
      * Default: same as maximumPoolSize
      */
-    @PropertyInject(value = "min-idle", defaultValue = "10")
     private int minimumIdle = maximumPoolSize;
 
     /**
@@ -173,7 +155,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * See the Metrics wiki page for details.
      * Default: none
      */
-    @PropertyInject(value = "metric-registry")
     private String metricRegistry;
 
     /**
@@ -184,14 +165,12 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * See the Health Checks wiki page for details.
      * Default: none
      */
-    @PropertyInject(value = "health-check-registry")
     private String healthCheckRegistry;
 
     /**
      * This property represents a user-defined name for the connection pool and appears mainly in logging and JMX management consoles to identify pools and pool configurations.
      * Default: auto-generated
      */
-    @PropertyInject(value = "pool-name")
     private String poolName;
 
     /**
@@ -207,7 +186,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Consequently, later efforts to obtain a connection may fail.
      * Default: 1
      */
-    @PropertyInject(value = "init-fail-timeout", defaultValue = "1")
     private long initializationFailTimeout = 1;
 
     /**
@@ -217,7 +195,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * This property only applies if autoCommit is disabled.
      * Default: false
      */
-    @PropertyInject(value = "isolate-internal-queries", defaultValue = "false")
     private boolean isolateInternalQueries = false;
 
     /**
@@ -226,7 +203,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * When the pool is suspended, calls to getConnection() will not timeout and will be held until the pool is resumed.
      * Default: false
      */
-    @PropertyInject(value = "allow-pool-suspension", defaultValue = "false")
     private boolean allowPoolSuspension = false;
 
     /**
@@ -235,14 +211,12 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Whether you need this property or not will depend largely on your application and database.
      * Default: false
      */
-    @PropertyInject(value = "read-only", defaultValue = "false")
     private boolean readOnly = false;
 
     /**
      * This property controls whether or not JMX Management Beans ("MBeans") are registered or not.
      * Default: false
      */
-    @PropertyInject(value = "register-mbeans", defaultValue = "false")
     private boolean registerMbeans = false;
 
     /**
@@ -250,7 +224,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * If this property is not specified, the default catalog defined by the JDBC driver is used.
      * Default: driver default
      */
-    @PropertyInject(value = "catalog")
     private String catalog;
 
     /**
@@ -258,7 +231,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * If this SQL is not valid or throws an exception, it will be treated as a connection failure and the standard retry logic will be followed.
      * Default: none
      */
-    @PropertyInject(value = "connection-init-sql")
     private String connectionInitSql;
 
     /**
@@ -266,7 +238,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Omit this property unless you get an obvious error message indicating that the driver was not found.
      * Default: none
      */
-    @PropertyInject(value = "driver-class-name")
     private String driverClassName;
 
     /**
@@ -276,7 +247,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * The value of this property is the constant name from the Connection class such as TRANSACTION_READ_COMMITTED, TRANSACTION_REPEATABLE_READ, etc.
      * Default: driver default
      */
-    @PropertyInject(value = "transaction-isolation")
     private TransactionIsolationLevel transactionIsolation;
 
     /**
@@ -285,7 +255,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      *  Lowest acceptable validation timeout is 250 ms.
      *  Default: 5000
      */
-    @PropertyInject(value = "validate-timeout", defaultValue = "5000")
     private long validationTimeout = 5000;
 
     /**
@@ -293,7 +262,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * A value of 0 means leak detection is disabled. Lowest acceptable value for enabling leak detection is 2000 (2 seconds).
      * Default: 0
      */
-    @PropertyInject(value = "leak-detection-threshold", defaultValue = "0")
     private long leakDetectionThreshold = 0;
 
     /**
@@ -301,7 +269,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * If this property is not specified, the default schema defined by the JDBC driver is used.
      * Default: driver default
      */
-    @PropertyInject(value = "schema")
     private String schema;
 
     /**
@@ -311,7 +278,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * When this property is specified, the dataSourceClassName property and all DataSource-specific properties will be ignored.
      * Default: none
      */
-    @PropertyInject(value = "datasource")
     private DataSource dataSource;
 
     /**
@@ -320,7 +286,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * It is needed in some restricted execution environments where threads can only be created through a ThreadFactory provided by the application container.
      * Default: none
      */
-    @PropertyInject(value = "thread-factory")
     private ThreadFactory threadFactory;
 
     /**
@@ -329,7 +294,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * If supplying HikariCP with a ScheduledThreadPoolExecutor instance, it is recommended that setRemoveOnCancelPolicy(true) is used.
      * Default: none
      */
-    @PropertyInject(value = "scheduled-executor")
     private ScheduledExecutorService scheduledExecutor;
 
     /**
@@ -340,7 +304,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * Except in very specific cases Override.CONTINUE_EVICT should be returned, allowing the default evict/no-evict logic to execute.
      * Default: none
      */
-    @PropertyInject(value = "exception-override")
     private SQLExceptionOverride.Override exceptionOverride;
 
     /**
@@ -349,7 +312,6 @@ public class HikariConfiguration extends DataSourceConfiguration implements Debb
      * See the above property exceptionOverride for a full description.
      * Default: none
      */
-    @PropertyInject(value = "exception-override-class-name")
     private Class<? extends SQLExceptionOverride> exceptionOverrideClassName;
 
     public HikariConfiguration(ApplicationContext applicationContext) {

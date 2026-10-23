@@ -11,16 +11,11 @@ package com.truthbean.debbie.grpc.client;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.grpc.client")
 public class GrpcClientConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -29,49 +24,42 @@ public class GrpcClientConfiguration implements DebbieConfiguration {
      * Server host.
      * Default: localhost
      */
-    @PropertyInject(value = "host", defaultValue = "localhost")
     private String host;
 
     /**
      * Server port.
      * Default: 9090
      */
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "9090")
     private int port;
 
     /**
      * Whether to use plaintext (no TLS).
      * Default: true
      */
-    @PropertyInject(value = "use-plaintext", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean usePlaintext;
 
     /**
      * Maximum message size in bytes.
      * Default: 4194304 (4MB)
      */
-    @PropertyInject(value = "max-inbound-message-size", transformer = IntegerTransformer.class, defaultValue = "4194304")
     private int maxInboundMessageSize;
 
     /**
      * Keep alive time in seconds.
      * Default: 300
      */
-    @PropertyInject(value = "keep-alive-time", transformer = IntegerTransformer.class, defaultValue = "300")
     private int keepAliveTime;
 
     /**
      * Keep alive timeout in seconds.
      * Default: 20
      */
-    @PropertyInject(value = "keep-alive-timeout", transformer = IntegerTransformer.class, defaultValue = "20")
     private int keepAliveTimeout;
 
     /**
      * Keep alive without calls.
      * Default: true
      */
-    @PropertyInject(value = "keep-alive-without-calls", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean keepAliveWithoutCalls;
 
     // ======================== Getter/Setter ========================

@@ -11,14 +11,11 @@ package com.truthbean.debbie.nacos;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.nacos")
 public class NacosConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -27,28 +24,24 @@ public class NacosConfiguration implements DebbieConfiguration {
      * Nacos server address.
      * Default: localhost:8848
      */
-    @PropertyInject(value = "server-addr", defaultValue = "localhost:8848")
     private String serverAddr;
 
     /**
      * Nacos namespace.
      * Default: empty string (public namespace)
      */
-    @PropertyInject(value = "namespace", defaultValue = "")
     private String namespace;
 
     /**
      * Nacos username.
      * Default: empty string
      */
-    @PropertyInject(value = "username", defaultValue = "")
     private String username;
 
     /**
      * Nacos password.
      * Default: empty string
      */
-    @PropertyInject(value = "password", defaultValue = "")
     private String password;
 
     // ======================== Getter/Setter ========================
