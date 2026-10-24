@@ -23,6 +23,7 @@ import com.truthbean.debbie.bus.refresh.EnvironmentRefreshHandler;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.event.DebbieEventPublisher;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 import java.util.ServiceLoader;
 
@@ -52,8 +53,7 @@ public class BusModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(BusConfiguration.class);
-        configBeanInfo.addBeanName("busConfiguration", BusConfiguration.class.getName());
+        var configBeanInfo = new PropertiesConfigurationBeanFactory<>(new BusProperties(), BusConfiguration.class);
         beanInfoManager.registerBeanInfo(configBeanInfo);
 
         var identityBeanInfo = new DebbieReflectionBeanFactory<>(BusIdentity.class);

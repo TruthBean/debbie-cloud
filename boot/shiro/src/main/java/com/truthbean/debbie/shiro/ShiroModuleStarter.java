@@ -10,11 +10,11 @@
 package com.truthbean.debbie.shiro;
 
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -32,10 +32,8 @@ public class ShiroModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<ShiroConfiguration> debbieBeanInfo =
-                new DebbieReflectionBeanFactory<>(ShiroConfiguration.class);
-        debbieBeanInfo.addBeanName("shiroConfiguration", ShiroConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(debbieBeanInfo);
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new ShiroProperties(), ShiroConfiguration.class);
+        beanInfoManager.registerBeanInfo(beanFactory);
     }
 
     @Override

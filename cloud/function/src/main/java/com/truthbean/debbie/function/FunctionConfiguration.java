@@ -11,9 +11,6 @@ package com.truthbean.debbie.function;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
 
 /**
  * Configuration of debbie-function.
@@ -23,24 +20,18 @@ import com.truthbean.transformer.text.BooleanTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.function")
 public class FunctionConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "http.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean httpEnable = true;
 
-    @PropertyInject(value = "http.prefix", defaultValue = "/function")
     private String httpPrefix = "/function";
 
-    @PropertyInject(value = "routing.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean routingEnable = true;
 
-    @PropertyInject(value = "composition.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean compositionEnable = true;
 
-    @PropertyInject(value = "auto-scan", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean autoScan = false;
 
     public boolean isEnable() { return enable; }

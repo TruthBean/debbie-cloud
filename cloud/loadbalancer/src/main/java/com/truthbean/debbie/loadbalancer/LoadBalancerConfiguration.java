@@ -11,10 +11,6 @@ package com.truthbean.debbie.loadbalancer;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * Configuration of debbie-loadbalancer.
@@ -24,33 +20,24 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.loadbalancer")
 public class LoadBalancerConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "default-strategy", defaultValue = "round-robin")
     private String defaultStrategy = "round-robin";
 
-    @PropertyInject(value = "health-check.enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean healthCheckEnable = false;
 
-    @PropertyInject(value = "health-check.interval", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int healthCheckInterval = 10000;
 
-    @PropertyInject(value = "retry.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean retryEnable = true;
 
-    @PropertyInject(value = "retry.max-attempts", transformer = IntegerTransformer.class, defaultValue = "3")
     private int retryMaxAttempts = 3;
 
-    @PropertyInject(value = "sticky.enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean stickyEnable = false;
 
-    @PropertyInject(value = "cache.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean cacheEnable = true;
 
-    @PropertyInject(value = "cache.ttl", transformer = IntegerTransformer.class, defaultValue = "30000")
     private int cacheTtl = 30000;
 
     public boolean isEnable() { return enable; }

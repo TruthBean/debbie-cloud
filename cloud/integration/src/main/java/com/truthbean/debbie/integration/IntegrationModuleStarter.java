@@ -12,11 +12,11 @@ package com.truthbean.debbie.integration;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * debbie-integration module starter.
@@ -41,8 +41,7 @@ public class IntegrationModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(IntegrationConfiguration.class);
-        configBeanInfo.addBeanName("integrationConfiguration", IntegrationConfiguration.class.getName());
+        var configBeanInfo = new PropertiesConfigurationBeanFactory<>(new IntegrationProperties(), IntegrationConfiguration.class);
         beanInfoManager.registerBeanInfo(configBeanInfo);
     }
 

@@ -11,15 +11,11 @@ package com.truthbean.debbie.zookeeper;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.zookeeper")
 public class ZookeeperConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -27,47 +23,40 @@ public class ZookeeperConfiguration implements DebbieConfiguration {
     /**
      * ZooKeeper connection string, e.g. "localhost:2181".
      */
-    @PropertyInject("connection-string")
     private String connectionString = "localhost:2181";
 
     /**
      * Session timeout in milliseconds.
      * Default: 30000
      */
-    @PropertyInject(value = "session-timeout", transformer = IntegerTransformer.class, defaultValue = "30000")
     private int sessionTimeout;
 
     /**
      * Connection timeout in milliseconds.
      * Default: 15000
      */
-    @PropertyInject(value = "connection-timeout", transformer = IntegerTransformer.class, defaultValue = "15000")
     private int connectionTimeout;
 
     /**
      * Base sleep time for retry in milliseconds.
      * Default: 1000
      */
-    @PropertyInject(value = "base-sleep-time-ms", transformer = IntegerTransformer.class, defaultValue = "1000")
     private int baseSleepTimeMs;
 
     /**
      * Maximum number of retry attempts.
      * Default: 3
      */
-    @PropertyInject(value = "max-retries", transformer = IntegerTransformer.class, defaultValue = "3")
     private int maxRetries;
 
     /**
      * Optional ZooKeeper namespace.
      */
-    @PropertyInject("namespace")
     private String namespace;
 
     /**
      * Optional digest authentication, e.g. "user:password".
      */
-    @PropertyInject("digest")
     private String digest;
 
     // ======================== Getter/Setter ========================

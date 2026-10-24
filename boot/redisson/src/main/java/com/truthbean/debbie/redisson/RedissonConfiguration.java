@@ -11,17 +11,11 @@ package com.truthbean.debbie.redisson;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.redisson")
 public class RedissonConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -30,55 +24,47 @@ public class RedissonConfiguration implements DebbieConfiguration {
      * Redis server host.
      * Default: localhost
      */
-    @PropertyInject(value = "host", defaultValue = "localhost")
     private String host;
 
     /**
      * Redis server port.
      * Default: 6379
      */
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "6379")
     private int port;
 
     /**
      * Optional Redis password.
      */
-    @PropertyInject("password")
     private String password;
 
     /**
      * Redis database index.
      * Default: 0
      */
-    @PropertyInject(value = "database", transformer = IntegerTransformer.class, defaultValue = "0")
     private int database;
 
     /**
      * Connect timeout in milliseconds.
      * Default: 10000
      */
-    @PropertyInject(value = "connect-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int connectTimeout;
 
     /**
      * Response timeout in milliseconds.
      * Default: 3000
      */
-    @PropertyInject(value = "timeout", transformer = IntegerTransformer.class, defaultValue = "3000")
     private int timeout;
 
     /**
      * Retry attempts.
      * Default: 3
      */
-    @PropertyInject(value = "retry-attempts", transformer = IntegerTransformer.class, defaultValue = "3")
     private int retryAttempts;
 
     /**
      * Retry interval in milliseconds.
      * Default: 1500
      */
-    @PropertyInject(value = "retry-interval", transformer = IntegerTransformer.class, defaultValue = "1500")
     private int retryInterval;
 
     // ======================== Connection pool settings ========================
@@ -87,42 +73,36 @@ public class RedissonConfiguration implements DebbieConfiguration {
      * Minimum idle connections.
      * Default: 32
      */
-    @PropertyInject(value = "connection-min-idle-size", transformer = IntegerTransformer.class, defaultValue = "32")
     private int connectionMinIdleSize;
 
     /**
      * Maximum pool size.
      * Default: 64
      */
-    @PropertyInject(value = "connection-pool-size", transformer = IntegerTransformer.class, defaultValue = "64")
     private int connectionPoolSize;
 
     /**
      * Idle connection timeout in milliseconds.
      * Default: 10000
      */
-    @PropertyInject(value = "idle-connection-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int idleConnectionTimeout;
 
     /**
      * Ping connection interval in milliseconds.
      * Default: 30000
      */
-    @PropertyInject(value = "ping-connection-interval", transformer = IntegerTransformer.class, defaultValue = "30000")
     private int pingConnectionInterval;
 
     /**
      * Keep alive.
      * Default: false
      */
-    @PropertyInject(value = "keep-alive", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean keepAlive;
 
     /**
      * DNS monitoring interval in milliseconds.
      * Default: 5000
      */
-    @PropertyInject(value = "dns-monitoring-interval", transformer = LongTransformer.class, defaultValue = "5000")
     private long dnsMonitoringInterval;
 
     // ======================== Getter/Setter ========================

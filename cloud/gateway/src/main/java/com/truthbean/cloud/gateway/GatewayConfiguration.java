@@ -11,15 +11,11 @@ package com.truthbean.cloud.gateway;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.gateway")
 public class GatewayConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -28,21 +24,18 @@ public class GatewayConfiguration implements DebbieConfiguration {
      * Connect timeout in milliseconds.
      * Default: 5000
      */
-    @PropertyInject(value = "connect-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int connectTimeout;
 
     /**
      * Read timeout in milliseconds.
      * Default: 30000
      */
-    @PropertyInject(value = "read-timeout", transformer = IntegerTransformer.class, defaultValue = "30000")
     private int readTimeout;
 
     /**
      * Maximum retry attempts for failed requests.
      * Default: 3
      */
-    @PropertyInject(value = "max-retries", transformer = IntegerTransformer.class, defaultValue = "3")
     private int maxRetries;
 
     // ======================== Getter/Setter ========================

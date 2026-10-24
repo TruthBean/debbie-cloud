@@ -11,15 +11,11 @@ package com.truthbean.debbie.rocketmq;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.rocketmq")
 public class RocketMqConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -28,49 +24,42 @@ public class RocketMqConfiguration implements DebbieConfiguration {
      * Name Server address.
      * Default: localhost:9876
      */
-    @PropertyInject(value = "namesrv-addr", defaultValue = "localhost:9876")
     private String namesrvAddr;
 
     /**
      * Producer group name.
      * Default: debbie-producer
      */
-    @PropertyInject(value = "producer-group", defaultValue = "debbie-producer")
     private String producerGroup;
 
     /**
      * Consumer group name.
      * Default: debbie-consumer
      */
-    @PropertyInject(value = "consumer-group", defaultValue = "debbie-consumer")
     private String consumerGroup;
 
     /**
      * Send message timeout in milliseconds.
      * Default: 3000
      */
-    @PropertyInject(value = "send-timeout", transformer = IntegerTransformer.class, defaultValue = "3000")
     private int sendTimeout;
 
     /**
      * Max message size in bytes.
      * Default: 4194304 (4MB)
      */
-    @PropertyInject(value = "max-message-size", transformer = IntegerTransformer.class, defaultValue = "4194304")
     private int maxMessageSize;
 
     /**
      * Retry times when send failed.
      * Default: 2
      */
-    @PropertyInject(value = "retry-times-when-send-failed", transformer = IntegerTransformer.class, defaultValue = "2")
     private int retryTimesWhenSendFailed;
 
     /**
      * Poll timeout for consumer in milliseconds.
      * Default: 10000
      */
-    @PropertyInject(value = "poll-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int pollTimeout;
 
     // ======================== Getter/Setter ========================

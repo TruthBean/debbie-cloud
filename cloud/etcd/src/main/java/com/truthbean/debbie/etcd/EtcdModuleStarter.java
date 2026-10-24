@@ -12,7 +12,6 @@ package com.truthbean.debbie.etcd;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
@@ -20,6 +19,7 @@ import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.etcd.config.EtcdConfigClient;
 import com.truthbean.debbie.etcd.discovery.EtcdServiceDiscovery;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * debbie-etcd module starter.
@@ -51,8 +51,7 @@ public class EtcdModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(EtcdConfiguration.class);
-        configBeanInfo.addBeanName("etcdConfiguration", EtcdConfiguration.class.getName());
+        var configBeanInfo = new PropertiesConfigurationBeanFactory<>(new EtcdConfigurationProperties(), EtcdConfiguration.class);
         beanInfoManager.registerBeanInfo(configBeanInfo);
     }
 

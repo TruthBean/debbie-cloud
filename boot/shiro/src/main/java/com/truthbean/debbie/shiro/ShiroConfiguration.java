@@ -11,15 +11,11 @@ package com.truthbean.debbie.shiro;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.shiro")
 public class ShiroConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -28,14 +24,12 @@ public class ShiroConfiguration implements DebbieConfiguration {
      * Path to the Shiro INI configuration file.
      * Default: classpath:shiro.ini
      */
-    @PropertyInject(value = "ini-config-path", defaultValue = "classpath:shiro.ini")
     private String iniConfigPath;
 
     /**
      * Session timeout in milliseconds.
      * Default: 1800000 (30 minutes)
      */
-    @PropertyInject(value = "session-timeout", transformer = IntegerTransformer.class, defaultValue = "1800000")
     private int sessionTimeout;
 
     // ======================== Getter/Setter ========================

@@ -11,10 +11,6 @@ package com.truthbean.debbie.etcd;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * Configuration of debbie-etcd.
@@ -24,51 +20,36 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.etcd")
 public class EtcdConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "host", defaultValue = "localhost")
     private String host = "localhost";
 
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "2379")
     private int port = 2379;
 
-    @PropertyInject(value = "scheme", defaultValue = "http")
     private String scheme = "http";
 
-    @PropertyInject(value = "username")
     private String username;
 
-    @PropertyInject(value = "password")
     private String password;
 
-    @PropertyInject(value = "prefix", defaultValue = "")
     private String prefix = "";
 
-    @PropertyInject(value = "discovery.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean discoveryEnable = true;
 
-    @PropertyInject(value = "config.enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean configEnable = false;
 
-    @PropertyInject(value = "config.app-name", defaultValue = "application")
     private String configAppName = "application";
 
-    @PropertyInject(value = "config.profile", defaultValue = "default")
     private String configProfile = "default";
 
-    @PropertyInject(value = "config.fail-fast", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean configFailFast = false;
 
-    @PropertyInject(value = "health.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean healthEnable = true;
 
-    @PropertyInject(value = "connect-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int connectTimeout = 5000;
 
-    @PropertyInject(value = "read-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int readTimeout = 10000;
 
     public boolean isEnable() { return enable; }

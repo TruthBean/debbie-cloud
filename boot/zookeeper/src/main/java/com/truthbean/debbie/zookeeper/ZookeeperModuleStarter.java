@@ -10,11 +10,11 @@
 package com.truthbean.debbie.zookeeper;
 
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -32,10 +32,8 @@ public class ZookeeperModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<ZookeeperConfiguration> debbieBeanInfo =
-                new DebbieReflectionBeanFactory<>(ZookeeperConfiguration.class);
-        debbieBeanInfo.addBeanName("zookeeperConfiguration", ZookeeperConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(debbieBeanInfo);
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new ZookeeperProperties(), ZookeeperConfiguration.class);
+        beanInfoManager.registerBeanInfo(beanFactory);
     }
 
     @Override

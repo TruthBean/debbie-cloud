@@ -12,13 +12,13 @@ package com.truthbean.debbie.function;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.function.binding.HttpFunctionBinding;
 import com.truthbean.debbie.function.routing.FunctionRouter;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * debbie-function module starter.
@@ -47,8 +47,7 @@ public class FunctionModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(FunctionConfiguration.class);
-        configBeanInfo.addBeanName("functionConfiguration", FunctionConfiguration.class.getName());
+        var configBeanInfo = new PropertiesConfigurationBeanFactory<>(new FunctionProperties(), FunctionConfiguration.class);
         beanInfoManager.registerBeanInfo(configBeanInfo);
     }
 

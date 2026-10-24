@@ -11,11 +11,6 @@ package com.truthbean.debbie.seata;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 
 /**
  * Configuration of debbie-seata.
@@ -25,7 +20,6 @@ import com.truthbean.transformer.text.LongTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.seata")
 public class SeataConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -34,49 +28,42 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Seata application id.
      * Default: debbie-app
      */
-    @PropertyInject(value = "application-id", defaultValue = "debbie-app")
     private String applicationId = "debbie-app";
 
     /**
      * Seata transaction service group.
      * Default: default
      */
-    @PropertyInject(value = "tx-service-group", defaultValue = "default")
     private String txServiceGroup = "default";
 
     /**
      * Seata server address (for file registry mode).
      * Default: localhost:8091
      */
-    @PropertyInject(value = "server-addr", defaultValue = "localhost:8091")
     private String serverAddr = "localhost:8091";
 
     /**
      * Whether to enable auto data source proxy.
      * Default: true
      */
-    @PropertyInject(value = "enable-auto-data-source-proxy", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean enableAutoDataSourceProxy = true;
 
     /**
      * Data source proxy mode: AT or XA.
      * Default: AT
      */
-    @PropertyInject(value = "data-source-proxy-mode", defaultValue = "AT")
     private String dataSourceProxyMode = "AT";
 
     /**
      * Whether to use JDK proxy instead of CGLIB.
      * Default: false
      */
-    @PropertyInject(value = "use-jdk-proxy", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean useJdkProxy = false;
 
     /**
      * Whether to disable global transaction.
      * Default: false
      */
-    @PropertyInject(value = "disable-global-transaction", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean disableGlobalTransaction = false;
 
     // ======================== Transport ========================
@@ -85,49 +72,42 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Transport type: TCP or NATIVE.
      * Default: TCP
      */
-    @PropertyInject(value = "transport.type", defaultValue = "TCP")
     private String transportType = "TCP";
 
     /**
      * Transport server: NIO or NATIVE.
      * Default: NIO
      */
-    @PropertyInject(value = "transport.server", defaultValue = "NIO")
     private String transportServer = "NIO";
 
     /**
      * Transport serialization: seata, protobuf, etc.
      * Default: seata
      */
-    @PropertyInject(value = "transport.serialization", defaultValue = "seata")
     private String transportSerialization = "seata";
 
     /**
      * Transport compressor: none, gzip, etc.
      * Default: none
      */
-    @PropertyInject(value = "transport.compressor", defaultValue = "none")
     private String transportCompressor = "none";
 
     /**
      * Heartbeat interval in seconds.
      * Default: 30
      */
-    @PropertyInject(value = "transport.heartbeat", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean transportHeartbeat = true;
 
     /**
      * Transport shutdown wait.
      * Default: 3
      */
-    @PropertyInject(value = "transport.shutdown.wait", transformer = IntegerTransformer.class, defaultValue = "3")
     private int transportShutdownWait = 3;
 
     /**
      * Transport shutdown wait period in milliseconds.
      * Default: 1000
      */
-    @PropertyInject(value = "transport.shutdown.wait-period", transformer = LongTransformer.class, defaultValue = "1000")
     private long transportShutdownWaitPeriod = 1000L;
 
     // ======================== Client RM ========================
@@ -136,56 +116,48 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Async commit buffer limit.
      * Default: 10000
      */
-    @PropertyInject(value = "client.rm.async-commit-buffer-limit", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int rmAsyncCommitBufferLimit = 10000;
 
     /**
      * Report retry count.
      * Default: 5
      */
-    @PropertyInject(value = "client.rm.report-retry-count", transformer = IntegerTransformer.class, defaultValue = "5")
     private int rmReportRetryCount = 5;
 
     /**
      * Whether to enable table meta check.
      * Default: false
      */
-    @PropertyInject(value = "client.rm.table-meta-check-enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean rmTableMetaCheckEnable = false;
 
     /**
      * Table meta checker interval in milliseconds.
      * Default: 60000
      */
-    @PropertyInject(value = "client.rm.table-meta-checker-interval", transformer = LongTransformer.class, defaultValue = "60000")
     private long rmTableMetaCheckerInterval = 60000L;
 
     /**
      * SQL parser type: druid, antlr.
      * Default: druid
      */
-    @PropertyInject(value = "client.rm.sql-parser-type", defaultValue = "druid")
     private String rmSqlParserType = "druid";
 
     /**
      * Lock retry interval in milliseconds.
      * Default: 10
      */
-    @PropertyInject(value = "client.rm.lock.retry-interval", transformer = IntegerTransformer.class, defaultValue = "10")
     private int rmLockRetryInterval = 10;
 
     /**
      * Lock retry times.
      * Default: 30
      */
-    @PropertyInject(value = "client.rm.lock.retry-times", transformer = IntegerTransformer.class, defaultValue = "30")
     private int rmLockRetryTimes = 30;
 
     /**
      * Lock retry policy branch rollback on conflict.
      * Default: true
      */
-    @PropertyInject(value = "client.rm.lock.retry-policy-branch-rollback-on-conflict", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean rmLockRetryPolicyBranchRollbackOnConflict = true;
 
     // ======================== Client TM ========================
@@ -194,21 +166,18 @@ public class SeataConfiguration implements DebbieConfiguration {
      * TM commit retry count.
      * Default: 5
      */
-    @PropertyInject(value = "client.tm.commit-retry-count", transformer = IntegerTransformer.class, defaultValue = "5")
     private int tmCommitRetryCount = 5;
 
     /**
      * TM rollback retry count.
      * Default: 5
      */
-    @PropertyInject(value = "client.tm.rollback-retry-count", transformer = IntegerTransformer.class, defaultValue = "5")
     private int tmRollbackRetryCount = 5;
 
     /**
      * Default global transaction timeout in milliseconds.
      * Default: 60000
      */
-    @PropertyInject(value = "client.tm.default-global-transaction-timeout", transformer = IntegerTransformer.class, defaultValue = "60000")
     private int tmDefaultGlobalTransactionTimeout = 60000;
 
     // ======================== Client Undo ========================
@@ -217,21 +186,18 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Whether to enable undo data validation.
      * Default: true
      */
-    @PropertyInject(value = "client.undo.data-validation", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean undoDataValidation = true;
 
     /**
      * Undo log serialization: jackson, fastjson, etc.
      * Default: jackson
      */
-    @PropertyInject(value = "client.undo.log-serialization", defaultValue = "jackson")
     private String undoLogSerialization = "jackson";
 
     /**
      * Whether undo only cares update columns.
      * Default: false
      */
-    @PropertyInject(value = "client.undo.only-care-update-columns", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean undoOnlyCareUpdateColumns = false;
 
     // ======================== Registry ========================
@@ -240,33 +206,28 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Registry type: file, nacos, eureka, redis, zk, consul, etcd3, sofa.
      * Default: file
      */
-    @PropertyInject(value = "registry.type", defaultValue = "file")
     private String registryType = "file";
 
     /**
      * Nacos registry server address.
      */
-    @PropertyInject(value = "registry.nacos.server-addr", defaultValue = "")
     private String registryNacosServerAddr = "";
 
     /**
      * Nacos registry namespace.
      */
-    @PropertyInject(value = "registry.nacos.namespace", defaultValue = "")
     private String registryNacosNamespace = "";
 
     /**
      * Nacos registry group.
      * Default: SEATA_GROUP
      */
-    @PropertyInject(value = "registry.nacos.group", defaultValue = "SEATA_GROUP")
     private String registryNacosGroup = "SEATA_GROUP";
 
     /**
      * Nacos registry cluster.
      * Default: default
      */
-    @PropertyInject(value = "registry.nacos.cluster", defaultValue = "default")
     private String registryNacosCluster = "default";
 
     // ======================== Config ========================
@@ -275,26 +236,22 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Config type: file, nacos, apollo, zk, consul, etcd3.
      * Default: file
      */
-    @PropertyInject(value = "config.type", defaultValue = "file")
     private String configType = "file";
 
     /**
      * Nacos config server address.
      */
-    @PropertyInject(value = "config.nacos.server-addr", defaultValue = "")
     private String configNacosServerAddr = "";
 
     /**
      * Nacos config namespace.
      */
-    @PropertyInject(value = "config.nacos.namespace", defaultValue = "")
     private String configNacosNamespace = "";
 
     /**
      * Nacos config group.
      * Default: SEATA_GROUP
      */
-    @PropertyInject(value = "config.nacos.group", defaultValue = "SEATA_GROUP")
     private String configNacosGroup = "SEATA_GROUP";
 
     // ======================== Load Balance ========================
@@ -303,14 +260,12 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Load balance type: RandomLoadBalance, RoundRobinLoadBalance, ConsistentHashLoadBalance.
      * Default: RandomLoadBalance
      */
-    @PropertyInject(value = "load-balance.type", defaultValue = "RandomLoadBalance")
     private String loadBalanceType = "RandomLoadBalance";
 
     /**
      * Load balance virtual nodes.
      * Default: 10
      */
-    @PropertyInject(value = "load-balance.virtual-nodes", transformer = IntegerTransformer.class, defaultValue = "10")
     private int loadBalanceVirtualNodes = 10;
 
     // ======================== Log ========================
@@ -319,7 +274,6 @@ public class SeataConfiguration implements DebbieConfiguration {
      * Log exception rate (0-100).
      * Default: 100
      */
-    @PropertyInject(value = "log.exception-rate", transformer = IntegerTransformer.class, defaultValue = "100")
     private int logExceptionRate = 100;
 
     // ======================== TCC Fence ========================
@@ -328,14 +282,12 @@ public class SeataConfiguration implements DebbieConfiguration {
      * TCC fence log table name.
      * Default: tcc_fence_log
      */
-    @PropertyInject(value = "tcc.fence.log-table-name", defaultValue = "tcc_fence_log")
     private String tccFenceLogTableName = "tcc_fence_log";
 
     /**
      * TCC fence clean period in milliseconds.
      * Default: 3600000 (1 hour)
      */
-    @PropertyInject(value = "tcc.fence.clean-period", transformer = LongTransformer.class, defaultValue = "3600000")
     private long tccFenceCleanPeriod = 3600000L;
 
     // ======================== Getter/Setter ========================

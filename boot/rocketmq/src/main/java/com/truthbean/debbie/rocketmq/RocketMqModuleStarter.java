@@ -10,11 +10,11 @@
 package com.truthbean.debbie.rocketmq;
 
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -32,10 +32,8 @@ public class RocketMqModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<RocketMqConfiguration> debbieBeanInfo =
-                new DebbieReflectionBeanFactory<>(RocketMqConfiguration.class);
-        debbieBeanInfo.addBeanName("rocketMqConfiguration", RocketMqConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(debbieBeanInfo);
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new RocketMqProperties(), RocketMqConfiguration.class);
+        beanInfoManager.registerBeanInfo(beanFactory);
     }
 
     @Override

@@ -12,7 +12,7 @@ package com.truthbean.debbie.config;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
+
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.config.client.ConfigClient;
@@ -24,7 +24,7 @@ import com.truthbean.debbie.config.server.ConfigServer;
 import com.truthbean.debbie.config.server.ConfigServerEndpoint;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
-import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 import java.util.ServiceLoader;
 
@@ -55,8 +55,7 @@ public class ConfigModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(ConfigConfiguration.class);
-        configBeanInfo.addBeanName("configConfiguration", ConfigConfiguration.class.getName());
+        var configBeanInfo = new PropertiesConfigurationBeanFactory<>(new ConfigProperties(), ConfigConfiguration.class);
         beanInfoManager.registerBeanInfo(configBeanInfo);
     }
 

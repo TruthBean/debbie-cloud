@@ -11,11 +11,6 @@ package com.truthbean.debbie.tracing;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.DoubleTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * Configuration of debbie-tracing.
@@ -25,36 +20,26 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.tracing")
 public class TracingConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "service-name", defaultValue = "application")
     private String serviceName = "application";
 
-    @PropertyInject(value = "sampler.strategy", defaultValue = "always")
     private String samplerStrategy = "always";
 
-    @PropertyInject(value = "sampler.rate", transformer = DoubleTransformer.class, defaultValue = "0.1")
     private double samplerRate = 0.1;
 
-    @PropertyInject(value = "reporter.type", defaultValue = "logging")
     private String reporterType = "logging";
 
-    @PropertyInject(value = "reporter.endpoint")
     private String reporterEndpoint;
 
-    @PropertyInject(value = "reporter.batch-size", transformer = IntegerTransformer.class, defaultValue = "100")
     private int reporterBatchSize = 100;
 
-    @PropertyInject(value = "reporter.connect-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int reporterConnectTimeout = 5000;
 
-    @PropertyInject(value = "propagation.type", defaultValue = "w3c")
     private String propagationType = "w3c";
 
-    @PropertyInject(value = "propagation.include-tags", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean propagationIncludeTags = false;
 
     public boolean isEnable() { return enable; }

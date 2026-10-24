@@ -11,10 +11,6 @@ package com.truthbean.debbie.bus;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * configuration of debbie-bus.
@@ -24,30 +20,22 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.bus")
 public class BusConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "id", defaultValue = "default")
     private String id;
 
-    @PropertyInject(value = "destination", defaultValue = "**")
     private String destination;
 
-    @PropertyInject(value = "topic", defaultValue = "debbie-bus")
     private String topic;
 
-    @PropertyInject(value = "broker", defaultValue = "simple")
     private String broker;
 
-    @PropertyInject(value = "ack", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean ack;
 
-    @PropertyInject(value = "trace", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean trace;
 
-    @PropertyInject(value = "publish-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int publishTimeout;
 
     public boolean isEnable() {

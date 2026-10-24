@@ -12,11 +12,11 @@ package com.truthbean.debbie.seata;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -36,10 +36,8 @@ public class SeataModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<SeataConfiguration> debbieBeanInfo =
-                new DebbieReflectionBeanFactory<>(SeataConfiguration.class);
-        debbieBeanInfo.addBeanName("seataConfiguration", SeataConfiguration.class.getName());
-        beanInfoManager.registerBeanInfo(debbieBeanInfo);
+        var beanFactory = new PropertiesConfigurationBeanFactory<>(new SeataProperties(), SeataConfiguration.class);
+        beanInfoManager.registerBeanInfo(beanFactory);
     }
 
     @Override

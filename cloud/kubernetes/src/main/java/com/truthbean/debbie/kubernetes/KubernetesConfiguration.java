@@ -11,10 +11,6 @@ package com.truthbean.debbie.kubernetes;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * Configuration of debbie-kubernetes.
@@ -24,45 +20,32 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.kubernetes")
 public class KubernetesConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "host")
     private String host;
 
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "443")
     private int port = 443;
 
-    @PropertyInject(value = "namespace", defaultValue = "default")
     private String namespace = "default";
 
-    @PropertyInject(value = "token")
     private String token;
 
-    @PropertyInject(value = "auto-detect", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean autoDetect = true;
 
-    @PropertyInject(value = "discovery.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean discoveryEnable = true;
 
-    @PropertyInject(value = "config.enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean configEnable = false;
 
-    @PropertyInject(value = "config.configmaps")
     private String configMaps;
 
-    @PropertyInject(value = "config.secrets")
     private String secrets;
 
-    @PropertyInject(value = "config.fail-fast", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean configFailFast = false;
 
-    @PropertyInject(value = "health.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean healthEnable = true;
 
-    @PropertyInject(value = "service.name")
     private String serviceName;
 
     public boolean isEnable() { return enable; }

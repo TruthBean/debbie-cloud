@@ -11,10 +11,6 @@ package com.truthbean.debbie.consul;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * Configuration of debbie-consul.
@@ -24,75 +20,52 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.consul")
 public class ConsulConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "host", defaultValue = "localhost")
     private String host = "localhost";
 
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "8500")
     private int port = 8500;
 
-    @PropertyInject(value = "scheme", defaultValue = "http")
     private String scheme = "http";
 
-    @PropertyInject(value = "token")
     private String token;
 
-    @PropertyInject(value = "connect-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int connectTimeout = 5000;
 
-    @PropertyInject(value = "read-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int readTimeout = 10000;
 
-    @PropertyInject(value = "discovery.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean discoveryEnable = true;
 
-    @PropertyInject(value = "discovery.register", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean discoveryRegister = true;
 
-    @PropertyInject(value = "discovery.prefer-ip-address", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean discoveryPreferIpAddress = false;
 
-    @PropertyInject(value = "discovery.heartbeat-interval", defaultValue = "10s")
     private String discoveryHeartbeatInterval = "10s";
 
-    @PropertyInject(value = "discovery.deregister-critical-after", defaultValue = "30s")
     private String discoveryDeregisterCriticalAfter = "30s";
 
-    @PropertyInject(value = "discovery.health-check-path", defaultValue = "/actuator/health")
     private String discoveryHealthCheckPath = "/actuator/health";
 
-    @PropertyInject(value = "config.enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean configEnable = false;
 
-    @PropertyInject(value = "config.prefix", defaultValue = "config")
     private String configPrefix = "config";
 
-    @PropertyInject(value = "config.profile-separator", defaultValue = "/")
     private String configProfileSeparator = "/";
 
-    @PropertyInject(value = "config.watch", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean configWatch = false;
 
-    @PropertyInject(value = "config.watch-interval", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int configWatchInterval = 5000;
 
-    @PropertyInject(value = "config.fail-fast", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean configFailFast = false;
 
-    @PropertyInject(value = "health.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean healthEnable = true;
 
-    @PropertyInject(value = "service.name")
     private String serviceName;
 
-    @PropertyInject(value = "service.address")
     private String serviceAddress;
 
-    @PropertyInject(value = "service.port", transformer = IntegerTransformer.class, defaultValue = "8080")
     private int servicePort = 8080;
 
     public boolean isEnable() { return enable; }

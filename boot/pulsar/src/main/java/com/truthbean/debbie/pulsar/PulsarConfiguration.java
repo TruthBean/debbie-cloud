@@ -11,15 +11,11 @@ package com.truthbean.debbie.pulsar;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.pulsar")
 public class PulsarConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -28,42 +24,36 @@ public class PulsarConfiguration implements DebbieConfiguration {
      * Pulsar service URL.
      * Default: pulsar://localhost:6650
      */
-    @PropertyInject(value = "service-url", defaultValue = "pulsar://localhost:6650")
     private String serviceUrl;
 
     /**
      * Producer name.
      * Default: debbie-producer
      */
-    @PropertyInject(value = "producer-name", defaultValue = "debbie-producer")
     private String producerName;
 
     /**
      * Consumer name.
      * Default: debbie-consumer
      */
-    @PropertyInject(value = "consumer-name", defaultValue = "debbie-consumer")
     private String consumerName;
 
     /**
      * Send timeout in milliseconds.
      * Default: 30000
      */
-    @PropertyInject(value = "send-timeout", transformer = IntegerTransformer.class, defaultValue = "30000")
     private int sendTimeout;
 
     /**
      * Operation timeout in seconds.
      * Default: 30
      */
-    @PropertyInject(value = "operation-timeout", transformer = IntegerTransformer.class, defaultValue = "30")
     private int operationTimeout;
 
     /**
      * Connection timeout in milliseconds.
      * Default: 10000
      */
-    @PropertyInject(value = "connection-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int connectionTimeout;
 
     // ======================== Getter/Setter ========================

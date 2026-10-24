@@ -11,15 +11,11 @@ package com.truthbean.debbie.rabbitmq;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.rabbitmq")
 public class RabbitMqConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -28,42 +24,36 @@ public class RabbitMqConfiguration implements DebbieConfiguration {
      * RabbitMQ host.
      * Default: localhost
      */
-    @PropertyInject(value = "host", defaultValue = "localhost")
     private String host;
 
     /**
      * RabbitMQ port.
      * Default: 5672
      */
-    @PropertyInject(value = "port", transformer = IntegerTransformer.class, defaultValue = "5672")
     private int port;
 
     /**
      * RabbitMQ username.
      * Default: guest
      */
-    @PropertyInject(value = "username", defaultValue = "guest")
     private String username;
 
     /**
      * RabbitMQ password.
      * Default: guest
      */
-    @PropertyInject(value = "password", defaultValue = "guest")
     private String password;
 
     /**
      * RabbitMQ virtual host.
      * Default: /
      */
-    @PropertyInject(value = "virtual-host", defaultValue = "/")
     private String virtualHost;
 
     /**
      * Connection timeout in milliseconds.
      * Default: 60000
      */
-    @PropertyInject(value = "connection-timeout", transformer = IntegerTransformer.class, defaultValue = "60000")
     private int connectionTimeout;
 
     // ======================== Getter/Setter ========================

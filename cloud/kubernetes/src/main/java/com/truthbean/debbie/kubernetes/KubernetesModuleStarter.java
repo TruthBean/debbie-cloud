@@ -12,7 +12,6 @@ package com.truthbean.debbie.kubernetes;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 
@@ -22,6 +21,7 @@ import com.truthbean.debbie.kubernetes.health.KubernetesHealthIndicator;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * debbie-kubernetes module starter.
@@ -54,8 +54,7 @@ public class KubernetesModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(KubernetesConfiguration.class);
-        configBeanInfo.addBeanName("kubernetesConfiguration", KubernetesConfiguration.class.getName());
+        var configBeanInfo = new PropertiesConfigurationBeanFactory<>(new KubernetesConfigurationProperties(), KubernetesConfiguration.class);
         beanInfoManager.registerBeanInfo(configBeanInfo);
     }
 

@@ -11,10 +11,6 @@ package com.truthbean.debbie.config;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
 
 /**
  * configuration of debbie-config.
@@ -28,51 +24,36 @@ import com.truthbean.transformer.text.IntegerTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.config")
 public class ConfigConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "server.enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean serverEnable;
 
-    @PropertyInject(value = "server.repository", defaultValue = "file")
     private String serverRepository = "file";
 
-    @PropertyInject(value = "server.base-dir", defaultValue = "config")
     private String serverBaseDir = "config";
 
-    @PropertyInject(value = "server.default-label", defaultValue = "master")
     private String serverDefaultLabel = "master";
 
-    @PropertyInject(value = "server.encrypt", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean serverEncrypt;
 
-    @PropertyInject(value = "server.prefix", defaultValue = "/config")
     private String serverPrefix = "/config";
 
-    @PropertyInject(value = "client.enable", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean clientEnable;
 
-    @PropertyInject(value = "client.uri", defaultValue = "http://localhost:8888/config")
     private String clientUri = "http://localhost:8888/config";
 
-    @PropertyInject(value = "client.name", defaultValue = "application")
     private String clientName = "application";
 
-    @PropertyInject(value = "client.profile", defaultValue = "default")
     private String clientProfile = "default";
 
-    @PropertyInject(value = "client.label")
     private String clientLabel;
 
-    @PropertyInject(value = "client.connect-timeout", transformer = IntegerTransformer.class, defaultValue = "5000")
     private int clientConnectTimeout = 5000;
 
-    @PropertyInject(value = "client.read-timeout", transformer = IntegerTransformer.class, defaultValue = "10000")
     private int clientReadTimeout = 10000;
 
-    @PropertyInject(value = "client.fail-fast", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean clientFailFast;
 
     public boolean isEnable() { return enable; }

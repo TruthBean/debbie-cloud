@@ -12,7 +12,6 @@ package com.truthbean.debbie.eureka;
 import com.truthbean.Logger;
 import com.truthbean.LoggerFactory;
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
@@ -22,6 +21,7 @@ import com.truthbean.debbie.eureka.client.EurekaHeartbeatScheduler;
 import com.truthbean.debbie.eureka.model.InstanceInfo;
 import com.truthbean.debbie.eureka.server.EurekaServerEndpoint;
 import com.truthbean.debbie.eureka.server.EurekaServerRegistry;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 import java.net.InetAddress;
 import java.util.UUID;
@@ -58,8 +58,7 @@ public class EurekaModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        var configBeanInfo = new DebbieReflectionBeanFactory<>(EurekaConfiguration.class);
-        configBeanInfo.addBeanName("eurekaConfiguration", EurekaConfiguration.class.getName());
+        var configBeanInfo = new PropertiesConfigurationBeanFactory<>(new EurekaProperties(), EurekaConfiguration.class);
         beanInfoManager.registerBeanInfo(configBeanInfo);
     }
 

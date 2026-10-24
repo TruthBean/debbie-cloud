@@ -10,13 +10,13 @@
 package com.truthbean.cloud.gateway;
 
 import com.truthbean.debbie.bean.BeanInfoManager;
-import com.truthbean.debbie.bean.DebbieReflectionBeanFactory;
 import com.truthbean.debbie.bean.SimpleBeanFactory;
 import com.truthbean.debbie.boot.DebbieModuleStarter;
 import com.truthbean.debbie.core.ApplicationContext;
 import com.truthbean.debbie.environment.Environment;
 import com.truthbean.debbie.mvc.filter.RouterFilterInfo;
 import com.truthbean.debbie.mvc.filter.RouterFilterManager;
+import com.truthbean.debbie.properties.PropertiesConfigurationBeanFactory;
 
 /**
  * @author TruthBean/Rogar·Q
@@ -34,9 +34,7 @@ public class GatewayModuleStarter implements DebbieModuleStarter {
 
     @Override
     public void registerBean(ApplicationContext applicationContext, BeanInfoManager beanInfoManager) {
-        DebbieReflectionBeanFactory<GatewayConfiguration> debbieBeanInfo =
-                new DebbieReflectionBeanFactory<>(GatewayConfiguration.class);
-        debbieBeanInfo.addBeanName("gatewayConfiguration", GatewayConfiguration.class.getName());
+        var debbieBeanInfo = new PropertiesConfigurationBeanFactory<>(new GatewayProperties(), GatewayConfiguration.class);
         beanInfoManager.registerBeanInfo(debbieBeanInfo);
     }
 

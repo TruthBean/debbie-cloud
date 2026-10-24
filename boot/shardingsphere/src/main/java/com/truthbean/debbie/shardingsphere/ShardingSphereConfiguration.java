@@ -11,15 +11,11 @@ package com.truthbean.debbie.shardingsphere;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
 
 /**
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.shardingsphere")
 public class ShardingSphereConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -28,14 +24,12 @@ public class ShardingSphereConfiguration implements DebbieConfiguration {
      * Path to the ShardingSphere YAML configuration file.
      * e.g. "classpath:shardingsphere-config.yaml"
      */
-    @PropertyInject("yaml-config-location")
     private String yamlConfigLocation;
 
     /**
      * Database name for ShardingSphere data source.
      * Default: "sharding_db"
      */
-    @PropertyInject(value = "database-name", defaultValue = "sharding_db")
     private String databaseName;
 
     // ======================== Mode Configuration ========================
@@ -44,28 +38,24 @@ public class ShardingSphereConfiguration implements DebbieConfiguration {
      * ShardingSphere mode type: "standalone" or "cluster".
      * Default: "standalone"
      */
-    @PropertyInject(value = "mode-type", defaultValue = "standalone")
     private String modeType;
 
     /**
      * Repository type for standalone mode: "file" or "database".
      * Default: "file"
      */
-    @PropertyInject(value = "mode-repository-type", defaultValue = "file")
     private String modeRepositoryType;
 
     /**
      * File path for standalone file-based persistence.
      * Default: ".shardingSphere"
      */
-    @PropertyInject(value = "mode-repository-file-path", defaultValue = ".shardingSphere")
     private String modeRepositoryFilePath;
 
     /**
      * Whether to overwrite the configuration with the persisted one.
      * Default: false
      */
-    @PropertyInject(value = "mode-overwrite", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean modeOverwrite;
 
     // ======================== Cluster Mode (optional) ========================
@@ -73,13 +63,11 @@ public class ShardingSphereConfiguration implements DebbieConfiguration {
     /**
      * Cluster mode namespace.
      */
-    @PropertyInject("mode-cluster-namespace")
     private String modeClusterNamespace;
 
     /**
      * Cluster mode server list, e.g. "localhost:2181".
      */
-    @PropertyInject("mode-cluster-server-lists")
     private String modeClusterServerLists;
 
     // ======================== Props ========================
@@ -88,14 +76,12 @@ public class ShardingSphereConfiguration implements DebbieConfiguration {
      * Whether to show SQL logs.
      * Default: false
      */
-    @PropertyInject(value = "sql-show", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean sqlShow;
 
     /**
      * Whether to show SQL details.
      * Default: false
      */
-    @PropertyInject(value = "sql-simple", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean sqlSimple;
 
     // ======================== Getter/Setter ========================

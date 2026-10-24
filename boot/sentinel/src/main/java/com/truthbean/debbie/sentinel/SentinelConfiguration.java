@@ -11,11 +11,6 @@ package com.truthbean.debbie.sentinel;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 
 /**
  * Configuration of debbie-sentinel.
@@ -25,7 +20,6 @@ import com.truthbean.transformer.text.LongTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.sentinel")
 public class SentinelConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
@@ -33,14 +27,12 @@ public class SentinelConfiguration implements DebbieConfiguration {
     /**
      * Application / project name registered to Sentinel dashboard.
      */
-    @PropertyInject(value = "app-name", defaultValue = "")
     private String appName = "";
 
     /**
      * Whether to eagerly initialize Sentinel transport on startup.
      * Default: false
      */
-    @PropertyInject(value = "eager", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean eager = false;
 
     // ======================== Log ========================
@@ -49,28 +41,24 @@ public class SentinelConfiguration implements DebbieConfiguration {
      * Sentinel log directory.
      * Default: ${user.home}/logs/csp/
      */
-    @PropertyInject(value = "log-dir", defaultValue = "")
     private String logDir = "";
 
     /**
      * Sentinel log file name prefix.
      * Default: sentinel-record
      */
-    @PropertyInject(value = "log-name-prefix", defaultValue = "sentinel-record")
     private String logNamePrefix = "sentinel-record";
 
     /**
      * Whether to use PID in log file name.
      * Default: false
      */
-    @PropertyInject(value = "log-use-pid", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean logUsePid = false;
 
     /**
      * Charset for log output.
      * Default: UTF-8
      */
-    @PropertyInject(value = "charset", defaultValue = "UTF-8")
     private String charset = "UTF-8";
 
     // ======================== Transport / Dashboard ========================
@@ -79,27 +67,23 @@ public class SentinelConfiguration implements DebbieConfiguration {
      * Sentinel dashboard server address (e.g. localhost:8080).
      * If set, transport will be initialized to communicate with dashboard.
      */
-    @PropertyInject(value = "transport.dashboard", defaultValue = "")
     private String dashboard = "";
 
     /**
      * Client port that Sentinel transport listens on.
      * Default: 8719
      */
-    @PropertyInject(value = "transport.port", transformer = IntegerTransformer.class, defaultValue = "8719")
     private int transportPort = 8719;
 
     /**
      * Heartbeat interval in milliseconds.
      * Default: 10000 (10 seconds)
      */
-    @PropertyInject(value = "transport.heartbeat-interval-ms", transformer = LongTransformer.class, defaultValue = "10000")
     private long heartbeatIntervalMs = 10000;
 
     /**
      * Client IP reported to dashboard. Auto-detected if empty.
      */
-    @PropertyInject(value = "transport.client-ip", defaultValue = "")
     private String clientIp = "";
 
     // ======================== Metric ========================
@@ -108,21 +92,18 @@ public class SentinelConfiguration implements DebbieConfiguration {
      * Single metric log file size in bytes.
      * Default: 52428800 (50 MB)
      */
-    @PropertyInject(value = "metric.file-size", transformer = LongTransformer.class, defaultValue = "52428800")
     private long metricFileSize = 52428800L;
 
     /**
      * Total metric log file count.
      * Default: 6
      */
-    @PropertyInject(value = "metric.file-count", transformer = IntegerTransformer.class, defaultValue = "6")
     private int metricFileCount = 6;
 
     /**
      * Metric log flush interval in seconds.
      * Default: 1
      */
-    @PropertyInject(value = "metric.flush-interval", transformer = LongTransformer.class, defaultValue = "1")
     private long metricFlushInterval = 1L;
 
     // ======================== Statistic ========================
@@ -131,14 +112,12 @@ public class SentinelConfiguration implements DebbieConfiguration {
      * Max RT (response time) in milliseconds. Any RT exceeding this will be truncated.
      * Default: 4900
      */
-    @PropertyInject(value = "statistic.max-rt", transformer = IntegerTransformer.class, defaultValue = "4900")
     private int statisticMaxRt = 4900;
 
     /**
      * Cold factor for warm up.
      * Default: 3
      */
-    @PropertyInject(value = "cold-factor", transformer = IntegerTransformer.class, defaultValue = "3")
     private int coldFactor = 3;
 
     // ======================== System Rule Defaults ========================
@@ -147,35 +126,30 @@ public class SentinelConfiguration implements DebbieConfiguration {
      * Highest system load threshold. -1 means not set.
      * Default: -1
      */
-    @PropertyInject(value = "system.load", defaultValue = "-1")
     private double systemLoad = -1;
 
     /**
      * Highest CPU usage threshold (0.0 ~ 1.0). -1 means not set.
      * Default: -1
      */
-    @PropertyInject(value = "system.cpu-usage", defaultValue = "-1")
     private double systemCpuUsage = -1;
 
     /**
      * Average RT threshold in ms. -1 means not set.
      * Default: -1
      */
-    @PropertyInject(value = "system.avg-rt", transformer = LongTransformer.class, defaultValue = "-1")
     private long systemAvgRt = -1;
 
     /**
      * Max thread threshold. -1 means not set.
      * Default: -1
      */
-    @PropertyInject(value = "system.max-thread", transformer = LongTransformer.class, defaultValue = "-1")
     private long systemMaxThread = -1;
 
     /**
      * Inbound QPS threshold. -1 means not set.
      * Default: -1
      */
-    @PropertyInject(value = "system.qps", defaultValue = "-1")
     private double systemQps = -1;
 
     // ======================== Web Filter ========================
@@ -183,28 +157,24 @@ public class SentinelConfiguration implements DebbieConfiguration {
     /**
      * Block page URL for web integration. When a request is blocked, redirect to this URL.
      */
-    @PropertyInject(value = "block-page", defaultValue = "")
     private String blockPage = "";
 
     /**
      * Whether to enable Sentinel web filter.
      * Default: true
      */
-    @PropertyInject(value = "filter.enabled", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean filterEnabled = true;
 
     /**
      * URL patterns for Sentinel web filter, comma-separated.
      * Default: /*
      */
-    @PropertyInject(value = "filter.url-patterns", defaultValue = "/*")
     private String filterUrlPatterns = "/*";
 
     /**
      * Order of Sentinel web filter.
      * Default: -2147483648 (Integer.MIN_VALUE + 1, highest priority)
      */
-    @PropertyInject(value = "filter.order", transformer = IntegerTransformer.class, defaultValue = "-2147483648")
     private int filterOrder = -2147483648;
 
     // ======================== Getter/Setter ========================

@@ -11,12 +11,6 @@ package com.truthbean.debbie.circuitbreaker;
 
 import com.truthbean.debbie.environment.EnvironmentDepositoryHolder;
 import com.truthbean.debbie.properties.DebbieConfiguration;
-import com.truthbean.debbie.properties.PropertiesConfiguration;
-import com.truthbean.debbie.properties.PropertyInject;
-import com.truthbean.transformer.text.BooleanTransformer;
-import com.truthbean.transformer.text.FloatTransformer;
-import com.truthbean.transformer.text.IntegerTransformer;
-import com.truthbean.transformer.text.LongTransformer;
 
 /**
  * Configuration of debbie-circuit-breaker.
@@ -26,42 +20,30 @@ import com.truthbean.transformer.text.LongTransformer;
  * @author TruthBean/Rogar·Q
  * @since 0.6.3
  */
-@PropertiesConfiguration(keyPrefix = "debbie.circuit-breaker")
 public class CircuitBreakerConfiguration implements DebbieConfiguration {
 
     private boolean enable = true;
 
-    @PropertyInject(value = "failure-rate-threshold", transformer = FloatTransformer.class, defaultValue = "50")
     private float failureRateThreshold = 50f;
 
-    @PropertyInject(value = "slow-call-rate-threshold", transformer = FloatTransformer.class, defaultValue = "100")
     private float slowCallRateThreshold = 100f;
 
-    @PropertyInject(value = "wait-duration-in-open-state", transformer = LongTransformer.class, defaultValue = "60000")
     private long waitDurationInOpenStateMillis = 60000L;
 
-    @PropertyInject(value = "permitted-number-of-calls-in-half-open", transformer = IntegerTransformer.class, defaultValue = "10")
     private int permittedNumberOfCallsInHalfOpenState = 10;
 
-    @PropertyInject(value = "sliding-window-size", transformer = IntegerTransformer.class, defaultValue = "100")
     private int slidingWindowSize = 100;
 
-    @PropertyInject(value = "minimum-number-of-calls", transformer = IntegerTransformer.class, defaultValue = "10")
     private int minimumNumberOfCalls = 10;
 
-    @PropertyInject(value = "slow-call-duration-threshold", transformer = LongTransformer.class, defaultValue = "60000")
     private long slowCallDurationThresholdMillis = 60000L;
 
-    @PropertyInject(value = "automatic-transition-from-open-to-half-open", transformer = BooleanTransformer.class, defaultValue = "false")
     private boolean automaticTransitionFromOpenToHalfOpen = false;
 
-    @PropertyInject(value = "rate-limiter.enable", transformer = BooleanTransformer.class, defaultValue = "true")
     private boolean rateLimiterEnable = true;
 
-    @PropertyInject(value = "rate-limiter.limit-for-period", transformer = IntegerTransformer.class, defaultValue = "50")
     private int rateLimiterLimitForPeriod = 50;
 
-    @PropertyInject(value = "rate-limiter.limit-refresh-period", transformer = LongTransformer.class, defaultValue = "1000")
     private long rateLimiterLimitRefreshPeriodMillis = 1000L;
 
     public boolean isEnable() { return enable; }
